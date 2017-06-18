@@ -31,36 +31,29 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import org.bson.Document;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Mongo lottery ticket database
  */
 public class MongoTicketRepository implements LotteryTicketRepository {
-
+  
   private static final String DEFAULT_DB = "lotteryDB";
   private static final String DEFAULT_TICKETS_COLLECTION = "lotteryTickets";
   private static final String DEFAULT_COUNTERS_COLLECTION = "counters";
-
+  
   private MongoClient mongoClient;
   private MongoDatabase database;
   private MongoCollection<Document> ticketsCollection;
   private MongoCollection<Document> countersCollection;
-
+  
   /**
    * Constructor
    */
   public MongoTicketRepository() {
     connect();
   }
-
+  
   /**
    * Constructor accepting parameters
    */
@@ -68,14 +61,14 @@ public class MongoTicketRepository implements LotteryTicketRepository {
                                String countersCollectionName) {
     connect(dbName, ticketsCollectionName, countersCollectionName);
   }
-
+  
   /**
    * Connect to database with default parameters
    */
   public void connect() {
     connect(DEFAULT_DB, DEFAULT_TICKETS_COLLECTION, DEFAULT_COUNTERS_COLLECTION);
   }
-
+  
   /**
    * Connect to database with given parameters
    */
@@ -93,12 +86,12 @@ public class MongoTicketRepository implements LotteryTicketRepository {
       initCounters();
     }
   }
-
+  
   private void initCounters() {
     Document doc = new Document("_id", "ticketId").append("seq", 1);
     countersCollection.insertOne(doc);
   }
-
+  
   /**
    * @return next ticket id
    */
@@ -109,38 +102,35 @@ public class MongoTicketRepository implements LotteryTicketRepository {
     Document result = countersCollection.findOneAndUpdate(find, update);
     return result.getInteger("seq");
   }
-
+  
   /**
    * @return mongo client
    */
   public MongoClient getMongoClient() {
     return mongoClient;
   }
-
+  
   /**
-   *
    * @return mongo database
    */
   public MongoDatabase getMongoDatabase() {
     return database;
   }
-
+  
   /**
-   *
    * @return tickets collection
    */
   public MongoCollection<Document> getTicketsCollection() {
     return ticketsCollection;
   }
-
+  
   /**
-   *
    * @return counters collection
    */
   public MongoCollection<Document> getCountersCollection() {
     return countersCollection;
   }
-
+  
   @Override
   public Optional<LotteryTicket> findById(LotteryTicketId id) {
     Document find = new Document("ticketId", id.getId());
@@ -152,7 +142,7 @@ public class MongoTicketRepository implements LotteryTicketRepository {
       return Optional.empty();
     }
   }
-
+  
   @Override
   public Optional<LotteryTicketId> save(LotteryTicket ticket) {
     int ticketId = getNextId();
@@ -164,29 +154,29 @@ public class MongoTicketRepository implements LotteryTicketRepository {
     ticketsCollection.insertOne(doc);
     return Optional.of(new LotteryTicketId(ticketId));
   }
-
+  
   @Override
   public Map<LotteryTicketId, LotteryTicket> findAll() {
     Map<LotteryTicketId, LotteryTicket> map = new HashMap<>();
     List<Document> docs = ticketsCollection.find(new Document()).into(new ArrayList<Document>());
-    for (Document doc: docs) {
+    for (Document doc : docs) {
       LotteryTicket lotteryTicket = docToTicket(doc);
       map.put(lotteryTicket.getId(), lotteryTicket);
     }
     return map;
   }
-
+  
   @Override
   public void deleteAll() {
     ticketsCollection.deleteMany(new Document());
   }
-
+  
   private LotteryTicket docToTicket(Document doc) {
     PlayerDetails playerDetails = new PlayerDetails(doc.getString("email"), doc.getString("bank"),
         doc.getString("phone"));
     int[] numArray = Arrays.asList(doc.getString("numbers").split(",")).stream().mapToInt(Integer::parseInt).toArray();
     Set<Integer> numbers = new HashSet<>();
-    for (int num: numArray) {
+    for (int num : numArray) {
       numbers.add(num);
     }
     LotteryNumbers lotteryNumbers = LotteryNumbers.create(numbers);

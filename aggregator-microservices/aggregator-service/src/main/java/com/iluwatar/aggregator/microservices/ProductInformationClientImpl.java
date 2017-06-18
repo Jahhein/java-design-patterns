@@ -38,9 +38,9 @@ import java.io.IOException;
  */
 @Component
 public class ProductInformationClientImpl implements ProductInformationClient {
-
+  
   private static final Logger LOGGER = LoggerFactory.getLogger(ProductInformationClientImpl.class);
-
+  
   @Override
   public String getProductTitle() {
     String response = null;

@@ -34,7 +34,7 @@ import java.util.concurrent.TimeUnit;
  */
 public class GuardedQueueTest {
   private volatile Integer value;
-
+  
   @Test
   public void testGet() {
     GuardedQueue g = new GuardedQueue();
@@ -49,13 +49,13 @@ public class GuardedQueueTest {
     }
     Assert.assertEquals(Integer.valueOf(10), value);
   }
-
+  
   @Test
   public void testPut() {
     GuardedQueue g = new GuardedQueue();
     g.put(12);
     Assert.assertEquals(Integer.valueOf(12), g.get());
-
+    
   }
-
+  
 }

@@ -29,12 +29,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
-import java.net.DatagramPacket;
-import java.net.DatagramSocket;
-import java.net.InetAddress;
-import java.net.InetSocketAddress;
-import java.net.Socket;
-import java.net.UnknownHostException;
+import java.net.*;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -44,24 +39,32 @@ import java.util.concurrent.TimeUnit;
  * requests to Reactor.
  */
 public class AppClient {
-
+  
   private static final Logger LOGGER = LoggerFactory.getLogger(AppClient.class);
-
+  
   private final ExecutorService service = Executors.newFixedThreadPool(4);
-
+  
   /**
    * App client entry.
-   * 
+   *
    * @throws IOException if any I/O error occurs.
    */
   public static void main(String[] args) throws IOException {
     AppClient appClient = new AppClient();
     appClient.start();
   }
-
+  
+  private static void artificialDelayOf(long millis) {
+    try {
+      Thread.sleep(millis);
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
+  }
+  
   /**
    * Starts the logging clients.
-   * 
+   *
    * @throws IOException if any I/O error occurs.
    */
   public void start() throws IOException {
@@ -70,7 +73,7 @@ public class AppClient {
     service.execute(new UdpLoggingClient("Client 3", 6668));
     service.execute(new UdpLoggingClient("Client 4", 6668));
   }
-
+  
   /**
    * Stops logging clients. This is a blocking call.
    */
@@ -85,34 +88,26 @@ public class AppClient {
       }
     }
   }
-
-  private static void artificialDelayOf(long millis) {
-    try {
-      Thread.sleep(millis);
-    } catch (InterruptedException e) {
-      e.printStackTrace();
-    }
-  }
-
+  
   /**
    * A logging client that sends requests to Reactor on TCP socket.
    */
   static class TcpLoggingClient implements Runnable {
-
+    
     private final int serverPort;
     private final String clientName;
-
+    
     /**
      * Creates a new TCP logging client.
-     * 
+     *
      * @param clientName the name of the client to be sent in logging requests.
-     * @param port the port on which client will send logging requests.
+     * @param port       the port on which client will send logging requests.
      */
     public TcpLoggingClient(String clientName, int serverPort) {
       this.clientName = clientName;
       this.serverPort = serverPort;
     }
-
+    
     public void run() {
       try (Socket socket = new Socket(InetAddress.getLocalHost(), serverPort)) {
         OutputStream outputStream = socket.getOutputStream();
@@ -123,12 +118,12 @@ public class AppClient {
         throw new RuntimeException(e);
       }
     }
-
+    
     private void sendLogRequests(PrintWriter writer, InputStream inputStream) throws IOException {
       for (int i = 0; i < 4; i++) {
         writer.println(clientName + " - Log request: " + i);
         writer.flush();
-
+        
         byte[] data = new byte[1024];
         int read = inputStream.read(data, 0, data.length);
         if (read == 0) {
@@ -136,43 +131,43 @@ public class AppClient {
         } else {
           LOGGER.info(new String(data, 0, read));
         }
-
+        
         artificialDelayOf(100);
       }
     }
-
+    
   }
-
+  
   /**
    * A logging client that sends requests to Reactor on UDP socket.
    */
   static class UdpLoggingClient implements Runnable {
     private final String clientName;
     private final InetSocketAddress remoteAddress;
-
+    
     /**
      * Creates a new UDP logging client.
-     * 
+     *
      * @param clientName the name of the client to be sent in logging requests.
-     * @param port the port on which client will send logging requests.
+     * @param port       the port on which client will send logging requests.
      * @throws UnknownHostException if localhost is unknown
      */
     public UdpLoggingClient(String clientName, int port) throws UnknownHostException {
       this.clientName = clientName;
       this.remoteAddress = new InetSocketAddress(InetAddress.getLocalHost(), port);
     }
-
+    
     @Override
     public void run() {
       try (DatagramSocket socket = new DatagramSocket()) {
         for (int i = 0; i < 4; i++) {
-
+          
           String message = clientName + " - Log request: " + i;
           DatagramPacket request =
               new DatagramPacket(message.getBytes(), message.getBytes().length, remoteAddress);
-
+          
           socket.send(request);
-
+          
           byte[] data = new byte[1024];
           DatagramPacket reply = new DatagramPacket(data, data.length);
           socket.receive(reply);
@@ -181,7 +176,7 @@ public class AppClient {
           } else {
             LOGGER.info(new String(reply.getData(), 0, reply.getLength()));
           }
-
+          
           artificialDelayOf(100);
         }
       } catch (IOException e1) {

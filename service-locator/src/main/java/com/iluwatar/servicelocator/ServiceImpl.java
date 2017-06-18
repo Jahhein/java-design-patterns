@@ -33,33 +33,33 @@ import org.slf4j.LoggerFactory;
  * @author saifasif
  */
 public class ServiceImpl implements Service {
-
+  
   private static final Logger LOGGER = LoggerFactory.getLogger(ServiceImpl.class);
-
+  
   private final String serviceName;
   private final int id;
-
+  
   /**
    * Constructor
    */
   public ServiceImpl(String serviceName) {
     // set the service name
     this.serviceName = serviceName;
-
+    
     // Generate a random id to this service object
     this.id = (int) Math.floor(Math.random() * 1000) + 1;
   }
-
+  
   @Override
   public String getName() {
     return serviceName;
   }
-
+  
   @Override
   public int getId() {
     return id;
   }
-
+  
   @Override
   public void execute() {
     LOGGER.info("Service {} is now executing with id {}", getName(), getId());

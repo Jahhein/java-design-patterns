@@ -27,10 +27,10 @@ package com.iluwatar.objectmother;
  */
 public interface Royalty {
   void makeDrunk();
-
+  
   void makeSober();
-
+  
   void makeHappy();
-
+  
   void makeUnhappy();
 }

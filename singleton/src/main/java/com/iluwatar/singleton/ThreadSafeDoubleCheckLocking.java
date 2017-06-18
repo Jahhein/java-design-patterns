@@ -32,9 +32,9 @@ package com.iluwatar.singleton;
  * @author mortezaadi@gmail.com
  */
 public final class ThreadSafeDoubleCheckLocking {
-
+  
   private static volatile ThreadSafeDoubleCheckLocking instance;
-
+  
   /**
    * private constructor to prevent client from instantiating.
    */
@@ -44,7 +44,7 @@ public final class ThreadSafeDoubleCheckLocking {
       throw new IllegalStateException("Already initialized.");
     }
   }
-
+  
   /**
    * Public accessor.
    *

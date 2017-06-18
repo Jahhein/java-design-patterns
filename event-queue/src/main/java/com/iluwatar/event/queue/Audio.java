@@ -23,34 +23,29 @@
 
 package com.iluwatar.event.queue;
 
+import javax.sound.sampled.*;
 import java.io.File;
 import java.io.IOException;
 
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
-
 /**
  * This class implements the Event Queue pattern.
- * @author mkuprivecz
  *
+ * @author mkuprivecz
  */
 public class Audio {
-
+  
   private static final int MAX_PENDING = 16;
-
+  
   private static int headIndex;
-
+  
   private static int tailIndex;
-
+  
   private static Thread updateThread = null;
-
+  
   private static PlayMessage[] pendingAudio = new PlayMessage[MAX_PENDING];
-
+  
   /**
-   * This method stops the Update Method's thread. 
+   * This method stops the Update Method's thread.
    */
   public static synchronized void stopService() {
     if (updateThread != null) {
@@ -59,20 +54,21 @@ public class Audio {
   }
   
   /**
-   * This method stops the Update Method's thread. 
+   * This method stops the Update Method's thread.
+   *
    * @return boolean
    */
   public static synchronized boolean isServiceRunning() {
-    if (updateThread != null && updateThread.isAlive() ) {
+    if (updateThread != null && updateThread.isAlive()) {
       return true;
     } else {
       return false;
     }
   }
-
+  
   /**
    * Starts the thread for the Update Method pattern if it was not started previously.
-   * Also when the thread is is ready initializes the indexes of the queue 
+   * Also when the thread is is ready initializes the indexes of the queue
    */
   public static void init() {
     if (updateThread == null) {
@@ -97,11 +93,12 @@ public class Audio {
       tailIndex = 0;
     }
   }
-
+  
   /**
    * This method adds a new audio into the queue.
+   *
    * @param stream is the AudioInputStream for the method
-   * @param volume is the level of the audio's volume 
+   * @param volume is the level of the audio's volume
    */
   public static void playSound(AudioInputStream stream, float volume) {
     init();
@@ -110,7 +107,7 @@ public class Audio {
       if (getPendingAudio()[i].getStream() == stream) {
         // Use the larger of the two volumes.
         getPendingAudio()[i].setVolume(Math.max(volume, getPendingAudio()[i].getVolume()));
-
+        
         // Don't need to enqueue.
         return;
       }
@@ -145,25 +142,27 @@ public class Audio {
       System.err.println("The system doesn't support the sound: " + e.getMessage());
     }
   }
-
+  
   /**
    * Returns the AudioInputStream of a file
+   *
    * @param filePath is the path of the audio file
    * @return AudioInputStream
-   * @throws UnsupportedAudioFileException when the audio file is not supported 
-   * @throws IOException when the file is not readable
+   * @throws UnsupportedAudioFileException when the audio file is not supported
+   * @throws IOException                   when the file is not readable
    */
-  public static AudioInputStream getAudioStream(String filePath) 
+  public static AudioInputStream getAudioStream(String filePath)
       throws UnsupportedAudioFileException, IOException {
     return AudioSystem.getAudioInputStream(new File(filePath).getAbsoluteFile());
   }
-
+  
   /**
-   * Returns with the message array of the queue 
+   * Returns with the message array of the queue
+   *
    * @return PlayMessage[]
    */
   public static PlayMessage[] getPendingAudio() {
     return pendingAudio;
   }
-
+  
 }

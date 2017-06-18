@@ -24,20 +24,17 @@ import org.slf4j.LoggerFactory;
 import static org.junit.Assert.assertTrue;
 
 /**
- *
  * Application test
- *
  */
 public class EventAsynchronousTest {
-  App app;
-
   private static final Logger LOGGER = LoggerFactory.getLogger(EventAsynchronousTest.class);
-
+  App app;
+  
   @Before
   public void setUp() {
     app = new App();
   }
-
+  
   @Test
   public void testAsynchronousEvent() {
     EventManager eventManager = new EventManager();
@@ -53,7 +50,7 @@ public class EventAsynchronousTest {
       LOGGER.error(e.getMessage());
     }
   }
-
+  
   @Test
   public void testSynchronousEvent() {
     EventManager eventManager = new EventManager();
@@ -70,7 +67,7 @@ public class EventAsynchronousTest {
       LOGGER.error(e.getMessage());
     }
   }
-
+  
   @Test(expected = InvalidOperationException.class)
   public void testUnsuccessfulSynchronousEvent() throws InvalidOperationException {
     EventManager eventManager = new EventManager();
@@ -83,55 +80,55 @@ public class EventAsynchronousTest {
       LOGGER.error(e.getMessage());
     }
   }
-
+  
   @Test
   public void testFullSynchronousEvent() {
     EventManager eventManager = new EventManager();
     try {
       int eventTime = 1;
-
+      
       int sEventId = eventManager.create(eventTime);
       assertTrue(eventManager.getEventPool().size() == 1);
       eventManager.start(sEventId);
-
+      
       long currentTime = System.currentTimeMillis();
       long endTime = currentTime + (eventTime + 2 * 1000); // +2 to give a bit of buffer time for event to
-                                                           // complete
+      // complete
       // properly.
       while (System.currentTimeMillis() < endTime) {
       }
-
+      
       assertTrue(eventManager.getEventPool().size() == 0);
-
+      
     } catch (MaxNumOfEventsAllowedException | LongRunningEventException | EventDoesNotExistException
         | InvalidOperationException e) {
       LOGGER.error(e.getMessage());
     }
   }
-
+  
   @Test
   public void testFullAsynchronousEvent() {
     EventManager eventManager = new EventManager();
     try {
       int eventTime = 1;
-
+      
       int aEventId1 = eventManager.createAsync(eventTime);
       int aEventId2 = eventManager.createAsync(eventTime);
       int aEventId3 = eventManager.createAsync(eventTime);
       assertTrue(eventManager.getEventPool().size() == 3);
-
+      
       eventManager.start(aEventId1);
       eventManager.start(aEventId2);
       eventManager.start(aEventId3);
-
+      
       long currentTime = System.currentTimeMillis();
       long endTime = currentTime + (eventTime + 2 * 1000); // +2 to give a bit of buffer time for event to complete
-                                                           // properly.
+      // properly.
       while (System.currentTimeMillis() < endTime) {
       }
-
+      
       assertTrue(eventManager.getEventPool().size() == 0);
-
+      
     } catch (MaxNumOfEventsAllowedException | LongRunningEventException | EventDoesNotExistException e) {
       LOGGER.error(e.getMessage());
     }

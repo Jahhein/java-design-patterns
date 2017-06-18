@@ -23,7 +23,6 @@
 package com.iluwatar.servicelayer.spellbook;
 
 import com.iluwatar.servicelayer.common.BaseDaoTest;
-
 import org.junit.Test;
 
 import java.util.List;
@@ -37,11 +36,11 @@ import static org.junit.Assert.assertNotNull;
  * @author Jeroen Meulemeester
  */
 public class SpellbookDaoImplTest extends BaseDaoTest<Spellbook, SpellbookDaoImpl> {
-
+  
   public SpellbookDaoImplTest() {
     super(Spellbook::new, new SpellbookDaoImpl());
   }
-
+  
   @Test
   public void testFindByName() throws Exception {
     final SpellbookDaoImpl dao = getDao();
@@ -53,5 +52,5 @@ public class SpellbookDaoImplTest extends BaseDaoTest<Spellbook, SpellbookDaoImp
       assertEquals(book.getName(), spellByName.getName());
     }
   }
-
+  
 }

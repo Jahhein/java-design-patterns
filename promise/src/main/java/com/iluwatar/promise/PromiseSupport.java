@@ -28,25 +28,25 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
 /**
- * A really simplified implementation of future that allows completing it successfully with a value 
+ * A really simplified implementation of future that allows completing it successfully with a value
  * or exceptionally with an exception.
  */
 class PromiseSupport<T> implements Future<T> {
-
+  
   private static final int RUNNING = 1;
   private static final int FAILED = 2;
   private static final int COMPLETED = 3;
-
+  
   private final Object lock;
-
+  
   private volatile int state = RUNNING;
   private T value;
   private Exception exception;
-
+  
   PromiseSupport() {
     this.lock = new Object();
   }
-
+  
   void fulfill(T value) {
     this.value = value;
     this.state = COMPLETED;
@@ -54,7 +54,7 @@ class PromiseSupport<T> implements Future<T> {
       lock.notifyAll();
     }
   }
-
+  
   void fulfillExceptionally(Exception exception) {
     this.exception = exception;
     this.state = FAILED;
@@ -62,22 +62,22 @@ class PromiseSupport<T> implements Future<T> {
       lock.notifyAll();
     }
   }
-
+  
   @Override
   public boolean cancel(boolean mayInterruptIfRunning) {
     return false;
   }
-
+  
   @Override
   public boolean isCancelled() {
     return false;
   }
-
+  
   @Override
   public boolean isDone() {
     return state > RUNNING;
   }
-
+  
   @Override
   public T get() throws InterruptedException, ExecutionException {
     if (state == COMPLETED) {
@@ -95,7 +95,7 @@ class PromiseSupport<T> implements Future<T> {
       }
     }
   }
-
+  
   @Override
   public T get(long timeout, TimeUnit unit)
       throws InterruptedException, ExecutionException, TimeoutException {

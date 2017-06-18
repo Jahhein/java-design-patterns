@@ -32,12 +32,12 @@ import static org.junit.Assert.assertNull;
  * @author Jeroen Meulemeester
  */
 public class FileLoaderTest {
-
+  
   @Test
   public void testLoadData() throws Exception {
     final FileLoader fileLoader = new FileLoader();
     fileLoader.setFileName("non-existing-file");
     assertNull(fileLoader.loadData());
   }
-
+  
 }

@@ -35,19 +35,19 @@ import static org.junit.Assert.assertEquals;
  * @author Jeroen Meulemeester
  */
 public class StewTest {
-
+  
   private InMemoryAppender appender;
-
+  
   @Before
   public void setUp() {
     appender = new InMemoryAppender();
   }
-
+  
   @After
   public void tearDown() {
     appender.stop();
   }
-
+  
   /**
    * Verify if mixing the stew doesn't change the internal state
    */
@@ -56,13 +56,13 @@ public class StewTest {
     final ImmutableStew stew = new ImmutableStew(1, 2, 3, 4);
     final String expectedMessage = "Mixing the immutable stew we find: 1 potatoes, "
         + "2 carrots, 3 meat and 4 peppers";
-
+    
     for (int i = 0; i < 20; i++) {
       stew.mix();
       assertEquals(expectedMessage, appender.getLastMessage());
     }
-
+    
     assertEquals(20, appender.getLogSize());
   }
-
+  
 }

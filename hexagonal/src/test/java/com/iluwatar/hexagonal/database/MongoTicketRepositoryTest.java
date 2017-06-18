@@ -42,13 +42,13 @@ import static org.junit.Assert.assertTrue;
  */
 @Ignore
 public class MongoTicketRepositoryTest {
-
+  
   private static final String TEST_DB = "lotteryTestDB";
   private static final String TEST_TICKETS_COLLECTION = "lotteryTestTickets";
   private static final String TEST_COUNTERS_COLLECTION = "testCounters";
-
+  
   private MongoTicketRepository repository;
-
+  
   @Before
   public void init() {
     MongoConnectionPropertiesLoader.load();
@@ -59,20 +59,20 @@ public class MongoTicketRepositoryTest {
     repository = new MongoTicketRepository(TEST_DB, TEST_TICKETS_COLLECTION,
         TEST_COUNTERS_COLLECTION);
   }
-
+  
   @Test
   public void testSetup() {
     assertTrue(repository.getCountersCollection().count() == 1);
     assertTrue(repository.getTicketsCollection().count() == 0);
   }
-
+  
   @Test
   public void testNextId() {
     assertEquals(1, repository.getNextId());
     assertEquals(2, repository.getNextId());
     assertEquals(3, repository.getNextId());
   }
-
+  
   @Test
   public void testCrudOperations() {
     // create new lottery ticket and save it

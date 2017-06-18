@@ -28,19 +28,17 @@ import org.slf4j.LoggerFactory;
 import java.util.List;
 
 /**
- *
  * The caching strategies are implemented in this class.
- *
  */
 public class CacheStore {
-
+  
   private static final Logger LOGGER = LoggerFactory.getLogger(CacheStore.class);
-
+  
   static LruCache cache;
-
+  
   private CacheStore() {
   }
-
+  
   /**
    * Init cache capacity
    */
@@ -51,7 +49,7 @@ public class CacheStore {
       cache.setCapacity(capacity);
     }
   }
-
+  
   /**
    * Get user account using read-through cache
    */
@@ -65,7 +63,7 @@ public class CacheStore {
     cache.set(userId, userAccount);
     return userAccount;
   }
-
+  
   /**
    * Get user account using write-through cache
    */
@@ -77,7 +75,7 @@ public class CacheStore {
     }
     cache.set(userAccount.getUserId(), userAccount);
   }
-
+  
   /**
    * Get user account using write-around cache
    */
@@ -85,12 +83,12 @@ public class CacheStore {
     if (cache.contains(userAccount.getUserId())) {
       DbManager.updateDb(userAccount);
       cache.invalidate(userAccount.getUserId()); // Cache data has been updated -- remove older
-                                                 // version from cache.
+      // version from cache.
     } else {
       DbManager.writeToDb(userAccount);
     }
   }
-
+  
   /**
    * Get user account using read-through cache with write-back policy
    */
@@ -109,7 +107,7 @@ public class CacheStore {
     cache.set(userId, userAccount);
     return userAccount;
   }
-
+  
   /**
    * Set user account
    */
@@ -121,7 +119,7 @@ public class CacheStore {
     }
     cache.set(userAccount.getUserId(), userAccount);
   }
-
+  
   /**
    * Clears cache
    */
@@ -130,7 +128,7 @@ public class CacheStore {
       cache.clear();
     }
   }
-
+  
   /**
    * Writes remaining content in the cache into the DB.
    */
@@ -144,7 +142,7 @@ public class CacheStore {
       DbManager.upsertDb(userAccount);
     }
   }
-
+  
   /**
    * Print user accounts
    */
@@ -158,21 +156,21 @@ public class CacheStore {
     sb.append("----\n");
     return sb.toString();
   }
-
+  
   /**
    * Delegate to backing cache store
    */
   public static UserAccount get(String userId) {
     return cache.get(userId);
   }
-
+  
   /**
    * Delegate to backing cache store
    */
   public static void set(String userId, UserAccount userAccount) {
     cache.set(userId, userAccount);
   }
-
+  
   /**
    * Delegate to backing cache store
    */

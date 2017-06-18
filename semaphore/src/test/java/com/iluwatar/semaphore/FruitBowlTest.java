@@ -23,13 +23,14 @@
 package com.iluwatar.semaphore;
 
 import org.junit.Test;
+
 import static org.junit.Assert.*;
 
 /**
  * Test taking from and putting Fruit into a FruitBowl
  */
 public class FruitBowlTest {
-
+  
   @Test
   public void fruitBowlTest() {
     FruitBowl fbowl = new FruitBowl();
@@ -40,12 +41,12 @@ public class FruitBowlTest {
       fbowl.put(new Fruit(Fruit.FruitType.LEMON));
       assertEquals(fbowl.countFruit(), i);
     }
-
+    
     for (int i = 9; i >= 0; i--) {
       assertNotNull(fbowl.take());
       assertEquals(fbowl.countFruit(), i);
     }
-
+    
     assertNull(fbowl.take());
   }
 }

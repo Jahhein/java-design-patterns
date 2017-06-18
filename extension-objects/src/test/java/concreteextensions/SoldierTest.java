@@ -32,8 +32,8 @@ public class SoldierTest {
   @Test
   public void soldierReady() throws Exception {
     final Soldier soldier = new Soldier(new SoldierUnit("SoldierUnitTest"));
-
+    
     soldier.soldierReady();
   }
-
+  
 }

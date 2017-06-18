@@ -22,18 +22,16 @@
  */
 package com.iluwatar.hexagonal.banking;
 
+import com.iluwatar.hexagonal.domain.LotteryConstants;
+
 import java.util.HashMap;
 import java.util.Map;
 
-import com.iluwatar.hexagonal.domain.LotteryConstants;
-
 /**
- * 
  * Banking implementation
- *
  */
 public class InMemoryBank implements WireTransfers {
-
+  
   private static Map<String, Integer> accounts = new HashMap<>();
   
   static {
@@ -44,12 +42,12 @@ public class InMemoryBank implements WireTransfers {
   public void setFunds(String bankAccount, int amount) {
     accounts.put(bankAccount, amount);
   }
-
+  
   @Override
   public int getFunds(String bankAccount) {
     return accounts.getOrDefault(bankAccount, 0);
   }
-
+  
   @Override
   public boolean transferFunds(int amount, String sourceBackAccount, String destinationBankAccount) {
     if (accounts.getOrDefault(sourceBackAccount, 0) >= amount) {

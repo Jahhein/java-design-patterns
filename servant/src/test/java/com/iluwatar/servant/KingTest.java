@@ -24,7 +24,8 @@ package com.iluwatar.servant;
 
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Date: 12/28/15 - 9:40 PM
@@ -32,14 +33,14 @@ import static org.junit.Assert.*;
  * @author Jeroen Meulemeester
  */
 public class KingTest {
-
+  
   @Test
   public void testHungrySoberUncomplimentedKing() {
     final King king = new King();
     king.changeMood();
     assertFalse(king.getMood());
   }
-
+  
   @Test
   public void testFedSoberUncomplimentedKing() {
     final King king = new King();
@@ -47,7 +48,7 @@ public class KingTest {
     king.changeMood();
     assertFalse(king.getMood());
   }
-
+  
   @Test
   public void testHungryDrunkUncomplimentedKing() {
     final King king = new King();
@@ -55,7 +56,7 @@ public class KingTest {
     king.changeMood();
     assertFalse(king.getMood());
   }
-
+  
   @Test
   public void testHungrySoberComplimentedKing() {
     final King king = new King();
@@ -63,7 +64,7 @@ public class KingTest {
     king.changeMood();
     assertFalse(king.getMood());
   }
-
+  
   @Test
   public void testFedDrunkUncomplimentedKing() {
     final King king = new King();
@@ -72,7 +73,7 @@ public class KingTest {
     king.changeMood();
     assertTrue(king.getMood());
   }
-
+  
   @Test
   public void testFedSoberComplimentedKing() {
     final King king = new King();
@@ -81,7 +82,7 @@ public class KingTest {
     king.changeMood();
     assertFalse(king.getMood());
   }
-
+  
   @Test
   public void testFedDrunkComplimentedKing() {
     final King king = new King();
@@ -91,7 +92,7 @@ public class KingTest {
     king.changeMood();
     assertFalse(king.getMood());
   }
-
+  
   @Test
   public void testHungryDrunkComplimentedKing() {
     final King king = new King();
@@ -100,5 +101,5 @@ public class KingTest {
     king.changeMood();
     assertFalse(king.getMood());
   }
-
+  
 }

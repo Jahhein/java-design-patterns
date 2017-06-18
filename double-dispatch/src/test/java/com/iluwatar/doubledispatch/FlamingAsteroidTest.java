@@ -24,9 +24,7 @@ package com.iluwatar.doubledispatch;
 
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 /**
  * Date: 12/10/15 - 11:31 PM
@@ -34,12 +32,12 @@ import static org.junit.Assert.assertTrue;
  * @author Jeroen Meulemeester
  */
 public class FlamingAsteroidTest extends CollisionTest<FlamingAsteroid> {
-
+  
   @Override
   final FlamingAsteroid getTestedObject() {
     return new FlamingAsteroid(1, 2, 3, 4);
   }
-
+  
   /**
    * Test the constructor parameters
    */
@@ -54,7 +52,7 @@ public class FlamingAsteroidTest extends CollisionTest<FlamingAsteroid> {
     assertFalse(asteroid.isDamaged());
     assertEquals("FlamingAsteroid at [1,2,3,4] damaged=false onFire=true", asteroid.toString());
   }
-
+  
   /**
    * Test what happens we collide with an asteroid
    */
@@ -67,7 +65,7 @@ public class FlamingAsteroidTest extends CollisionTest<FlamingAsteroid> {
         "FlamingAsteroid hits FlamingAsteroid."
     );
   }
-
+  
   /**
    * Test what happens we collide with an meteoroid
    */
@@ -80,7 +78,7 @@ public class FlamingAsteroidTest extends CollisionTest<FlamingAsteroid> {
         "FlamingAsteroid hits Meteoroid."
     );
   }
-
+  
   /**
    * Test what happens we collide with ISS
    */
@@ -93,7 +91,7 @@ public class FlamingAsteroidTest extends CollisionTest<FlamingAsteroid> {
         "FlamingAsteroid hits SpaceStationIss. SpaceStationIss is damaged! SpaceStationIss is set on fire!"
     );
   }
-
+  
   /**
    * Test what happens we collide with MIR
    */
@@ -106,5 +104,5 @@ public class FlamingAsteroidTest extends CollisionTest<FlamingAsteroid> {
         "FlamingAsteroid hits SpaceStationMir. SpaceStationMir is damaged! SpaceStationMir is set on fire!"
     );
   }
-
+  
 }

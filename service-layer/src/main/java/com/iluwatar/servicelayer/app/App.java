@@ -22,8 +22,6 @@
  */
 package com.iluwatar.servicelayer.app;
 
-import java.util.List;
-
 import com.iluwatar.servicelayer.magic.MagicService;
 import com.iluwatar.servicelayer.magic.MagicServiceImpl;
 import com.iluwatar.servicelayer.spell.Spell;
@@ -37,6 +35,8 @@ import com.iluwatar.servicelayer.wizard.WizardDao;
 import com.iluwatar.servicelayer.wizard.WizardDaoImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.List;
 
 
 /**
@@ -55,15 +55,14 @@ import org.slf4j.LoggerFactory;
  * {@link MagicService}). The service is implemented with 3-layer architecture (entity, dao,
  * service). For persistence the example uses in-memory H2 database which is populated on each
  * application startup.
- *
  */
 public class App {
-
+  
   private static final Logger LOGGER = LoggerFactory.getLogger(App.class);
-
+  
   /**
    * Program entry point
-   * 
+   *
    * @param args command line args
    */
   public static void main(String[] args) {
@@ -72,7 +71,7 @@ public class App {
     // query the data using the service
     queryData();
   }
-
+  
   /**
    * Initialize data
    */
@@ -113,7 +112,7 @@ public class App {
     spellDao.persist(spell15);
     spellDao.persist(spell16);
     spellDao.persist(spell17);
-
+    
     // spellbooks
     SpellbookDao spellbookDao = new SpellbookDaoImpl();
     Spellbook spellbook1 = new Spellbook("Book of Orgymon");
@@ -154,7 +153,7 @@ public class App {
     spellbook7.addSpell(spell16);
     spellbook7.addSpell(spell17);
     spellbookDao.merge(spellbook7);
-
+    
     // wizards
     WizardDao wizardDao = new WizardDaoImpl();
     Wizard wizard1 = new Wizard("Aderlard Boud");
@@ -177,7 +176,7 @@ public class App {
     wizard4.addSpellbook(spellbookDao.findByName("Book of Kihione"));
     wizardDao.merge(wizard4);
   }
-
+  
   /**
    * Query the data
    */

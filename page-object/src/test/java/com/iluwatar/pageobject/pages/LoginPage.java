@@ -27,18 +27,19 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.html.HtmlPasswordInput;
 import com.gargoylesoftware.htmlunit.html.HtmlSubmitInput;
 import com.gargoylesoftware.htmlunit.html.HtmlTextInput;
+
 import java.io.IOException;
 
 /**
  * Page Object encapsulating the Login Page (login.html)
  */
 public class LoginPage extends Page {
-
+  
   private static final String LOGIN_PAGE_HTML_FILE = "login.html";
   private static final String PAGE_URL = "file:" + AUT_PATH + LOGIN_PAGE_HTML_FILE;
-
+  
   private HtmlPage page;
-
+  
   /**
    * Constructor
    *
@@ -47,7 +48,7 @@ public class LoginPage extends Page {
   public LoginPage(WebClient webClient) {
     super(webClient);
   }
-
+  
   /**
    * Navigates to the Login page
    *
@@ -61,7 +62,7 @@ public class LoginPage extends Page {
     }
     return this;
   }
-
+  
   /**
    * {@inheritDoc}
    */
@@ -69,8 +70,8 @@ public class LoginPage extends Page {
   public boolean isAt() {
     return "Login".equals(page.getTitleText());
   }
-
-
+  
+  
   /**
    * Enters the username into the username input text field
    *
@@ -82,8 +83,8 @@ public class LoginPage extends Page {
     usernameInputTextField.setText(username);
     return this;
   }
-
-
+  
+  
   /**
    * Enters the password into the password input password field
    *
@@ -95,13 +96,13 @@ public class LoginPage extends Page {
     passwordInputPasswordField.setText(password);
     return this;
   }
-
-
+  
+  
   /**
    * Clicking on the login button to 'login'
    *
    * @return {@link AlbumListPage}
-   *        - this is the page that user gets navigated to once successfully logged in
+   * - this is the page that user gets navigated to once successfully logged in
    */
   public AlbumListPage login() {
     HtmlSubmitInput loginButton = (HtmlSubmitInput) page.getElementById("loginButton");
@@ -112,5 +113,5 @@ public class LoginPage extends Page {
     }
     return new AlbumListPage(webClient);
   }
-
+  
 }

@@ -18,15 +18,15 @@
  */
 package com.iluwatar.module;
 
-import static org.junit.Assert.assertEquals;
+import org.apache.log4j.Logger;
+import org.junit.Test;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
-import org.apache.log4j.Logger;
-import org.junit.Test;
+import static org.junit.Assert.assertEquals;
 
 /**
  * The Module pattern can be considered a Creational pattern and a Structural pattern. It manages
@@ -39,19 +39,57 @@ import org.junit.Test;
  * Console Logger
  */
 public final class FileLoggerModuleTest {
-
+  
   private static final Logger LOGGER = Logger.getLogger(FileLoggerModuleTest.class);
-
+  
   private static final String OUTPUT_FILE = "output.txt";
   private static final String ERROR_FILE = "error.txt";
-
+  
   private static final String MESSAGE = "MESSAGE";
   private static final String ERROR = "ERROR";
+  
+  /**
+   * Utility method to read first line of a file
+   *
+   * @param file as file name to be read
+   * @return a string value as first line in file
+   */
+  private static final String readFirstLine(final String file) {
+    
+    String firstLine = null;
+    BufferedReader bufferedReader = null;
+    try {
 
+      /* Create a buffered reader */
+      bufferedReader = new BufferedReader(new FileReader(file));
+      
+      while (bufferedReader.ready()) {
 
+        /* Read the line */
+        firstLine = bufferedReader.readLine();
+      }
+      
+      LOGGER.info("ModuleTest::readFirstLine() : firstLine : " + firstLine);
+      
+    } catch (final IOException e) {
+      LOGGER.error("ModuleTest::readFirstLine()", e);
+    } finally {
+      
+      if (bufferedReader != null) {
+        try {
+          bufferedReader.close();
+        } catch (final IOException e) {
+          LOGGER.error("ModuleTest::readFirstLine()", e);
+        }
+      }
+    }
+    
+    return firstLine;
+  }
+  
   /**
    * This test verify that 'MESSAGE' is perfectly printed in output file
-   * 
+   *
    * @throws IOException if program is not able to find log files (output.txt and error.txt)
    */
   @Test
@@ -72,10 +110,10 @@ public final class FileLoggerModuleTest {
     /* Unprepare to cleanup the modules */
     fileLoggerModule.unprepare();
   }
-
+  
   /**
    * This test verify that nothing is printed in output file
-   * 
+   *
    * @throws IOException if program is not able to find log files (output.txt and error.txt)
    */
   @Test
@@ -93,12 +131,12 @@ public final class FileLoggerModuleTest {
     /* Unprepare to cleanup the modules */
     fileLoggerModule.unprepare();
   }
-
+  
   /**
    * This test verify that 'ERROR' is perfectly printed in error file
-   * 
+   *
    * @throws FileNotFoundException if program is not able to find log files (output.txt and
-   *         error.txt)
+   *                               error.txt)
    */
   @Test
   public void testFileErrorMessage() throws FileNotFoundException {
@@ -118,12 +156,12 @@ public final class FileLoggerModuleTest {
     /* Unprepare to cleanup the modules */
     fileLoggerModule.unprepare();
   }
-
+  
   /**
    * This test verify that nothing is printed in error file
-   * 
+   *
    * @throws FileNotFoundException if program is not able to find log files (output.txt and
-   *         error.txt)
+   *                               error.txt)
    */
   @Test
   public void testNoFileErrorMessage() throws FileNotFoundException {
@@ -139,44 +177,5 @@ public final class FileLoggerModuleTest {
 
     /* Unprepare to cleanup the modules */
     fileLoggerModule.unprepare();
-  }
-
-  /**
-   * Utility method to read first line of a file
-   * 
-   * @param file as file name to be read
-   * @return a string value as first line in file
-   */
-  private static final String readFirstLine(final String file) {
-
-    String firstLine = null;
-    BufferedReader bufferedReader = null;
-    try {
-
-      /* Create a buffered reader */
-      bufferedReader = new BufferedReader(new FileReader(file));
-
-      while (bufferedReader.ready()) {
-
-        /* Read the line */
-        firstLine = bufferedReader.readLine();
-      }
-
-      LOGGER.info("ModuleTest::readFirstLine() : firstLine : " + firstLine);
-
-    } catch (final IOException e) {
-      LOGGER.error("ModuleTest::readFirstLine()", e);
-    } finally {
-
-      if (bufferedReader != null) {
-        try {
-          bufferedReader.close();
-        } catch (final IOException e) {
-          LOGGER.error("ModuleTest::readFirstLine()", e);
-        }
-      }
-    }
-
-    return firstLine;
   }
 }

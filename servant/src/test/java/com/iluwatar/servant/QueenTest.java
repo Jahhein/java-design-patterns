@@ -24,7 +24,8 @@ package com.iluwatar.servant;
 
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Date: 12/28/15 - 9:52 PM
@@ -32,7 +33,7 @@ import static org.junit.Assert.*;
  * @author Jeroen Meulemeester
  */
 public class QueenTest {
-
+  
   @Test
   public void testNotFlirtyUncomplemented() throws Exception {
     final Queen queen = new Queen();

@@ -41,58 +41,58 @@ import static org.junit.Assert.assertEquals;
  * @author Jeroen Meulemeester
  */
 public class KingJoffreyTest {
-
+  
   private InMemoryAppender appender;
-
+  
   @Before
   public void setUp() {
     appender = new InMemoryAppender(KingJoffrey.class);
   }
-
+  
   @After
   public void tearDown() {
     appender.stop();
   }
-
+  
   /**
    * Test if {@link KingJoffrey} tells us what event he received
    */
   @Test
   public void testOnEvent() {
     final KingJoffrey kingJoffrey = new KingJoffrey();
-
+    
     for (int i = 0; i < Event.values().length; ++i) {
       assertEquals(i, appender.getLogSize());
       Event event = Event.values()[i];
       kingJoffrey.onEvent(event);
-
+      
       final String expectedMessage = "Received event from the King's Hand: " + event.toString();
       assertEquals(expectedMessage, appender.getLastMessage());
       assertEquals(i + 1, appender.getLogSize());
     }
-
+    
   }
-
+  
   private class InMemoryAppender extends AppenderBase<ILoggingEvent> {
     private List<ILoggingEvent> log = new LinkedList<>();
-
+    
     public InMemoryAppender(Class clazz) {
       ((Logger) LoggerFactory.getLogger(clazz)).addAppender(this);
       start();
     }
-
+    
     @Override
     protected void append(ILoggingEvent eventObject) {
       log.add(eventObject);
     }
-
+    
     public String getLastMessage() {
       return log.get(log.size() - 1).getFormattedMessage();
     }
-
+    
     public int getLogSize() {
       return log.size();
     }
   }
-
+  
 }

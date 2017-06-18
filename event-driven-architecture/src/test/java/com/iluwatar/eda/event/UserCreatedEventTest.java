@@ -23,7 +23,6 @@
 package com.iluwatar.eda.event;
 
 import com.iluwatar.eda.model.User;
-
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -32,7 +31,7 @@ import static org.junit.Assert.assertEquals;
  * {@link UserCreatedEventTest} tests and verifies {@link AbstractEvent} behaviour.
  */
 public class UserCreatedEventTest {
-
+  
   /**
    * This unit test should correctly return the {@link AbstractEvent} class type when calling the
    * {@link AbstractEvent#getType() getType} method.

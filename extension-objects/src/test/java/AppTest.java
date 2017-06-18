@@ -20,6 +20,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
+
 import org.junit.Test;
 
 /**
@@ -28,9 +29,9 @@ import org.junit.Test;
 public class AppTest {
   @Test
   public void main() throws Exception {
-
+    
     String[] args = {};
     App.main(args);
   }
-
+  
 }

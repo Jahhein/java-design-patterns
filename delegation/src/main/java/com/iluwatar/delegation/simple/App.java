@@ -39,9 +39,9 @@ import com.iluwatar.delegation.simple.printers.HpPrinter;
  * that they were instantiated with. Therefore delegating the behaviour to another class.
  */
 public class App {
-
+  
   public static final String MESSAGE_TO_PRINT = "hello world";
-
+  
   /**
    * Program entry point
    *
@@ -51,10 +51,10 @@ public class App {
     PrinterController hpPrinterController = new PrinterController(new HpPrinter());
     PrinterController canonPrinterController = new PrinterController(new CanonPrinter());
     PrinterController epsonPrinterController = new PrinterController(new EpsonPrinter());
-
+    
     hpPrinterController.print(MESSAGE_TO_PRINT);
     canonPrinterController.print(MESSAGE_TO_PRINT);
     epsonPrinterController.print(MESSAGE_TO_PRINT);
   }
-
+  
 }

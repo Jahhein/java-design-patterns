@@ -28,12 +28,12 @@ package com.iluwatar.singleton;
  * @author Jeroen Meulemeester
  */
 public class ThreadSafeDoubleCheckLockingTest extends SingletonTest<ThreadSafeDoubleCheckLocking> {
-
+  
   /**
    * Create a new singleton test instance using the given 'getInstance' method
    */
   public ThreadSafeDoubleCheckLockingTest() {
     super(ThreadSafeDoubleCheckLocking::getInstance);
   }
-
+  
 }

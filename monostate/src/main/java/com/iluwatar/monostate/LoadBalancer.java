@@ -30,14 +30,13 @@ import java.util.List;
  * receiving a new Request, it delegates the call to the servers in a Round Robin Fashion. Since all
  * instances of the class share the same state, all instances will delegate to the same server on
  * receiving a new Request.
- * 
  */
 
 public class LoadBalancer {
   private static List<Server> servers = new ArrayList<>();
   private static int id;
   private static int lastServedId;
-
+  
   static {
     servers.add(new Server("localhost", 8081, ++id));
     servers.add(new Server("localhost", 8080, ++id));
@@ -45,7 +44,11 @@ public class LoadBalancer {
     servers.add(new Server("localhost", 8083, ++id));
     servers.add(new Server("localhost", 8084, ++id));
   }
-
+  
+  public static int getLastServedId() {
+    return lastServedId;
+  }
+  
   /**
    * Add new server
    */
@@ -53,17 +56,13 @@ public class LoadBalancer {
     synchronized (servers) {
       servers.add(server);
     }
-
+    
   }
-
+  
   public final int getNoOfServers() {
     return servers.size();
   }
-
-  public static int getLastServedId() {
-    return lastServedId;
-  }
-
+  
   /**
    * Handle request
    */
@@ -74,7 +73,6 @@ public class LoadBalancer {
     Server server = servers.get(lastServedId++);
     server.serve(request);
   }
-
-
-
+  
+  
 }

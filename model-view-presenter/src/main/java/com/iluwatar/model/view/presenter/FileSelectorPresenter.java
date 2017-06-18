@@ -29,35 +29,35 @@ package com.iluwatar.model.view.presenter;
  * It is responsible for reacting to the user's actions and update the View component.
  */
 public class FileSelectorPresenter {
-
+  
   /**
    * The View component that the presenter interacts with.
    */
   private FileSelectorView view;
-
+  
   /**
    * The Model component that the presenter interacts with.
    */
   private FileLoader loader;
-
+  
   /**
    * Constructor
-   * 
+   *
    * @param view The view component that the presenter will interact with.
    */
   public FileSelectorPresenter(FileSelectorView view) {
     this.view = view;
   }
-
+  
   /**
    * Sets the {@link FileLoader} object, to the value given as parameter.
-   * 
+   *
    * @param loader The new {@link FileLoader} object(the Model component).
    */
   public void setLoader(FileLoader loader) {
     this.loader = loader;
   }
-
+  
   /**
    * Starts the presenter.
    */
@@ -65,14 +65,14 @@ public class FileSelectorPresenter {
     view.setPresenter(this);
     view.open();
   }
-
+  
   /**
    * An "event" that fires when the name of the file to be loaded changes.
    */
   public void fileNameChanged() {
     loader.setFileName(view.getFileName());
   }
-
+  
   /**
    * Ok button handler
    */
@@ -81,7 +81,7 @@ public class FileSelectorPresenter {
       view.showMessage("Please give the name of the file first!");
       return;
     }
-
+    
     if (loader.fileExists()) {
       String data = loader.loadData();
       view.displayData(data);
@@ -89,7 +89,7 @@ public class FileSelectorPresenter {
       view.showMessage("The file specified does not exist.");
     }
   }
-
+  
   /**
    * Cancels the file loading process.
    */

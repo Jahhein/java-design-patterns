@@ -23,12 +23,7 @@
 package com.iluwatar.pageobject.pages;
 
 import com.gargoylesoftware.htmlunit.WebClient;
-import com.gargoylesoftware.htmlunit.html.HtmlNumberInput;
-import com.gargoylesoftware.htmlunit.html.HtmlOption;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
-import com.gargoylesoftware.htmlunit.html.HtmlSelect;
-import com.gargoylesoftware.htmlunit.html.HtmlSubmitInput;
-import com.gargoylesoftware.htmlunit.html.HtmlTextInput;
+import com.gargoylesoftware.htmlunit.html.*;
 
 import java.io.IOException;
 
@@ -36,21 +31,21 @@ import java.io.IOException;
  * Page Object encapsulating the Album Page (album-page.html)
  */
 public class AlbumPage extends Page {
-
+  
   private static final String ALBUM_PAGE_HTML_FILE = "album-page.html";
   private static final String PAGE_URL = "file:" + AUT_PATH + ALBUM_PAGE_HTML_FILE;
-
+  
   private HtmlPage page;
-
-
+  
+  
   /**
    * Constructor
    */
   public AlbumPage(WebClient webClient) {
     super(webClient);
   }
-
-
+  
+  
   /**
    * Navigates to the album page
    *
@@ -64,8 +59,8 @@ public class AlbumPage extends Page {
     }
     return this;
   }
-
-
+  
+  
   /**
    * {@inheritDoc}
    */
@@ -73,8 +68,8 @@ public class AlbumPage extends Page {
   public boolean isAt() {
     return "Album Page".equals(page.getTitleText());
   }
-
-
+  
+  
   /**
    * Sets the album title input text field
    *
@@ -86,8 +81,8 @@ public class AlbumPage extends Page {
     albumTitleInputTextField.setText(albumTitle);
     return this;
   }
-
-
+  
+  
   /**
    * Sets the artist input text field
    *
@@ -99,8 +94,8 @@ public class AlbumPage extends Page {
     artistInputTextField.setText(artist);
     return this;
   }
-
-
+  
+  
   /**
    * Selects the select's option value based on the year value given
    *
@@ -113,8 +108,8 @@ public class AlbumPage extends Page {
     albumYearSelectOption.setSelectedAttribute(yearOption, true);
     return this;
   }
-
-
+  
+  
   /**
    * Sets the album rating input text field
    *
@@ -126,7 +121,7 @@ public class AlbumPage extends Page {
     albumRatingInputTextField.setText(albumRating);
     return this;
   }
-
+  
   /**
    * Sets the number of songs number input field
    *
@@ -138,8 +133,8 @@ public class AlbumPage extends Page {
     numberOfSongsNumberField.setText(Integer.toString(numberOfSongs));
     return this;
   }
-
-
+  
+  
   /**
    * Cancel changes made by clicking the cancel button
    *
@@ -154,8 +149,8 @@ public class AlbumPage extends Page {
     }
     return new AlbumListPage(webClient);
   }
-
-
+  
+  
   /**
    * Saves changes made by clicking the save button
    *
@@ -170,5 +165,5 @@ public class AlbumPage extends Page {
     }
     return this;
   }
-
+  
 }

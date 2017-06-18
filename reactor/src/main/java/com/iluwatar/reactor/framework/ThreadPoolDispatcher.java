@@ -33,18 +33,18 @@ import java.util.concurrent.TimeUnit;
  * (reactor) thread.
  */
 public class ThreadPoolDispatcher implements Dispatcher {
-
+  
   private final ExecutorService executorService;
-
+  
   /**
    * Creates a pooled dispatcher with tunable pool size.
-   * 
+   *
    * @param poolSize number of pooled threads
    */
   public ThreadPoolDispatcher(int poolSize) {
     this.executorService = Executors.newFixedThreadPool(poolSize);
   }
-
+  
   /**
    * Submits the work of dispatching the read event to worker pool, where it gets picked up by
    * worker threads. <br/>
@@ -55,10 +55,10 @@ public class ThreadPoolDispatcher implements Dispatcher {
   public void onChannelReadEvent(AbstractNioChannel channel, Object readObject, SelectionKey key) {
     executorService.execute(() -> channel.getHandler().handleChannelRead(channel, readObject, key));
   }
-
+  
   /**
    * Stops the pool of workers.
-   * 
+   *
    * @throws InterruptedException if interrupted while stopping pool of workers.
    */
   @Override

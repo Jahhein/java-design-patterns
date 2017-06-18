@@ -26,10 +26,10 @@ import java.util.Optional;
  * Implementation of Actions on Students Data
  */
 public final class StudentDataMapperImpl implements StudentDataMapper {
-
+  
   /* Note: Normally this would be in the form of an actual database */
   private List<Student> students = new ArrayList<>();
-
+  
   @Override
   public Optional<Student> find(int studentId) {
 
@@ -38,7 +38,7 @@ public final class StudentDataMapperImpl implements StudentDataMapper {
 
       /* Check if student is found */
       if (student.getStudentId() == studentId) {
-
+        
         return Optional.of(student);
       }
     }
@@ -46,7 +46,7 @@ public final class StudentDataMapperImpl implements StudentDataMapper {
     /* Return empty value */
     return Optional.empty();
   }
-
+  
   @Override
   public void update(Student studentToBeUpdated) throws DataMapperException {
 
@@ -59,14 +59,14 @@ public final class StudentDataMapperImpl implements StudentDataMapper {
 
       /* Update the student in list */
       this.getStudents().set(index, studentToBeUpdated);
-
+      
     } else {
 
       /* Throw user error after wrapping in a runtime exception */
       throw new DataMapperException("Student [" + studentToBeUpdated.getName() + "] is not found");
     }
   }
-
+  
   @Override
   public void insert(Student studentToBeInserted) throws DataMapperException {
 
@@ -75,14 +75,14 @@ public final class StudentDataMapperImpl implements StudentDataMapper {
 
       /* Add student in list */
       this.getStudents().add(studentToBeInserted);
-
+      
     } else {
 
       /* Throw user error after wrapping in a runtime exception */
       throw new DataMapperException("Student already [" + studentToBeInserted.getName() + "] exists");
     }
   }
-
+  
   @Override
   public void delete(Student studentToBeDeleted) throws DataMapperException {
 
@@ -91,14 +91,14 @@ public final class StudentDataMapperImpl implements StudentDataMapper {
 
       /* Delete the student from list */
       this.getStudents().remove(studentToBeDeleted);
-
+      
     } else {
 
       /* Throw user error after wrapping in a runtime exception */
       throw new DataMapperException("Student [" + studentToBeDeleted.getName() + "] is not found");
     }
   }
-
+  
   public List<Student> getStudents() {
     return this.students;
   }

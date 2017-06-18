@@ -22,32 +22,29 @@
  */
 package com.iluwatar.hexagonal.domain;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import com.google.inject.Guice;
+import com.google.inject.Inject;
+import com.google.inject.Injector;
+import com.iluwatar.hexagonal.banking.WireTransfers;
+import com.iluwatar.hexagonal.domain.LotteryTicketCheckResult.CheckResult;
+import com.iluwatar.hexagonal.module.LotteryTestingModule;
+import com.iluwatar.hexagonal.test.LotteryTestUtils;
+import org.junit.Before;
+import org.junit.Test;
 
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Optional;
 
-import com.google.inject.Guice;
-import com.google.inject.Inject;
-import com.google.inject.Injector;
-import com.iluwatar.hexagonal.module.LotteryTestingModule;
-import org.junit.Before;
-import org.junit.Test;
-
-import com.iluwatar.hexagonal.banking.WireTransfers;
-import com.iluwatar.hexagonal.domain.LotteryTicketCheckResult.CheckResult;
-import com.iluwatar.hexagonal.test.LotteryTestUtils;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
- * 
  * Test the lottery system
- *
  */
 public class LotteryTest {
-
+  
   private Injector injector;
   @Inject
   private LotteryAdministration administration;
@@ -55,11 +52,11 @@ public class LotteryTest {
   private LotteryService service;
   @Inject
   private WireTransfers wireTransfers;
-
+  
   public LotteryTest() {
     this.injector = Guice.createInjector(new LotteryTestingModule());
   }
-
+  
   @Before
   public void setup() {
     injector.injectMembers(this);
@@ -87,7 +84,7 @@ public class LotteryTest {
     
     // perform lottery
     LotteryNumbers winningNumbers = administration.performLottery();
-
+    
     // cheat a bit for testing sake, use winning numbers to submit another ticket
     Optional<LotteryTicketId> ticket4 = service.submitTicket(LotteryTestUtils.createLotteryTicket("lucky@orb.com",
         "123-12312", "+12421255", winningNumbers.getNumbers()));
@@ -96,7 +93,7 @@ public class LotteryTest {
     
     // check winners
     Map<LotteryTicketId, LotteryTicket> tickets = administration.getAllSubmittedTickets();
-    for (LotteryTicketId id: tickets.keySet()) {
+    for (LotteryTicketId id : tickets.keySet()) {
       LotteryTicketCheckResult checkResult = service.checkTicketForPrize(id, winningNumbers);
       assertTrue(checkResult.getResult() != CheckResult.TICKET_NOT_SUBMITTED);
       if (checkResult.getResult().equals(CheckResult.WIN_PRIZE)) {

@@ -30,13 +30,13 @@ import com.iluwatar.eda.event.UserUpdatedEvent;
  * the {@link UserCreatedEvent} and {@link UserUpdatedEvent} events.
  */
 public class User {
-
+  
   private String username;
-
+  
   public User(String username) {
     this.username = username;
   }
-
+  
   public String getUsername() {
     return username;
   }

@@ -22,27 +22,27 @@
  */
 package com.iluwatar.abstractfactory;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
 import org.junit.Before;
 import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Test for abstract factory
  */
 public class AbstractFactoryTest {
-
+  
   private App app = new App();
   private KingdomFactory elfFactory;
   private KingdomFactory orcFactory;
-
+  
   @Before
   public void setUp() {
     elfFactory = new ElfKingdomFactory();
     orcFactory = new OrcKingdomFactory();
   }
-
+  
   @Test
   public void king() {
     final King elfKing = app.getKing(elfFactory);
@@ -52,7 +52,7 @@ public class AbstractFactoryTest {
     assertTrue(orcKing instanceof OrcKing);
     assertEquals(OrcKing.DESCRIPTION, orcKing.getDescription());
   }
-
+  
   @Test
   public void castle() {
     final Castle elfCastle = app.getCastle(elfFactory);
@@ -62,7 +62,7 @@ public class AbstractFactoryTest {
     assertTrue(orcCastle instanceof OrcCastle);
     assertEquals(OrcCastle.DESCRIPTION, orcCastle.getDescription());
   }
-
+  
   @Test
   public void army() {
     final Army elfArmy = app.getArmy(elfFactory);
@@ -72,7 +72,7 @@ public class AbstractFactoryTest {
     assertTrue(orcArmy instanceof OrcArmy);
     assertEquals(OrcArmy.DESCRIPTION, orcArmy.getDescription());
   }
-
+  
   @Test
   public void createElfKingdom() {
     app.createKingdom(elfFactory);
@@ -86,7 +86,7 @@ public class AbstractFactoryTest {
     assertTrue(army instanceof ElfArmy);
     assertEquals(ElfArmy.DESCRIPTION, army.getDescription());
   }
-
+  
   @Test
   public void createOrcKingdom() {
     app.createKingdom(orcFactory);

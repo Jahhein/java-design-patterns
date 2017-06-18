@@ -25,16 +25,14 @@ package com.iluwatar.layers;
 import java.util.Optional;
 
 /**
- * 
  * DTO for cake toppings
- *
  */
 public class CakeToppingInfo {
-
+  
   public final Optional<Long> id;
   public final String name;
   public final int calories;
-
+  
   /**
    * Constructor
    */
@@ -43,7 +41,7 @@ public class CakeToppingInfo {
     this.name = name;
     this.calories = calories;
   }
-
+  
   /**
    * Constructor
    */
@@ -52,7 +50,7 @@ public class CakeToppingInfo {
     this.name = name;
     this.calories = calories;
   }
-
+  
   @Override
   public String toString() {
     return String.format("CakeToppingInfo id=%d name=%s calories=%d", id.orElse(-1L), name, calories);

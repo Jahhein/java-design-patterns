@@ -39,9 +39,9 @@ import java.util.Scanner;
  * Console interface for lottery administration
  */
 public class ConsoleAdministration {
-
+  
   private static final Logger LOGGER = LoggerFactory.getLogger(ConsoleAdministration.class);
-
+  
   /**
    * Program entry point
    */
@@ -73,7 +73,7 @@ public class ConsoleAdministration {
       }
     }
   }
-
+  
   private static void printMainMenu() {
     LOGGER.info("");
     LOGGER.info("### Lottery Administration Console ###");
@@ -82,7 +82,7 @@ public class ConsoleAdministration {
     LOGGER.info("(3) Reset lottery ticket database");
     LOGGER.info("(4) Exit");
   }
-
+  
   private static String readString(Scanner scanner) {
     System.out.print("> ");
     return scanner.next();

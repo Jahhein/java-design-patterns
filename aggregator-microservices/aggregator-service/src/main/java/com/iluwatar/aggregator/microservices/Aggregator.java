@@ -33,15 +33,15 @@ import javax.annotation.Resource;
  */
 @RestController
 public class Aggregator {
-
-
+  
+  
   @Resource
   private ProductInformationClient informationClient;
-
+  
   @Resource
   private ProductInventoryClient inventoryClient;
-
-
+  
+  
   /**
    * Retrieves product data.
    *
@@ -54,5 +54,5 @@ public class Aggregator {
     product.setProductInventories(inventoryClient.getProductInventories());
     return product;
   }
-
+  
 }

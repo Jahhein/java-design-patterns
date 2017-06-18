@@ -35,7 +35,7 @@ import com.iluwatar.featuretoggle.user.User;
  * @see User
  */
 public interface Service {
-
+  
   /**
    * Generates a welcome message for the passed user.
    *
@@ -43,12 +43,12 @@ public interface Service {
    * @return Generated {@link String} welcome message
    */
   String getWelcomeMessage(User user);
-
+  
   /**
    * Returns if the welcome message to be displayed will be the enhanced version.
    *
    * @return Boolean {@value true} if enhanced.
    */
   boolean isEnhanced();
-
+  
 }

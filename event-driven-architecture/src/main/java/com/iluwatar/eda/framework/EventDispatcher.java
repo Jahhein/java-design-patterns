@@ -30,13 +30,13 @@ import java.util.Map;
  * A {@link HashMap} is used to store the association between events and their respective handlers.
  */
 public class EventDispatcher {
-
+  
   private Map<Class<? extends Event>, Handler<? extends Event>> handlers;
-
+  
   public EventDispatcher() {
     handlers = new HashMap<>();
   }
-
+  
   /**
    * Links an {@link Event} to a specific {@link Handler}.
    *
@@ -47,7 +47,7 @@ public class EventDispatcher {
                                                 Handler<E> handler) {
     handlers.put(eventType, handler);
   }
-
+  
   /**
    * Dispatches an {@link Event} depending on it's type.
    *
@@ -60,5 +60,5 @@ public class EventDispatcher {
       handler.onEvent(event);
     }
   }
-
+  
 }

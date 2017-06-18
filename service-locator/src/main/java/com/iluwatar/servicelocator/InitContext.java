@@ -32,9 +32,9 @@ import org.slf4j.LoggerFactory;
  * @author saifasif
  */
 public class InitContext {
-
+  
   private static final Logger LOGGER = LoggerFactory.getLogger(InitContext.class);
-
+  
   /**
    * Perform the lookup based on the service name. The returned object will need to be casted into a
    * {@link Service}

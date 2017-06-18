@@ -20,6 +20,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -42,24 +43,24 @@ import org.slf4j.LoggerFactory;
  * then a marker annotation is the correct choice
  */
 public class App {
-
+  
   /**
    * Program entry point
    *
    * @param args command line args
    */
   public static void main(String[] args) {
-
+    
     final Logger logger = LoggerFactory.getLogger(App.class);
     Guard guard = new Guard();
     Thief thief = new Thief();
-
+    
     if (guard instanceof Permission) {
       guard.enter();
     } else {
       logger.info("You have no permission to enter, please leave this area");
     }
-
+    
     if (thief instanceof Permission) {
       thief.steal();
     } else {

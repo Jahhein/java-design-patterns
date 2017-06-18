@@ -24,9 +24,7 @@ package com.iluwatar.multiton;
 
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertSame;
+import static org.junit.Assert.*;
 
 /**
  * Date: 12/22/15 - 22:28 AM
@@ -34,7 +32,7 @@ import static org.junit.Assert.assertSame;
  * @author Jeroen Meulemeester
  */
 public class NazgulTest {
-
+  
   /**
    * Verify if {@link Nazgul#getInstance(NazgulName)} returns the correct Nazgul multiton instance
    */
@@ -47,5 +45,5 @@ public class NazgulTest {
       assertEquals(name, nazgul.getName());
     }
   }
-
+  
 }

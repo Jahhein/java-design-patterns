@@ -26,24 +26,17 @@ package com.iluwatar.semaphore;
  * Fruit is a resource stored in a FruitBowl.
  */
 public class Fruit {
-
-  /**
-   * Enumeration of Fruit Types
-   */
-  public static enum FruitType {
-    ORANGE, APPLE, LEMON
-  }
-
+  
   private FruitType type;
-
+  
   public Fruit(FruitType type) {
     this.type = type;
   }
-
+  
   public FruitType getType() {
     return type;
   }
-
+  
   /**
    * toString method
    */
@@ -59,5 +52,12 @@ public class Fruit {
         return "";
     }
   }
-
+  
+  /**
+   * Enumeration of Fruit Types
+   */
+  public static enum FruitType {
+    ORANGE, APPLE, LEMON
+  }
+  
 }

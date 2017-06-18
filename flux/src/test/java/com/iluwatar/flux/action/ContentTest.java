@@ -33,7 +33,7 @@ import static org.junit.Assert.assertNotNull;
  * @author Jeroen Meulemeester
  */
 public class ContentTest {
-
+  
   @Test
   public void testToString() throws Exception {
     for (final Content content : Content.values()) {
@@ -42,5 +42,5 @@ public class ContentTest {
       assertFalse(toString.trim().isEmpty());
     }
   }
-
+  
 }

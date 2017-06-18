@@ -28,20 +28,20 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
- * 
  * Implementation of async executor that creates a new thread for every task.
- * 
  */
 public class ThreadAsyncExecutor implements AsyncExecutor {
-
-  /** Index for thread naming */
+  
+  /**
+   * Index for thread naming
+   */
   private final AtomicInteger idx = new AtomicInteger(0);
-
+  
   @Override
   public <T> AsyncResult<T> startProcess(Callable<T> task) {
     return startProcess(task, null);
   }
-
+  
   @Override
   public <T> AsyncResult<T> startProcess(Callable<T> task, AsyncCallback<T> callback) {
     CompletableResult<T> result = new CompletableResult<>(callback);
@@ -51,10 +51,10 @@ public class ThreadAsyncExecutor implements AsyncExecutor {
       } catch (Exception ex) {
         result.setException(ex);
       }
-    } , "executor-" + idx.incrementAndGet()).start();
+    }, "executor-" + idx.incrementAndGet()).start();
     return result;
   }
-
+  
   @Override
   public <T> T endProcess(AsyncResult<T> asyncResult) throws ExecutionException, InterruptedException {
     if (!asyncResult.isCompleted()) {
@@ -62,7 +62,7 @@ public class ThreadAsyncExecutor implements AsyncExecutor {
     }
     return asyncResult.getValue();
   }
-
+  
   /**
    * Simple implementation of async result that allows completing it successfully with a value or exceptionally with an
    * exception. A really simplified version from its real life cousins FutureTask and CompletableFuture.
@@ -71,45 +71,28 @@ public class ThreadAsyncExecutor implements AsyncExecutor {
    * @see java.util.concurrent.CompletableFuture
    */
   private static class CompletableResult<T> implements AsyncResult<T> {
-
+    
     static final int RUNNING = 1;
     static final int FAILED = 2;
     static final int COMPLETED = 3;
-
+    
     final Object lock;
     final Optional<AsyncCallback<T>> callback;
-
+    
     volatile int state = RUNNING;
     T value;
     Exception exception;
-
+    
     CompletableResult(AsyncCallback<T> callback) {
       this.lock = new Object();
       this.callback = Optional.ofNullable(callback);
     }
-
-    /**
-     * Sets the value from successful execution and executes callback if available. Notifies any thread waiting for
-     * completion.
-     *
-     * @param value
-     *          value of the evaluated task
-     */
-    void setValue(T value) {
-      this.value = value;
-      this.state = COMPLETED;
-      this.callback.ifPresent(ac -> ac.onComplete(value, Optional.<Exception>empty()));
-      synchronized (lock) {
-        lock.notifyAll();
-      }
-    }
-
+    
     /**
      * Sets the exception from failed execution and executes callback if available. Notifies any thread waiting for
      * completion.
      *
-     * @param exception
-     *          exception of the failed task
+     * @param exception exception of the failed task
      */
     void setException(Exception exception) {
       this.exception = exception;
@@ -119,12 +102,12 @@ public class ThreadAsyncExecutor implements AsyncExecutor {
         lock.notifyAll();
       }
     }
-
+    
     @Override
     public boolean isCompleted() {
       return state > RUNNING;
     }
-
+    
     @Override
     public T getValue() throws ExecutionException {
       if (state == COMPLETED) {
@@ -135,7 +118,22 @@ public class ThreadAsyncExecutor implements AsyncExecutor {
         throw new IllegalStateException("Execution not completed yet");
       }
     }
-
+    
+    /**
+     * Sets the value from successful execution and executes callback if available. Notifies any thread waiting for
+     * completion.
+     *
+     * @param value value of the evaluated task
+     */
+    void setValue(T value) {
+      this.value = value;
+      this.state = COMPLETED;
+      this.callback.ifPresent(ac -> ac.onComplete(value, Optional.<Exception>empty()));
+      synchronized (lock) {
+        lock.notifyAll();
+      }
+    }
+    
     @Override
     public void await() throws InterruptedException {
       synchronized (lock) {

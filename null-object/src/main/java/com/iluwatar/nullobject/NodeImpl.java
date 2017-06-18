@@ -26,18 +26,16 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * 
  * Implementation for binary tree's normal nodes.
- *
  */
 public class NodeImpl implements Node {
-
+  
   private static final Logger LOGGER = LoggerFactory.getLogger(NodeImpl.class);
-
+  
   private final String name;
   private final Node left;
   private final Node right;
-
+  
   /**
    * Constructor
    */
@@ -46,27 +44,27 @@ public class NodeImpl implements Node {
     this.left = left;
     this.right = right;
   }
-
+  
   @Override
   public int getTreeSize() {
     return 1 + left.getTreeSize() + right.getTreeSize();
   }
-
+  
   @Override
   public Node getLeft() {
     return left;
   }
-
+  
   @Override
   public Node getRight() {
     return right;
   }
-
+  
   @Override
   public String getName() {
     return name;
   }
-
+  
   @Override
   public void walk() {
     LOGGER.info(name);

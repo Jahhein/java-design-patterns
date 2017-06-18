@@ -35,7 +35,7 @@ import java.time.LocalDateTime;
  * @author Paul Campbell (pcampbell@kemitix.net)
  */
 public class MessageCollectorMemberTest {
-
+  
   @Test
   public void collectMessageFromMessageData() {
     //given
@@ -47,7 +47,7 @@ public class MessageCollectorMemberTest {
     //then
     Assert.assertTrue(collector.getMessages().contains(message));
   }
-
+  
   @Test
   public void collectIgnoresMessageFromOtherDataTypes() {
     //given
@@ -58,5 +58,5 @@ public class MessageCollectorMemberTest {
     //then
     Assert.assertEquals(0, collector.getMessages().size());
   }
-
+  
 }

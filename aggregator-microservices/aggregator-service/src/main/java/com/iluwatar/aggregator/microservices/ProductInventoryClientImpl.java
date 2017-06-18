@@ -38,9 +38,9 @@ import java.io.IOException;
  */
 @Component
 public class ProductInventoryClientImpl implements ProductInventoryClient {
-
+  
   private static final Logger LOGGER = LoggerFactory.getLogger(ProductInventoryClientImpl.class);
-
+  
   @Override
   public int getProductInventories() {
     String response = "0";

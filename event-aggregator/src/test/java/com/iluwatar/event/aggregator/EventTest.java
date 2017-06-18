@@ -33,7 +33,7 @@ import static org.junit.Assert.assertNotNull;
  * @author Jeroen Meulemeester
  */
 public class EventTest {
-
+  
   /**
    * Verify if every event has a non-null, non-empty description
    */
@@ -45,5 +45,5 @@ public class EventTest {
       assertFalse(toString.trim().isEmpty());
     }
   }
-
+  
 }

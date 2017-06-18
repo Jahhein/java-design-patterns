@@ -28,7 +28,7 @@ package com.iluwatar.templatemethod;
  * @author Jeroen Meulemeester
  */
 public class SubtleMethodTest extends StealingMethodTest<SubtleMethod> {
-
+  
   /**
    * Create a new test for the {@link SubtleMethod}
    */
@@ -41,5 +41,5 @@ public class SubtleMethodTest extends StealingMethodTest<SubtleMethod> {
         "While in close contact grab the shop keeper's wallet."
     );
   }
-
+  
 }

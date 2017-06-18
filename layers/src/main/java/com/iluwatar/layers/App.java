@@ -25,7 +25,6 @@ package com.iluwatar.layers;
 import java.util.Arrays;
 
 /**
- * 
  * Layers is an architectural style where software responsibilities are divided among the different layers of the
  * application.
  * <p>
@@ -62,27 +61,26 @@ import java.util.Arrays;
  * @see CakeInfo
  * @see CakeToppingInfo
  * @see CakeLayerInfo
- *
  */
 public class App {
-
+  
   private static CakeBakingService cakeBakingService = new CakeBakingServiceImpl();
-
+  
   /**
    * Application entry point
-   * 
+   *
    * @param args Command line parameters
    */
   public static void main(String[] args) {
-
+    
     // initialize example data
     initializeData(cakeBakingService);
-
+    
     // create view and render it
     CakeViewImpl cakeView = new CakeViewImpl(cakeBakingService);
     cakeView.render();
   }
-
+  
   /**
    * Initializes the example data
    */
@@ -93,10 +91,10 @@ public class App {
     cakeBakingService.saveNewLayer(new CakeLayerInfo("lemon", 950));
     cakeBakingService.saveNewLayer(new CakeLayerInfo("vanilla", 950));
     cakeBakingService.saveNewLayer(new CakeLayerInfo("strawberry", 950));
-
+    
     cakeBakingService.saveNewTopping(new CakeToppingInfo("candies", 350));
     cakeBakingService.saveNewTopping(new CakeToppingInfo("cherry", 350));
-
+    
     CakeInfo cake1 =
         new CakeInfo(new CakeToppingInfo("candies", 0), Arrays.asList(new CakeLayerInfo(
             "chocolate", 0), new CakeLayerInfo("banana", 0), new CakeLayerInfo("strawberry", 0)));

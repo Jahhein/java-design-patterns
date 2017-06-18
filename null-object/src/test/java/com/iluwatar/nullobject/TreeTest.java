@@ -41,19 +41,7 @@ import static org.junit.Assert.*;
  * @author Jeroen Meulemeester
  */
 public class TreeTest {
-
-  private InMemoryAppender appender;
-
-  @Before
-  public void setUp() {
-    appender = new InMemoryAppender();
-  }
-
-  @After
-  public void tearDown() {
-    appender.stop();
-  }
-
+  
   /**
    * During the tests, the same tree structure will be used, shown below. End points will be
    * terminated with the {@link NullNode} instance.
@@ -69,7 +57,7 @@ public class TreeTest {
    * </pre>
    */
   private static final Node TREE_ROOT;
-
+  
   static {
     final NodeImpl level1B = new NodeImpl("level1_b", NullNode.getInstance(), NullNode.getInstance());
     final NodeImpl level2B = new NodeImpl("level2_b", NullNode.getInstance(), NullNode.getInstance());
@@ -79,7 +67,19 @@ public class TreeTest {
     final NodeImpl level1A = new NodeImpl("level1_a", level2A, level2B);
     TREE_ROOT = new NodeImpl("root", level1A, level1B);
   }
-
+  
+  private InMemoryAppender appender;
+  
+  @Before
+  public void setUp() {
+    appender = new InMemoryAppender();
+  }
+  
+  @After
+  public void tearDown() {
+    appender.stop();
+  }
+  
   /**
    * Verify the number of items in the tree. The root has 6 children so we expect a {@link
    * Node#getTreeSize()} of 7 {@link Node}s in total.
@@ -88,14 +88,14 @@ public class TreeTest {
   public void testTreeSize() {
     assertEquals(7, TREE_ROOT.getTreeSize());
   }
-
+  
   /**
    * Walk through the tree and verify if every item is handled
    */
   @Test
   public void testWalk() {
     TREE_ROOT.walk();
-
+    
     assertTrue(appender.logContains("root"));
     assertTrue(appender.logContains("level1_a"));
     assertTrue(appender.logContains("level2_a"));
@@ -105,19 +105,19 @@ public class TreeTest {
     assertTrue(appender.logContains("level1_b"));
     assertEquals(7, appender.getLogSize());
   }
-
+  
   @Test
   public void testGetLeft() throws Exception {
     final Node level1 = TREE_ROOT.getLeft();
     assertNotNull(level1);
     assertEquals("level1_a", level1.getName());
     assertEquals(5, level1.getTreeSize());
-
+    
     final Node level2 = level1.getLeft();
     assertNotNull(level2);
     assertEquals("level2_a", level2.getName());
     assertEquals(3, level2.getTreeSize());
-
+    
     final Node level3 = level2.getLeft();
     assertNotNull(level3);
     assertEquals("level3_a", level3.getName());
@@ -125,7 +125,7 @@ public class TreeTest {
     assertSame(NullNode.getInstance(), level3.getRight());
     assertSame(NullNode.getInstance(), level3.getLeft());
   }
-
+  
   @Test
   public void testGetRight() throws Exception {
     final Node level1 = TREE_ROOT.getRight();
@@ -135,27 +135,27 @@ public class TreeTest {
     assertSame(NullNode.getInstance(), level1.getRight());
     assertSame(NullNode.getInstance(), level1.getLeft());
   }
-
+  
   private class InMemoryAppender extends AppenderBase<ILoggingEvent> {
     private List<ILoggingEvent> log = new LinkedList<>();
-
+    
     public InMemoryAppender() {
       ((Logger) LoggerFactory.getLogger("root")).addAppender(this);
       start();
     }
-
+    
     @Override
     protected void append(ILoggingEvent eventObject) {
       log.add(eventObject);
     }
-
+    
     public boolean logContains(String message) {
       return log.stream().anyMatch(event -> event.getMessage().equals(message));
     }
-
+    
     public int getLogSize() {
       return log.size();
     }
   }
-
+  
 }

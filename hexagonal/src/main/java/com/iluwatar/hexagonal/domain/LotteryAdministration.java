@@ -30,16 +30,14 @@ import com.iluwatar.hexagonal.eventlog.LotteryEventLog;
 import java.util.Map;
 
 /**
- * 
  * Lottery administration implementation
- *
  */
 public class LotteryAdministration {
-
+  
   private final LotteryTicketRepository repository;
   private final LotteryEventLog notifications;
   private final WireTransfers wireTransfers;
-
+  
   /**
    * Constructor
    */
@@ -50,14 +48,14 @@ public class LotteryAdministration {
     this.notifications = notifications;
     this.wireTransfers = wireTransfers;
   }
-
+  
   /**
    * Get all the lottery tickets submitted for lottery
    */
   public Map<LotteryTicketId, LotteryTicket> getAllSubmittedTickets() {
     return repository.findAll();
   }
-
+  
   /**
    * Draw lottery numbers
    */
@@ -80,7 +78,7 @@ public class LotteryAdministration {
     }
     return numbers;
   }
-
+  
   /**
    * Begin new lottery round
    */

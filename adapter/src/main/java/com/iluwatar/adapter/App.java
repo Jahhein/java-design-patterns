@@ -43,10 +43,9 @@ package com.iluwatar.adapter;
  * captain. We have no time to make up a new ship! we need to reuse this {@link FishingBoat}. The
  * captain needs a battleship which can fire and move. The spec is in {@link BattleShip}. We will
  * use the Adapter pattern to reuse {@link FishingBoat}.
- *
  */
 public class App {
-
+  
   /**
    * Program entry point.
    *

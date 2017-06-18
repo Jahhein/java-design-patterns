@@ -31,7 +31,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 public class InventoryController {
-
+  
   /**
    * Endpoint to retrieve a product's inventories.
    *
@@ -41,5 +41,5 @@ public class InventoryController {
   public int getProductInventories() {
     return 5;
   }
-
+  
 }

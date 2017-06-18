@@ -33,14 +33,14 @@ import static org.junit.Assert.assertNull;
  * @author Jeroen Meulemeester
  */
 public class CakeBakingExceptionTest {
-
+  
   @Test
   public void testConstructor() throws Exception {
     final CakeBakingException exception = new CakeBakingException();
     assertNull(exception.getMessage());
     assertNull(exception.getCause());
   }
-
+  
   @Test
   public void testConstructorWithMessage() throws Exception {
     final String expectedMessage = "message";
@@ -48,5 +48,5 @@ public class CakeBakingExceptionTest {
     assertEquals(expectedMessage, exception.getMessage());
     assertNull(exception.getCause());
   }
-
+  
 }

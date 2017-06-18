@@ -33,9 +33,9 @@ import org.slf4j.LoggerFactory;
  * @see Printer
  */
 public class HpPrinter implements Printer {
-
+  
   private static final Logger LOGGER = LoggerFactory.getLogger(HpPrinter.class);
-
+  
   /**
    * {@inheritDoc}
    */
@@ -43,5 +43,5 @@ public class HpPrinter implements Printer {
   public void print(String message) {
     LOGGER.info("HP Printer : {}", message);
   }
-
+  
 }

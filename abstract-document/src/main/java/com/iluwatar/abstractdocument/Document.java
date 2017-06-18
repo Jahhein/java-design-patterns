@@ -30,7 +30,7 @@ import java.util.stream.Stream;
  * Document interface
  */
 public interface Document {
-
+  
   /**
    * Puts the value related to the key
    *
@@ -39,7 +39,7 @@ public interface Document {
    * @return Void
    */
   Void put(String key, Object value);
-
+  
   /**
    * Gets the value for the key
    *
@@ -47,7 +47,7 @@ public interface Document {
    * @return value or null
    */
   Object get(String key);
-
+  
   /**
    * Gets the stream of child documents
    *

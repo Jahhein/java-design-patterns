@@ -23,13 +23,15 @@
 package com.iluwatar.mutex;
 
 import org.junit.Test;
-import static org.junit.Assert.*;
+
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Test case for taking beans from a Jar
  */
 public class JarTest {
-
+  
   @Test
   public void testTakeBeans() {
     Mutex mutex = new Mutex();
@@ -39,5 +41,5 @@ public class JarTest {
     }
     assertFalse(jar.takeBean());
   }
-
+  
 }

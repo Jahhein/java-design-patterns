@@ -32,7 +32,7 @@ import static org.junit.Assert.assertEquals;
  * @author Jeroen Meulemeester
  */
 public class RainbowFishTest {
-
+  
   /**
    * Verify if the getters of a {@link RainbowFish} return the expected values
    */
@@ -44,5 +44,5 @@ public class RainbowFishTest {
     assertEquals(2, fish.getLengthMeters());
     assertEquals(3, fish.getWeightTons());
   }
-
+  
 }

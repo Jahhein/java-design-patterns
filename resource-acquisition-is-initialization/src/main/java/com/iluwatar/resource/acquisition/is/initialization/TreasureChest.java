@@ -29,18 +29,16 @@ import java.io.Closeable;
 import java.io.IOException;
 
 /**
- * 
  * TreasureChest resource
- *
  */
 public class TreasureChest implements Closeable {
-
+  
   private static final Logger LOGGER = LoggerFactory.getLogger(TreasureChest.class);
-
+  
   public TreasureChest() {
     LOGGER.info("Treasure chest opens.");
   }
-
+  
   @Override
   public void close() throws IOException {
     LOGGER.info("Treasure chest closes.");

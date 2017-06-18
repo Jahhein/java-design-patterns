@@ -29,31 +29,29 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 
  * Weather can be observed by implementing {@link WeatherObserver} interface and registering as
  * listener.
- * 
  */
 public class Weather {
-
+  
   private static final Logger LOGGER = LoggerFactory.getLogger(Weather.class);
-
+  
   private WeatherType currentWeather;
   private List<WeatherObserver> observers;
-
+  
   public Weather() {
     observers = new ArrayList<>();
     currentWeather = WeatherType.SUNNY;
   }
-
+  
   public void addObserver(WeatherObserver obs) {
     observers.add(obs);
   }
-
+  
   public void removeObserver(WeatherObserver obs) {
     observers.remove(obs);
   }
-
+  
   /**
    * Makes time pass for weather
    */
@@ -63,7 +61,7 @@ public class Weather {
     LOGGER.info("The weather changed to {}.", currentWeather);
     notifyObservers();
   }
-
+  
   private void notifyObservers() {
     for (WeatherObserver obs : observers) {
       obs.update(currentWeather);

@@ -33,9 +33,9 @@ import org.slf4j.LoggerFactory;
  * @see Printer
  */
 public class CanonPrinter implements Printer {
-
+  
   private static final Logger LOGGER = LoggerFactory.getLogger(CanonPrinter.class);
-
+  
   /**
    * {@inheritDoc}
    */
@@ -43,5 +43,5 @@ public class CanonPrinter implements Printer {
   public void print(String message) {
     LOGGER.info("Canon Printer : {}", message);
   }
-
+  
 }

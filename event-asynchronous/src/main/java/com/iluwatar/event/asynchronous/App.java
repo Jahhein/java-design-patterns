@@ -25,7 +25,6 @@ import java.util.Properties;
 import java.util.Scanner;
 
 /**
- *
  * This application demonstrates the <b>Event-based Asynchronous</b> pattern. Essentially, users (of the pattern) may
  * choose to run events in an Asynchronous or Synchronous mode. There can be multiple Asynchronous events running at
  * once but only one Synchronous event can run at a time. Asynchronous events are synonymous to multi-threads. The key
@@ -47,16 +46,13 @@ import java.util.Scanner;
  *
  * @see EventManager
  * @see Event
- *
  */
 public class App {
-
-  private static final Logger LOGGER = LoggerFactory.getLogger(App.class);
-
+  
   public static final String PROP_FILE_NAME = "config.properties";
-
+  private static final Logger LOGGER = LoggerFactory.getLogger(App.class);
   boolean interactiveMode = false;
-
+  
   /**
    * Program entry point.
    *
@@ -64,20 +60,20 @@ public class App {
    */
   public static void main(String[] args) {
     App app = new App();
-
+    
     app.setUp();
     app.run();
   }
-
+  
   /**
    * App can run in interactive mode or not. Interactive mode == Allow user interaction with command line.
    * Non-interactive is a quick sequential run through the available {@link EventManager} operations.
    */
   public void setUp() {
     Properties prop = new Properties();
-
+    
     InputStream inputStream = App.class.getClassLoader().getResourceAsStream(PROP_FILE_NAME);
-
+    
     if (inputStream != null) {
       try {
         prop.load(inputStream);
@@ -90,7 +86,7 @@ public class App {
       }
     }
   }
-
+  
   /**
    * Run program in either interactive mode or not.
    */
@@ -101,46 +97,46 @@ public class App {
       quickRun();
     }
   }
-
+  
   /**
    * Run program in non-interactive mode.
    */
   public void quickRun() {
     EventManager eventManager = new EventManager();
-
+    
     try {
       // Create an Asynchronous event.
       int aEventId = eventManager.createAsync(60);
       LOGGER.info("Async Event [{}] has been created.", aEventId);
       eventManager.start(aEventId);
       LOGGER.info("Async Event [{}] has been started.", aEventId);
-
+      
       // Create a Synchronous event.
       int sEventId = eventManager.create(60);
       LOGGER.info("Sync Event [{}] has been created.", sEventId);
       eventManager.start(sEventId);
       LOGGER.info("Sync Event [{}] has been started.", sEventId);
-
+      
       eventManager.status(aEventId);
       eventManager.status(sEventId);
-
+      
       eventManager.cancel(aEventId);
       LOGGER.info("Async Event [{}] has been stopped.", aEventId);
       eventManager.cancel(sEventId);
       LOGGER.info("Sync Event [{}] has been stopped.", sEventId);
-
+      
     } catch (MaxNumOfEventsAllowedException | LongRunningEventException | EventDoesNotExistException
         | InvalidOperationException e) {
       LOGGER.error(e.getMessage());
     }
   }
-
+  
   /**
    * Run program in interactive mode.
    */
   public void runInteractiveMode() {
     EventManager eventManager = new EventManager();
-
+    
     Scanner s = new Scanner(System.in);
     int option = -1;
     while (option != 4) {
@@ -148,7 +144,7 @@ public class App {
       LOGGER.info("(1) BOIL AN EGG \n(2) STOP BOILING THIS EGG \n(3) HOW ARE MY EGGS? \n(4) EXIT");
       LOGGER.info("Choose [1,2,3,4]: ");
       option = s.nextInt();
-
+      
       if (option == 1) {
         s.nextLine();
         LOGGER.info("Boil multiple eggs at once (A) or boil them one-by-one (S)?: ");
@@ -188,7 +184,7 @@ public class App {
         s.nextLine();
         LOGGER.info("Just one egg (O) OR all of them (A) ?: ");
         String eggChoice = s.nextLine();
-
+        
         if (eggChoice.equalsIgnoreCase("O")) {
           LOGGER.info("Which egg?: ");
           int eventId = s.nextInt();
@@ -204,8 +200,8 @@ public class App {
         eventManager.shutdown();
       }
     }
-
+    
     s.close();
   }
-
+  
 }

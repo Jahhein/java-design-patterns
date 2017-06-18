@@ -50,7 +50,7 @@
 <module name="Checker">
     <property name="charset" value="UTF-8"/>
 
-	<property name="fileExtensions" value="java, xml, properties"/>
+    <property name="fileExtensions" value="java, xml, properties"/>
 
     <property name="severity" value="error"/>
 
@@ -75,7 +75,8 @@
         </module>
         <module name="LineLength">
             <property name="max" value="120"/>
-            <property name="ignorePattern" value="^package.*|^import.*|a href|href|http://|https://|ftp://"/>
+            <property name="ignorePattern"
+                      value="^package.*|^import.*|a href|href|http://|https://|ftp://"/>
         </module>
         <module name="OneTopLevelClass"/>
         <module name="NoLineWrap"/>
@@ -163,7 +164,8 @@
                       value="BAND, BOR, BSR, BXOR, DIV, EQUAL, GE, GT, LAND, LE, LITERAL_INSTANCEOF, LOR, LT, MINUS, MOD, NOT_EQUAL, PLUS, QUESTION, SL, SR, STAR "/>
         </module>
         <module name="AnnotationLocation">
-            <property name="tokens" value="CLASS_DEF, INTERFACE_DEF, ENUM_DEF, METHOD_DEF, CTOR_DEF"/>
+            <property name="tokens"
+                      value="CLASS_DEF, INTERFACE_DEF, ENUM_DEF, METHOD_DEF, CTOR_DEF"/>
         </module>
         <module name="AnnotationLocation">
             <property name="tokens" value="VARIABLE_DEF"/>
@@ -173,7 +175,8 @@
         <module name="JavadocTagContinuationIndentation"/>
         <module name="AtclauseOrder">
             <property name="tagOrder" value="@param, @return, @throws, @deprecated"/>
-            <property name="target" value="CLASS_DEF, INTERFACE_DEF, ENUM_DEF, METHOD_DEF, CTOR_DEF, VARIABLE_DEF"/>
+            <property name="target"
+                      value="CLASS_DEF, INTERFACE_DEF, ENUM_DEF, METHOD_DEF, CTOR_DEF, VARIABLE_DEF"/>
         </module>
         <module name="JavadocMethod">
             <property name="scope" value="public"/>
@@ -181,7 +184,8 @@
             <property name="allowMissingThrowsTags" value="true"/>
             <property name="allowMissingReturnTag" value="true"/>
             <property name="minLineCount" value="2"/>
-            <property name="allowedAnnotations" value="Override, Test, Before, After, Parameters, Given, When, BeforeClass, AfterClass, Parameterized"/>
+            <property name="allowedAnnotations"
+                      value="Override, Test, Before, After, Parameters, Given, When, BeforeClass, AfterClass, Parameterized"/>
             <property name="allowThrowsTagsForSubclasses" value="true"/>
         </module>
         <module name="JavadocType">

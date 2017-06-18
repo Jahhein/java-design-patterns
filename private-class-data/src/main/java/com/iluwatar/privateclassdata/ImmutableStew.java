@@ -26,20 +26,18 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * 
  * Immutable stew class, protected with Private Class Data pattern
- *
  */
 public class ImmutableStew {
-
+  
   private static final Logger LOGGER = LoggerFactory.getLogger(ImmutableStew.class);
-
+  
   private StewData data;
-
+  
   public ImmutableStew(int numPotatoes, int numCarrots, int numMeat, int numPeppers) {
     data = new StewData(numPotatoes, numCarrots, numMeat, numPeppers);
   }
-
+  
   /**
    * Mix the stew
    */

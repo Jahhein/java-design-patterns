@@ -25,12 +25,10 @@ package com.iluwatar.composite;
 import java.util.List;
 
 /**
- *
  * Sentence
- *
  */
 public class Sentence extends LetterComposite {
-
+  
   /**
    * Constructor
    */
@@ -39,12 +37,12 @@ public class Sentence extends LetterComposite {
       this.add(w);
     }
   }
-
+  
   @Override
   protected void printThisBefore() {
     // nop
   }
-
+  
   @Override
   protected void printThisAfter() {
     System.out.print(".");

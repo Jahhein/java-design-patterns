@@ -25,7 +25,6 @@ package com.iluwatar.servicelayer.hibernate;
 import com.iluwatar.servicelayer.spell.Spell;
 import com.iluwatar.servicelayer.spellbook.Spellbook;
 import com.iluwatar.servicelayer.wizard.Wizard;
-
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.slf4j.Logger;
@@ -35,17 +34,17 @@ import org.slf4j.LoggerFactory;
  * Produces the Hibernate {@link SessionFactory}.
  */
 public final class HibernateUtil {
-
+  
   private static final Logger LOGGER = LoggerFactory.getLogger(HibernateUtil.class);
-
+  
   /**
    * The cached session factory
    */
   private static volatile SessionFactory sessionFactory;
-
+  
   private HibernateUtil() {
   }
-
+  
   /**
    * Create the current session factory instance, create a new one when there is none yet.
    *
@@ -69,7 +68,7 @@ public final class HibernateUtil {
     }
     return sessionFactory;
   }
-
+  
   /**
    * Drop the current connection, resulting in a create-drop clean database next time. This is
    * mainly used for JUnit testing since one test should not influence the other
@@ -78,5 +77,5 @@ public final class HibernateUtil {
     getSessionFactory().close();
     sessionFactory = null;
   }
-
+  
 }

@@ -49,22 +49,13 @@ import static org.mockito.Mockito.verify;
  */
 @RunWith(Parameterized.class)
 public class PartyMemberTest {
-
-  @Parameterized.Parameters
-  public static Collection<Supplier<PartyMember>[]> data() {
-    return Arrays.asList(
-            new Supplier[]{Hobbit::new},
-            new Supplier[]{Hunter::new},
-            new Supplier[]{Rogue::new},
-            new Supplier[]{Wizard::new}
-    );
-  }
-
+  
   /**
    * The factory, used to create a new instance of the tested party member
    */
   private final Supplier<PartyMember> memberSupplier;
-
+  private InMemoryAppender appender;
+  
   /**
    * Create a new test instance, using the given {@link PartyMember} factory
    *
@@ -73,57 +64,65 @@ public class PartyMemberTest {
   public PartyMemberTest(final Supplier<PartyMember> memberSupplier) {
     this.memberSupplier = memberSupplier;
   }
-
-  private InMemoryAppender appender;
-
+  
+  @Parameterized.Parameters
+  public static Collection<Supplier<PartyMember>[]> data() {
+    return Arrays.asList(
+        new Supplier[] {Hobbit::new},
+        new Supplier[] {Hunter::new},
+        new Supplier[] {Rogue::new},
+        new Supplier[] {Wizard::new}
+    );
+  }
+  
   @Before
   public void setUp() {
     appender = new InMemoryAppender(PartyMemberBase.class);
   }
-
+  
   @After
   public void tearDown() {
     appender.stop();
   }
-
+  
   /**
    * Verify if a party action triggers the correct output to the std-Out
    */
   @Test
   public void testPartyAction() {
     final PartyMember member = this.memberSupplier.get();
-
+    
     for (final Action action : Action.values()) {
       member.partyAction(action);
       assertEquals(member.toString() + " " + action.getDescription(), appender.getLastMessage());
     }
-
+    
     assertEquals(Action.values().length, appender.getLogSize());
   }
-
+  
   /**
    * Verify if a member action triggers the expected interactions with the party class
    */
   @Test
   public void testAct() {
     final PartyMember member = this.memberSupplier.get();
-
+    
     member.act(Action.GOLD);
     assertEquals(0, appender.getLogSize());
-
+    
     final Party party = mock(Party.class);
     member.joinedParty(party);
     assertEquals(member.toString() + " joins the party", appender.getLastMessage());
-
+    
     for (final Action action : Action.values()) {
       member.act(action);
       assertEquals(member.toString() + " " + action.toString(), appender.getLastMessage());
       verify(party).act(member, action);
     }
-
+    
     assertEquals(Action.values().length + 1, appender.getLogSize());
   }
-
+  
   /**
    * Verify if {@link PartyMember#toString()} generate the expected output
    */
@@ -133,28 +132,28 @@ public class PartyMemberTest {
     final Class<? extends PartyMember> memberClass = member.getClass();
     assertEquals(memberClass.getSimpleName(), member.toString());
   }
-
+  
   private class InMemoryAppender extends AppenderBase<ILoggingEvent> {
     private List<ILoggingEvent> log = new LinkedList<>();
-
+    
     public InMemoryAppender(Class clazz) {
       ((Logger) LoggerFactory.getLogger(clazz)).addAppender(this);
       start();
     }
-
+    
     @Override
     protected void append(ILoggingEvent eventObject) {
       log.add(eventObject);
     }
-
+    
     public int getLogSize() {
       return log.size();
     }
-
+    
     public String getLastMessage() {
       return log.get(log.size() - 1).getFormattedMessage();
     }
   }
-
-
+  
+  
 }

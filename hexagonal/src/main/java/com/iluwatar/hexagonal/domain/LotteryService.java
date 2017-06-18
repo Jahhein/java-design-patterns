@@ -30,16 +30,14 @@ import com.iluwatar.hexagonal.eventlog.LotteryEventLog;
 import java.util.Optional;
 
 /**
- * 
  * Implementation for lottery service
- *
  */
 public class LotteryService {
-
+  
   private final LotteryTicketRepository repository;
   private final LotteryEventLog notifications;
   private final WireTransfers wireTransfers;
-
+  
   /**
    * Constructor
    */
@@ -50,7 +48,7 @@ public class LotteryService {
     this.notifications = notifications;
     this.wireTransfers = wireTransfers;
   }
-
+  
   /**
    * Submit lottery ticket to participate in the lottery
    */
@@ -67,7 +65,7 @@ public class LotteryService {
     }
     return optional;
   }
-
+  
   /**
    * Check if lottery ticket has won
    */

@@ -34,7 +34,7 @@ import static org.mockito.Mockito.*;
  * @author Jeroen Meulemeester
  */
 public class LoadBalancerTest {
-
+  
   @Test
   public void testSameStateAmongstAllInstances() {
     final LoadBalancer firstBalancer = new LoadBalancer();
@@ -45,27 +45,27 @@ public class LoadBalancerTest {
     // Both Should have the same LastServedId
     Assert.assertTrue(firstBalancer.getLastServedId() == secondBalancer.getLastServedId());
   }
-
+  
   @Test
   public void testServe() {
     final Server server = mock(Server.class);
     when(server.getHost()).thenReturn("testhost");
     when(server.getPort()).thenReturn(1234);
     doNothing().when(server).serve(any(Request.class));
-
+    
     final LoadBalancer loadBalancer = new LoadBalancer();
     loadBalancer.addServer(server);
-
+    
     verifyZeroInteractions(server);
-
+    
     final Request request = new Request("test");
     for (int i = 0; i < loadBalancer.getNoOfServers() * 2; i++) {
       loadBalancer.serverRequest(request);
     }
-
+    
     verify(server, times(2)).serve(request);
     verifyNoMoreInteractions(server);
-
+    
   }
-
+  
 }

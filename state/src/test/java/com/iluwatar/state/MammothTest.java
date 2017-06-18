@@ -42,19 +42,19 @@ import static org.junit.Assert.assertNotNull;
  * @author Jeroen Meulemeester
  */
 public class MammothTest {
-
+  
   private InMemoryAppender appender;
-
+  
   @Before
   public void setUp() {
     appender = new InMemoryAppender();
   }
-
+  
   @After
   public void tearDown() {
     appender.stop();
   }
-
+  
   /**
    * Switch to a complete mammoth 'mood'-cycle and verify if the observed mood matches the expected
    * value.
@@ -62,29 +62,29 @@ public class MammothTest {
   @Test
   public void testTimePasses() {
     final Mammoth mammoth = new Mammoth();
-
+    
     mammoth.observe();
     assertEquals("The mammoth is calm and peaceful.", appender.getLastMessage());
-    assertEquals(1 , appender.getLogSize());
-
+    assertEquals(1, appender.getLogSize());
+    
     mammoth.timePasses();
     assertEquals("The mammoth gets angry!", appender.getLastMessage());
-    assertEquals(2 , appender.getLogSize());
-
+    assertEquals(2, appender.getLogSize());
+    
     mammoth.observe();
     assertEquals("The mammoth is furious!", appender.getLastMessage());
-    assertEquals(3 , appender.getLogSize());
-
+    assertEquals(3, appender.getLogSize());
+    
     mammoth.timePasses();
     assertEquals("The mammoth calms down.", appender.getLastMessage());
-    assertEquals(4 , appender.getLogSize());
-
+    assertEquals(4, appender.getLogSize());
+    
     mammoth.observe();
     assertEquals("The mammoth is calm and peaceful.", appender.getLastMessage());
-    assertEquals(5 , appender.getLogSize());
-
+    assertEquals(5, appender.getLogSize());
+    
   }
-
+  
   /**
    * Verify if {@link Mammoth#toString()} gives the expected value
    */
@@ -94,27 +94,27 @@ public class MammothTest {
     assertNotNull(toString);
     assertEquals("The mammoth", toString);
   }
-
+  
   private class InMemoryAppender extends AppenderBase<ILoggingEvent> {
     private List<ILoggingEvent> log = new LinkedList<>();
-
+    
     public InMemoryAppender() {
       ((Logger) LoggerFactory.getLogger("root")).addAppender(this);
       start();
     }
-
+    
     @Override
     protected void append(ILoggingEvent eventObject) {
       log.add(eventObject);
     }
-
+    
     public int getLogSize() {
       return log.size();
     }
-
+    
     public String getLastMessage() {
       return log.get(log.size() - 1).getFormattedMessage();
     }
   }
-
+  
 }

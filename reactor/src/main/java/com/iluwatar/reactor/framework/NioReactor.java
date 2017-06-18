@@ -44,20 +44,20 @@ import java.util.concurrent.TimeUnit;
  * Whenever an event occurs on any of the registered handles, it synchronously de-multiplexes the event which can be any
  * of read, write or accept, and dispatches the event to the appropriate {@link ChannelHandler} using the
  * {@link Dispatcher}.
- * 
+ *
  * <p>
  * Implementation: A NIO reactor runs in its own thread when it is started using {@link #start()} method.
  * {@link NioReactor} uses {@link Selector} for realizing Synchronous Event De-multiplexing.
- * 
+ *
  * <p>
  * NOTE: This is one of the ways to implement NIO reactor and it does not take care of all possible edge cases which are
  * required in a real application. This implementation is meant to demonstrate the fundamental concepts that lie behind
  * Reactor pattern.
  */
 public class NioReactor {
-
+  
   private static final Logger LOGGER = LoggerFactory.getLogger(NioReactor.class);
-
+  
   private final Selector selector;
   private final Dispatcher dispatcher;
   /**
@@ -67,26 +67,28 @@ public class NioReactor {
    */
   private final Queue<Runnable> pendingCommands = new ConcurrentLinkedQueue<>();
   private final ExecutorService reactorMain = Executors.newSingleThreadExecutor();
-
+  
   /**
    * Creates a reactor which will use provided {@code dispatcher} to dispatch events. The application can provide
    * various implementations of dispatcher which suits its needs.
-   * 
-   * @param dispatcher
-   *          a non-null dispatcher used to dispatch events on registered channels.
-   * @throws IOException
-   *           if any I/O error occurs.
+   *
+   * @param dispatcher a non-null dispatcher used to dispatch events on registered channels.
+   * @throws IOException if any I/O error occurs.
    */
   public NioReactor(Dispatcher dispatcher) throws IOException {
     this.dispatcher = dispatcher;
     this.selector = Selector.open();
   }
-
+  
+  private static void onChannelWritable(SelectionKey key) throws IOException {
+    AbstractNioChannel channel = (AbstractNioChannel) key.attachment();
+    channel.flush(key);
+  }
+  
   /**
    * Starts the reactor event loop in a new thread.
-   * 
-   * @throws IOException
-   *           if any I/O error occurs.
+   *
+   * @throws IOException if any I/O error occurs.
    */
   public void start() throws IOException {
     reactorMain.execute(() -> {
@@ -98,14 +100,12 @@ public class NioReactor {
       }
     });
   }
-
+  
   /**
    * Stops the reactor and related resources such as dispatcher.
-   * 
-   * @throws InterruptedException
-   *           if interrupted while stopping the reactor.
-   * @throws IOException
-   *           if any I/O error occurs.
+   *
+   * @throws InterruptedException if interrupted while stopping the reactor.
+   * @throws IOException          if any I/O error occurs.
    */
   public void stop() throws InterruptedException, IOException {
     reactorMain.shutdownNow();
@@ -113,17 +113,15 @@ public class NioReactor {
     reactorMain.awaitTermination(4, TimeUnit.SECONDS);
     selector.close();
   }
-
+  
   /**
    * Registers a new channel (handle) with this reactor. Reactor will start waiting for events on this channel and
    * notify of any events. While registering the channel the reactor uses {@link AbstractNioChannel#getInterestedOps()}
    * to know about the interested operation of this channel.
-   * 
-   * @param channel
-   *          a new channel on which reactor will wait for events. The channel must be bound prior to being registered.
+   *
+   * @param channel a new channel on which reactor will wait for events. The channel must be bound prior to being registered.
    * @return this
-   * @throws IOException
-   *           if any I/O error occurs.
+   * @throws IOException if any I/O error occurs.
    */
   public NioReactor registerChannel(AbstractNioChannel channel) throws IOException {
     SelectionKey key = channel.getJavaChannel().register(selector, channel.getInterestedOps());
@@ -131,15 +129,15 @@ public class NioReactor {
     channel.setReactor(this);
     return this;
   }
-
+  
   private void eventLoop() throws IOException {
     while (true) {
-
+      
       // honor interrupt request
       if (Thread.interrupted()) {
         break;
       }
-
+      
       // honor any pending commands first
       processPendingCommands();
 
@@ -153,9 +151,9 @@ public class NioReactor {
        * Represents the events that have occurred on registered handles.
        */
       Set<SelectionKey> keys = selector.selectedKeys();
-
+      
       Iterator<SelectionKey> iterator = keys.iterator();
-
+      
       while (iterator.hasNext()) {
         SelectionKey key = iterator.next();
         if (!key.isValid()) {
@@ -167,7 +165,7 @@ public class NioReactor {
       keys.clear();
     }
   }
-
+  
   private void processPendingCommands() {
     Iterator<Runnable> iterator = pendingCommands.iterator();
     while (iterator.hasNext()) {
@@ -176,7 +174,7 @@ public class NioReactor {
       iterator.remove();
     }
   }
-
+  
   /*
    * Initiation dispatcher logic, it checks the type of event and notifier application specific event handler to handle
    * the event.
@@ -190,17 +188,12 @@ public class NioReactor {
       onChannelWritable(key);
     }
   }
-
-  private static void onChannelWritable(SelectionKey key) throws IOException {
-    AbstractNioChannel channel = (AbstractNioChannel) key.attachment();
-    channel.flush(key);
-  }
-
+  
   private void onChannelReadable(SelectionKey key) {
     try {
       // reads the incoming data in context of reactor main loop. Can this be improved?
       Object readObject = ((AbstractNioChannel) key.attachment()).read(key);
-
+      
       dispatchReadEvent(key, readObject);
     } catch (IOException e) {
       try {
@@ -210,14 +203,14 @@ public class NioReactor {
       }
     }
   }
-
+  
   /*
    * Uses the application provided dispatcher to dispatch events to application handler.
    */
   private void dispatchReadEvent(SelectionKey key, Object readObject) {
     dispatcher.onChannelReadEvent((AbstractNioChannel) key.attachment(), readObject, key);
   }
-
+  
   private void onChannelAcceptable(SelectionKey key) throws IOException {
     ServerSocketChannel serverSocketChannel = (ServerSocketChannel) key.channel();
     SocketChannel socketChannel = serverSocketChannel.accept();
@@ -225,39 +218,37 @@ public class NioReactor {
     SelectionKey readKey = socketChannel.register(selector, SelectionKey.OP_READ);
     readKey.attach(key.attachment());
   }
-
+  
   /**
    * Queues the change of operations request of a channel, which will change the interested operations of the channel
    * sometime in future.
    * <p>
    * This is a non-blocking method and does not guarantee that the operations have changed when this method returns.
-   * 
-   * @param key
-   *          the key for which operations have to be changed.
-   * @param interestedOps
-   *          the new interest operations.
+   *
+   * @param key           the key for which operations have to be changed.
+   * @param interestedOps the new interest operations.
    */
   public void changeOps(SelectionKey key, int interestedOps) {
     pendingCommands.add(new ChangeKeyOpsCommand(key, interestedOps));
     selector.wakeup();
   }
-
+  
   /**
    * A command that changes the interested operations of the key provided.
    */
   class ChangeKeyOpsCommand implements Runnable {
     private SelectionKey key;
     private int interestedOps;
-
+    
     public ChangeKeyOpsCommand(SelectionKey key, int interestedOps) {
       this.key = key;
       this.interestedOps = interestedOps;
     }
-
+    
     public void run() {
       key.interestOps(interestedOps);
     }
-
+    
     @Override
     public String toString() {
       return "Change of ops to: " + interestedOps;

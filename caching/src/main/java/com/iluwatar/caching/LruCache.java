@@ -31,39 +31,23 @@ import java.util.List;
 import java.util.Map;
 
 /**
- *
  * Data structure/implementation of the application's cache. The data structure consists of a hash
  * table attached with a doubly linked-list. The linked-list helps in capturing and maintaining the
  * LRU data in the cache. When a data is queried (from the cache), added (to the cache), or updated,
  * the data is moved to the front of the list to depict itself as the most-recently-used data. The
  * LRU data is always at the end of the list.
- *
  */
 public class LruCache {
-
+  
   private static final Logger LOGGER = LoggerFactory.getLogger(LruCache.class);
-
-  class Node {
-    String userId;
-    UserAccount userAccount;
-    Node previous;
-    Node next;
-
-    public Node(String userId, UserAccount userAccount) {
-      this.userId = userId;
-      this.userAccount = userAccount;
-    }
-  }
-
   int capacity;
   Map<String, Node> cache = new HashMap<>();
   Node head;
   Node end;
-
   public LruCache(int capacity) {
     this.capacity = capacity;
   }
-
+  
   /**
    * Get user account
    */
@@ -76,7 +60,7 @@ public class LruCache {
     }
     return null;
   }
-
+  
   /**
    * Remove node from linked list.
    */
@@ -92,7 +76,7 @@ public class LruCache {
       end = node.previous;
     }
   }
-
+  
   /**
    * Move node to the front of the list.
    */
@@ -107,7 +91,7 @@ public class LruCache {
       end = head;
     }
   }
-
+  
   /**
    * Set user account
    */
@@ -130,11 +114,11 @@ public class LruCache {
       cache.put(userId, newNode);
     }
   }
-
+  
   public boolean contains(String userId) {
     return cache.containsKey(userId);
   }
-
+  
   /**
    * Invalidate cache for user
    */
@@ -145,15 +129,15 @@ public class LruCache {
       remove(toBeRemoved);
     }
   }
-
+  
   public boolean isFull() {
     return cache.size() >= capacity;
   }
-
+  
   public UserAccount getLruData() {
     return end.userAccount;
   }
-
+  
   /**
    * Clear cache
    */
@@ -162,7 +146,7 @@ public class LruCache {
     end = null;
     cache.clear();
   }
-
+  
   /**
    * Returns cache data in list form.
    */
@@ -175,16 +159,28 @@ public class LruCache {
     }
     return listOfCacheData;
   }
-
+  
   /**
    * Set cache capacity
    */
   public void setCapacity(int newCapacity) {
     if (capacity > newCapacity) {
       clear(); // Behavior can be modified to accommodate for decrease in cache size. For now, we'll
-               // just clear the cache.
+      // just clear the cache.
     } else {
       this.capacity = newCapacity;
+    }
+  }
+  
+  class Node {
+    String userId;
+    UserAccount userAccount;
+    Node previous;
+    Node next;
+    
+    public Node(String userId, UserAccount userAccount) {
+      this.userId = userId;
+      this.userAccount = userAccount;
     }
   }
 }

@@ -42,38 +42,17 @@ import static org.junit.Assert.assertEquals;
  */
 @RunWith(Parameterized.class)
 public class CommandTest {
-
-  private InMemoryAppender appender;
-
-  @Before
-  public void setUp() {
-    appender = new InMemoryAppender();
-  }
-
-  @After
-  public void tearDown() {
-    appender.stop();
-  }
-
-  @Parameters
-  public static List<Object[]> data() {
-    final List<Object[]> parameters = new ArrayList<>();
-    parameters.add(new Object[]{"Archer", "Displaying archers"});
-    parameters.add(new Object[]{"Catapult", "Displaying catapults"});
-    parameters.add(new Object[]{"NonExistentCommand", "Error 500"});
-    return parameters;
-  }
-
+  
   /**
    * The view that's been tested
    */
   private final String request;
-
   /**
    * The expected display message
    */
   private final String displayMessage;
-
+  private InMemoryAppender appender;
+  
   /**
    * Create a new instance of the {@link CommandTest} with the given view and expected message
    *
@@ -84,7 +63,26 @@ public class CommandTest {
     this.displayMessage = displayMessage;
     this.request = request;
   }
-
+  
+  @Parameters
+  public static List<Object[]> data() {
+    final List<Object[]> parameters = new ArrayList<>();
+    parameters.add(new Object[] {"Archer", "Displaying archers"});
+    parameters.add(new Object[] {"Catapult", "Displaying catapults"});
+    parameters.add(new Object[] {"NonExistentCommand", "Error 500"});
+    return parameters;
+  }
+  
+  @Before
+  public void setUp() {
+    appender = new InMemoryAppender();
+  }
+  
+  @After
+  public void tearDown() {
+    appender.stop();
+  }
+  
   @Test
   public void testDisplay() {
     final FrontController frontController = new FrontController();
@@ -93,5 +91,5 @@ public class CommandTest {
     assertEquals(displayMessage, appender.getLastMessage());
     assertEquals(1, appender.getLogSize());
   }
-
+  
 }

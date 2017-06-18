@@ -33,12 +33,12 @@ import static org.junit.Assert.assertFalse;
  * @author Jeroen Meulemeester
  */
 public class MeteoroidTest extends CollisionTest<Meteoroid> {
-
+  
   @Override
   final Meteoroid getTestedObject() {
     return new Meteoroid(1, 2, 3, 4);
   }
-
+  
   /**
    * Test the constructor parameters
    */
@@ -53,7 +53,7 @@ public class MeteoroidTest extends CollisionTest<Meteoroid> {
     assertFalse(meteoroid.isDamaged());
     assertEquals("Meteoroid at [1,2,3,4] damaged=false onFire=false", meteoroid.toString());
   }
-
+  
   /**
    * Test what happens we collide with an asteroid
    */
@@ -66,7 +66,7 @@ public class MeteoroidTest extends CollisionTest<Meteoroid> {
         "Meteoroid hits FlamingAsteroid."
     );
   }
-
+  
   /**
    * Test what happens we collide with an meteoroid
    */
@@ -79,7 +79,7 @@ public class MeteoroidTest extends CollisionTest<Meteoroid> {
         "Meteoroid hits Meteoroid."
     );
   }
-
+  
   /**
    * Test what happens we collide with ISS
    */
@@ -92,7 +92,7 @@ public class MeteoroidTest extends CollisionTest<Meteoroid> {
         "Meteoroid hits SpaceStationIss. SpaceStationIss is damaged!"
     );
   }
-
+  
   /**
    * Test what happens we collide with MIR
    */
@@ -105,5 +105,5 @@ public class MeteoroidTest extends CollisionTest<Meteoroid> {
         "Meteoroid hits SpaceStationMir. SpaceStationMir is damaged!"
     );
   }
-
+  
 }

@@ -22,8 +22,7 @@
  */
 package com.iluwatar.singleton;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertSame;
+import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +31,9 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.function.Supplier;
-import org.junit.Test;
+
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertSame;
 
 /**
  * This class provides several test case that test singleton construction.
@@ -42,17 +43,18 @@ import org.junit.Test;
  * the same when called in the DIFFERENT thread.
  *
  * Date: 12/29/15 - 19:25 PM
+ *
  * @param <S> Supplier method generating singletons
  * @author Jeroen Meulemeester
  * @author Richard Jones
  */
 public abstract class SingletonTest<S> {
-
+  
   /**
    * The singleton's getInstance method
    */
   private final Supplier<S> singletonInstanceMethod;
-
+  
   /**
    * Create a new singleton test instance using the given 'getInstance' method
    *
@@ -61,7 +63,7 @@ public abstract class SingletonTest<S> {
   public SingletonTest(final Supplier<S> singletonInstanceMethod) {
     this.singletonInstanceMethod = singletonInstanceMethod;
   }
-
+  
   /**
    * Test the singleton in a non-concurrent setting
    */
@@ -76,23 +78,23 @@ public abstract class SingletonTest<S> {
     assertSame(instance1, instance3);
     assertSame(instance2, instance3);
   }
-
+  
   /**
    * Test singleton instance in a concurrent setting
    */
   @Test(timeout = 10000)
   public void testMultipleCallsReturnTheSameObjectInDifferentThreads() throws Exception {
-
+    
     // Create 10000 tasks and inside each callable instantiate the singleton class
     final List<Callable<S>> tasks = new ArrayList<>();
     for (int i = 0; i < 10000; i++) {
       tasks.add(this.singletonInstanceMethod::get);
     }
-
+    
     // Use up to 8 concurrent threads to handle the tasks
     final ExecutorService executorService = Executors.newFixedThreadPool(8);
     final List<Future<S>> results = executorService.invokeAll(tasks);
-
+    
     // wait for all of the threads to complete
     final S expectedInstance = this.singletonInstanceMethod.get();
     for (Future<S> res : results) {
@@ -100,10 +102,10 @@ public abstract class SingletonTest<S> {
       assertNotNull(instance);
       assertSame(expectedInstance, instance);
     }
-
+    
     // tidy up the executor
     executorService.shutdown();
-
+    
   }
-
+  
 }

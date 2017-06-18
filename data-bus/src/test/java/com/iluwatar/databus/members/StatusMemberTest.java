@@ -38,7 +38,7 @@ import java.time.Month;
  * @author Paul Campbell (pcampbell@kemitix.net)
  */
 public class StatusMemberTest {
-
+  
   @Test
   public void statusRecordsTheStartTime() {
     //given
@@ -50,7 +50,7 @@ public class StatusMemberTest {
     //then
     Assert.assertEquals(startTime, statusMember.getStarted());
   }
-
+  
   @Test
   public void statusRecordsTheStopTime() {
     //given
@@ -63,7 +63,7 @@ public class StatusMemberTest {
     //then
     Assert.assertEquals(stop, statusMember.getStopped());
   }
-
+  
   @Test
   public void statusIgnoresMessageData() {
     //given
@@ -75,5 +75,5 @@ public class StatusMemberTest {
     Assert.assertNull(statusMember.getStarted());
     Assert.assertNull(statusMember.getStopped());
   }
-
+  
 }

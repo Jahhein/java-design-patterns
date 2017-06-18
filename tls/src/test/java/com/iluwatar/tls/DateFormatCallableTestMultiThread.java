@@ -23,70 +23,54 @@
 
 package com.iluwatar.tls;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import org.junit.BeforeClass;
+import org.junit.Test;
+
+import java.util.*;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
-import org.junit.BeforeClass;
-import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 /**
- * 
  * Test of the Callable
- * 
+ *
  * In this test {@link DateFormatCallable} is used by 4 threads in parallel
  * <p>
- * After a successful run 5 date values should be in the result object of each thread. All dates 
+ * After a successful run 5 date values should be in the result object of each thread. All dates
  * should have the same value (15.11.2015). To avoid problems with time zone not the date instances
  * themselves are compared by the test. For the test the dates are converted into string format DD.MM.YYY
  * <p>
  * Additionally the number of list entries are tested for both the list with the date values
- * and the list with the exceptions 
- * 
- * @author Thomas Bauer, January 2017
+ * and the list with the exceptions
  *
+ * @author Thomas Bauer, January 2017
  */
 public class DateFormatCallableTestMultiThread {
-
+  
   // Class variables used in setup() have to be static because setup() has to be static
   /**
    * Result object given back by DateFormatCallable, one for each thread
-   *   -- Array with converted date values
-   *   -- Array with thrown exceptions
+   * -- Array with converted date values
+   * -- Array with thrown exceptions
    */
   static Result[] result = new Result[4];
-
-  /**
-   * The date values created by the run of of DateFormatRunnalbe. List will be filled in the setup() method
-   */
-  @SuppressWarnings("serial")
-  static class StringArrayList extends ArrayList<String> {
-    /* nothing needed here */
-  }
   static List<String>[] createdDateValues = new StringArrayList[4];
-
   /**
    * Expected number of date values in the date value list created by each thread
    */
   int expectedCounterDateValues = 5;
-
   /**
-   * Expected number of exceptions in the exception list created by each thread 
+   * Expected number of exceptions in the exception list created by each thread
    */
   int expectedCounterExceptions = 0;
-
   /**
-   * Expected content of the list containing the date values created by each thread 
+   * Expected content of the list containing the date values created by each thread
    */
   List<String> expectedDateValues = Arrays.asList("15.11.2015", "15.11.2015", "15.11.2015", "15.11.2015", "15.11.2015");
-
+  
   /**
    * Run Callable and prepare results for usage in the test methods
    */
@@ -113,14 +97,14 @@ public class DateFormatCallableTestMultiThread {
     }
     executor.shutdown();
   }
-
+  
   private static List<String> convertDatesToString(Result res) {
     // Format date value as DD.MM.YYYY
     if (res == null || res.getDateList() == null || res.getDateList().size() == 0) {
       return null;
     }
     List<String> returnList = new StringArrayList();
-
+    
     for (Date dt : res.getDateList()) {
       Calendar cal = Calendar.getInstance();
       cal.setTime(dt);
@@ -128,7 +112,7 @@ public class DateFormatCallableTestMultiThread {
     }
     return returnList;
   }
-
+  
   /**
    * Test date values after the run of DateFormatRunnalbe. A correct run should deliver 5 times 15.12.2015
    * by each thread
@@ -139,9 +123,9 @@ public class DateFormatCallableTestMultiThread {
       assertEquals(expectedDateValues, createdDateValues[i]);
     }
   }
-
+  
   /**
-   * Test number of dates in the list after the run of DateFormatRunnalbe. A correct run should 
+   * Test number of dates in the list after the run of DateFormatRunnalbe. A correct run should
    * deliver 5 date values by each thread
    */
   @Test
@@ -150,9 +134,9 @@ public class DateFormatCallableTestMultiThread {
       assertEquals(expectedCounterDateValues, result[i].getDateList().size());
     }
   }
-
+  
   /**
-   * Test number of Exceptions in the list after the run of DateFormatRunnalbe. A correct run should 
+   * Test number of Exceptions in the list after the run of DateFormatRunnalbe. A correct run should
    * deliver no exceptions
    */
   @Test
@@ -160,5 +144,13 @@ public class DateFormatCallableTestMultiThread {
     for (int i = 0; i < result.length; i++) {
       assertEquals(expectedCounterExceptions, result[i].getExceptionList().size());
     }
+  }
+  
+  /**
+   * The date values created by the run of of DateFormatRunnalbe. List will be filled in the setup() method
+   */
+  @SuppressWarnings("serial")
+  static class StringArrayList extends ArrayList<String> {
+    /* nothing needed here */
   }
 }

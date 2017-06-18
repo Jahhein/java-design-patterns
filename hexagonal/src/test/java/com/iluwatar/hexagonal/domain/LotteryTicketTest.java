@@ -22,19 +22,19 @@
  */
 package com.iluwatar.hexagonal.domain;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
+import org.junit.Test;
 
 import java.util.Arrays;
 import java.util.HashSet;
 
-import org.junit.Test;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 
 /**
  * Test Lottery Tickets for equality
  */
 public class LotteryTicketTest {
-
+  
   @Test
   public void testEquals() {
     PlayerDetails details1 = new PlayerDetails("bob@foo.bar", "1212-121212", "+34332322");

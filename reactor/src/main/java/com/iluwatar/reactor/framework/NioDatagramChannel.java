@@ -37,19 +37,19 @@ import java.nio.channels.SelectionKey;
  * A wrapper over {@link DatagramChannel} which can read and write data on a DatagramChannel.
  */
 public class NioDatagramChannel extends AbstractNioChannel {
-
+  
   private static final Logger LOGGER = LoggerFactory.getLogger(NioDatagramChannel.class);
-
+  
   private final int port;
-
+  
   /**
    * Creates a {@link DatagramChannel} which will bind at provided port and use <code>handler</code>
    * to handle incoming events on this channel.
    * <p>
    * Note the constructor does not bind the socket, {@link #bind()} method should be called for
    * binding the socket.
-   * 
-   * @param port the port to be bound to listen for incoming datagram requests.
+   *
+   * @param port    the port to be bound to listen for incoming datagram requests.
    * @param handler the handler to be used for handling incoming requests on this channel.
    * @throws IOException if any I/O error occurs.
    */
@@ -57,7 +57,7 @@ public class NioDatagramChannel extends AbstractNioChannel {
     super(handler, DatagramChannel.open());
     this.port = port;
   }
-
+  
   @Override
   public int getInterestedOps() {
     /*
@@ -65,10 +65,10 @@ public class NioDatagramChannel extends AbstractNioChannel {
      */
     return SelectionKey.OP_READ;
   }
-
+  
   /**
    * Reads and returns a {@link DatagramPacket} from the underlying channel.
-   * 
+   *
    * @return the datagram packet read having the sender address.
    */
   @Override
@@ -83,10 +83,10 @@ public class NioDatagramChannel extends AbstractNioChannel {
     buffer.flip();
     DatagramPacket packet = new DatagramPacket(buffer);
     packet.setSender(sender);
-
+    
     return packet;
   }
-
+  
   /**
    * @return the underlying datagram channel.
    */
@@ -94,10 +94,10 @@ public class NioDatagramChannel extends AbstractNioChannel {
   public DatagramChannel getJavaChannel() {
     return (DatagramChannel) super.getJavaChannel();
   }
-
+  
   /**
    * Binds UDP socket on the provided <code>port</code>.
-   * 
+   *
    * @throws IOException if any I/O error occurs.
    */
   @Override
@@ -106,7 +106,7 @@ public class NioDatagramChannel extends AbstractNioChannel {
     getJavaChannel().configureBlocking(false);
     LOGGER.info("Bound UDP socket at port: {}", port);
   }
-
+  
   /**
    * Writes the pending {@link DatagramPacket} to the underlying channel sending data to the
    * intended receiver of the packet.
@@ -116,7 +116,7 @@ public class NioDatagramChannel extends AbstractNioChannel {
     DatagramPacket pendingPacket = (DatagramPacket) pendingWrite;
     getJavaChannel().send(pendingPacket.getData(), pendingPacket.getReceiver());
   }
-
+  
   /**
    * Writes the outgoing {@link DatagramPacket} to the channel. The intended receiver of the
    * datagram packet must be set in the <code>data</code> using
@@ -126,7 +126,7 @@ public class NioDatagramChannel extends AbstractNioChannel {
   public void write(Object data, SelectionKey key) {
     super.write(data, key);
   }
-
+  
   /**
    * Container of data used for {@link NioDatagramChannel} to communicate with remote peer.
    */
@@ -134,48 +134,48 @@ public class NioDatagramChannel extends AbstractNioChannel {
     private SocketAddress sender;
     private ByteBuffer data;
     private SocketAddress receiver;
-
+    
     /**
      * Creates a container with underlying data.
-     * 
+     *
      * @param data the underlying message to be written on channel.
      */
     public DatagramPacket(ByteBuffer data) {
       this.data = data;
     }
-
+    
     /**
      * @return the sender address.
      */
     public SocketAddress getSender() {
       return sender;
     }
-
+    
     /**
      * Sets the sender address of this packet.
-     * 
+     *
      * @param sender the sender address.
      */
     public void setSender(SocketAddress sender) {
       this.sender = sender;
     }
-
+    
     /**
      * @return the receiver address.
      */
     public SocketAddress getReceiver() {
       return receiver;
     }
-
+    
     /**
      * Sets the intended receiver address. This must be set when writing to the channel.
-     * 
+     *
      * @param receiver the receiver address.
      */
     public void setReceiver(SocketAddress receiver) {
       this.receiver = receiver;
     }
-
+    
     /**
      * @return the underlying message that will be written on channel.
      */

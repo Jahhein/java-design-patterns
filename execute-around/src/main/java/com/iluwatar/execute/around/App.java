@@ -33,17 +33,16 @@ import java.io.IOException;
  * In this example, we have {@link SimpleFileWriter} class that opens and closes the file for the
  * user. The user specifies only what to do with the file by providing the {@link FileWriterAction}
  * implementation.
- *
  */
 public class App {
-
+  
   /**
    * Program entry point
    */
   public static void main(String[] args) throws IOException {
-
+    
     new SimpleFileWriter("testfile.txt", new FileWriterAction() {
-
+      
       @Override
       public void writeFile(FileWriter writer) throws IOException {
         writer.write("Hello");

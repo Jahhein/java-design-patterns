@@ -31,19 +31,19 @@ import java.util.concurrent.locks.Lock;
  * Writer class, write when it acquired the write lock
  */
 public class Writer implements Runnable {
-
+  
   private static final Logger LOGGER = LoggerFactory.getLogger(Writer.class);
-
+  
   private Lock writeLock;
-
+  
   private String name;
-
+  
   public Writer(String name, Lock writeLock) {
     this.name = name;
     this.writeLock = writeLock;
   }
-
-
+  
+  
   @Override
   public void run() {
     writeLock.lock();
@@ -55,7 +55,7 @@ public class Writer implements Runnable {
       writeLock.unlock();
     }
   }
-
+  
   /**
    * Simulate the write operation
    */

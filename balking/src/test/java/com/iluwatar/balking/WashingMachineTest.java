@@ -28,15 +28,15 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 /**
  * Tests for {@link WashingMachine}
  */
 public class WashingMachineTest {
-
+  
   private volatile WashingMachineState machineStateGlobal;
-
+  
   @Test
   public void wash() throws Exception {
     WashingMachine washingMachine = new WashingMachine();
@@ -54,12 +54,12 @@ public class WashingMachineTest {
     }
     assertEquals(WashingMachineState.WASHING, machineStateGlobal);
   }
-
+  
   @Test
   public void endOfWashing() throws Exception {
     WashingMachine washingMachine = new WashingMachine();
     washingMachine.wash();
     assertEquals(WashingMachineState.ENABLED, washingMachine.getWashingMachineState());
   }
-
+  
 }

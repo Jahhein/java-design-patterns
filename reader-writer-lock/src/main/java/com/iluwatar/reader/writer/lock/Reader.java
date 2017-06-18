@@ -31,18 +31,18 @@ import java.util.concurrent.locks.Lock;
  * Reader class, read when it acquired the read lock
  */
 public class Reader implements Runnable {
-
+  
   private static final Logger LOGGER = LoggerFactory.getLogger(Reader.class);
-
+  
   private Lock readLock;
-
+  
   private String name;
-
+  
   public Reader(String name, Lock readLock) {
     this.name = name;
     this.readLock = readLock;
   }
-
+  
   @Override
   public void run() {
     readLock.lock();
@@ -54,10 +54,9 @@ public class Reader implements Runnable {
       readLock.unlock();
     }
   }
-
+  
   /**
    * Simulate the read operation
-   * 
    */
   public void read() throws InterruptedException {
     LOGGER.info("{} begin", name);

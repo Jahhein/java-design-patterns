@@ -33,7 +33,7 @@ import static org.junit.Assert.assertNotNull;
  * @author Jeroen Meulemeester
  */
 public class WeekdayTest {
-
+  
   @Test
   public void testToString() throws Exception {
     for (final Weekday weekday : Weekday.values()) {
@@ -42,5 +42,5 @@ public class WeekdayTest {
       assertEquals(weekday.name(), toString.toUpperCase());
     }
   }
-
+  
 }

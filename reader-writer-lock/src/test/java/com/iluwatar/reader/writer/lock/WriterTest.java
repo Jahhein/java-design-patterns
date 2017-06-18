@@ -40,38 +40,37 @@ import static org.mockito.Mockito.spy;
  * @author hongshuwei@gmail.com
  */
 public class WriterTest {
-
+  
+  private static final Logger LOGGER = LoggerFactory.getLogger(WriterTest.class);
   private InMemoryAppender appender;
-
+  
   @Before
   public void setUp() {
     appender = new InMemoryAppender(Writer.class);
   }
-
+  
   @After
   public void tearDown() {
     appender.stop();
   }
-
-  private static final Logger LOGGER = LoggerFactory.getLogger(WriterTest.class);
-
+  
   /**
    * Verify that multiple writers will get the lock in order.
    */
   @Test
   public void testWrite() throws Exception {
-
+    
     ExecutorService executeService = Executors.newFixedThreadPool(2);
     ReaderWriterLock lock = new ReaderWriterLock();
-
+    
     Writer writer1 = spy(new Writer("Writer 1", lock.writeLock()));
     Writer writer2 = spy(new Writer("Writer 2", lock.writeLock()));
-
+    
     executeService.submit(writer1);
     // Let write1 execute first
     Thread.sleep(150);
     executeService.submit(writer2);
-
+    
     executeService.shutdown();
     try {
       executeService.awaitTermination(10, TimeUnit.SECONDS);

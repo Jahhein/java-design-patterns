@@ -44,9 +44,9 @@ import java.util.function.Predicate;
  * or throws a list of exceptions {@link Validator#exceptions} collected during validation.
  */
 public class App {
-
+  
   private static final Logger LOGGER = LoggerFactory.getLogger(App.class);
-
+  
   /**
    * Program entry point.
    *

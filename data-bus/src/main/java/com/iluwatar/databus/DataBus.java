@@ -34,15 +34,15 @@ import java.util.Set;
  * @author Paul Campbell (pcampbell@kemitix.net)
  */
 public class DataBus {
-
+  
   private static final DataBus INSTANCE = new DataBus();
-
+  
   private final Set<Member> listeners = new HashSet<>();
-
+  
   public static DataBus getInstance() {
     return INSTANCE;
   }
-
+  
   /**
    * Register a member with the data-bus to start receiving events.
    *
@@ -51,7 +51,7 @@ public class DataBus {
   public void subscribe(final Member member) {
     this.listeners.add(member);
   }
-
+  
   /**
    * Deregister a member to stop receiving events.
    *
@@ -60,7 +60,7 @@ public class DataBus {
   public void unsubscribe(final Member member) {
     this.listeners.remove(member);
   }
-
+  
   /**
    * Publish and event to all members.
    *

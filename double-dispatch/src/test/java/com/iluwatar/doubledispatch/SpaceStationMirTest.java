@@ -33,12 +33,12 @@ import static org.junit.Assert.assertFalse;
  * @author Jeroen Meulemeester
  */
 public class SpaceStationMirTest extends CollisionTest<SpaceStationMir> {
-
+  
   @Override
   final SpaceStationMir getTestedObject() {
     return new SpaceStationMir(1, 2, 3, 4);
   }
-
+  
   /**
    * Test the constructor parameters
    */
@@ -53,7 +53,7 @@ public class SpaceStationMirTest extends CollisionTest<SpaceStationMir> {
     assertFalse(mir.isDamaged());
     assertEquals("SpaceStationMir at [1,2,3,4] damaged=false onFire=false", mir.toString());
   }
-
+  
   /**
    * Test what happens we collide with an asteroid
    */
@@ -66,7 +66,7 @@ public class SpaceStationMirTest extends CollisionTest<SpaceStationMir> {
         "SpaceStationMir hits FlamingAsteroid."
     );
   }
-
+  
   /**
    * Test what happens we collide with an meteoroid
    */
@@ -79,7 +79,7 @@ public class SpaceStationMirTest extends CollisionTest<SpaceStationMir> {
         "SpaceStationMir hits Meteoroid."
     );
   }
-
+  
   /**
    * Test what happens we collide with ISS
    */
@@ -92,7 +92,7 @@ public class SpaceStationMirTest extends CollisionTest<SpaceStationMir> {
         "SpaceStationMir hits SpaceStationIss. SpaceStationIss is damaged!"
     );
   }
-
+  
   /**
    * Test what happens we collide with MIR
    */
@@ -105,5 +105,5 @@ public class SpaceStationMirTest extends CollisionTest<SpaceStationMir> {
         "SpaceStationMir hits SpaceStationMir. SpaceStationMir is damaged!"
     );
   }
-
+  
 }

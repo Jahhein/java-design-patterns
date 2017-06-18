@@ -22,35 +22,26 @@
  */
 package com.iluwatar.intercepting.filter;
 
-import java.awt.BorderLayout;
-import java.awt.Dimension;
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JRootPane;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.SwingUtilities;
-import javax.swing.table.DefaultTableModel;
-
 /**
  * This is where the requests are displayed after being validated by filters.
- * 
- * @author mjoshzambales
  *
+ * @author mjoshzambales
  */
 public class Target extends JFrame {
-
+  
   private static final long serialVersionUID = 1L;
-
+  
   private JTable jt;
   private JScrollPane jsp;
   private DefaultTableModel dtm;
   private JButton del;
-
+  
   /**
    * Constructor
    */
@@ -65,7 +56,7 @@ public class Target extends JFrame {
     del = new JButton("Delete");
     setup();
   }
-
+  
   private void setup() {
     setLayout(new BorderLayout());
     JPanel bot = new JPanel();
@@ -76,18 +67,18 @@ public class Target extends JFrame {
     jsp = new JScrollPane(jt);
     jsp.setPreferredSize(new Dimension(500, 250));
     add(jsp, BorderLayout.CENTER);
-
+    
     del.addActionListener(new DListener());
-
+    
     JRootPane rootPane = SwingUtilities.getRootPane(del);
     rootPane.setDefaultButton(del);
     setVisible(true);
   }
-
+  
   public void execute(String[] request) {
     dtm.addRow(new Object[] {request[0], request[1], request[2], request[3], request[4]});
   }
-
+  
   class DListener implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {

@@ -38,54 +38,53 @@ import static org.junit.Assert.assertEquals;
  * @author Jeroen Meulemeester
  */
 public class GuiceWizardTest {
-
+  
   private InMemoryAppender appender;
-
+  
   @Before
   public void setUp() {
     appender = new InMemoryAppender(Tobacco.class);
   }
-
+  
   @After
   public void tearDown() {
     appender.stop();
   }
-
+  
   /**
    * Test if the {@link GuiceWizard} smokes whatever instance of {@link Tobacco} is passed to him
    * through the constructor parameter
    */
   @Test
   public void testSmokeEveryThingThroughConstructor() throws Exception {
-
+    
     final Tobacco[] tobaccos = {
         new OldTobyTobacco(), new RivendellTobacco(), new SecondBreakfastTobacco()
     };
-
+    
     for (final Tobacco tobacco : tobaccos) {
       final GuiceWizard guiceWizard = new GuiceWizard(tobacco);
       guiceWizard.smoke();
-
+      
       // Verify if the wizard is smoking the correct tobacco ...
       assertEquals("GuiceWizard smoking " + tobacco.getClass().getSimpleName(), appender.getLastMessage());
     }
-
+    
     // ... and nothing else is happening.
     assertEquals(tobaccos.length, appender.getLogSize());
   }
-
+  
   /**
    * Test if the {@link GuiceWizard} smokes whatever instance of {@link Tobacco} is passed to him
    * through the Guice google inject framework
    */
   @Test
   public void testSmokeEveryThingThroughInjectionFramework() throws Exception {
-
-    @SuppressWarnings("unchecked")
-    final Class<? extends Tobacco>[] tobaccos = new Class[]{
+    
+    @SuppressWarnings("unchecked") final Class<? extends Tobacco>[] tobaccos = new Class[] {
         OldTobyTobacco.class, RivendellTobacco.class, SecondBreakfastTobacco.class
     };
-
+    
     for (final Class<? extends Tobacco> tobaccoClass : tobaccos) {
       // Configure the tobacco in the injection framework ...
       final Injector injector = Guice.createInjector(new AbstractModule() {
@@ -94,17 +93,17 @@ public class GuiceWizardTest {
           bind(Tobacco.class).to(tobaccoClass);
         }
       });
-
+      
       // ... and create a new wizard with it
       final GuiceWizard guiceWizard = injector.getInstance(GuiceWizard.class);
       guiceWizard.smoke();
-
+      
       // Verify if the wizard is smoking the correct tobacco ...
       assertEquals("GuiceWizard smoking " + tobaccoClass.getSimpleName(), appender.getLastMessage());
     }
-
+    
     // ... and nothing else is happening.
     assertEquals(tobaccos.length, appender.getLogSize());
   }
-
+  
 }

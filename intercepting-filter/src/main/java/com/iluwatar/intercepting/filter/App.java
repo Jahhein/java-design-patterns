@@ -23,7 +23,6 @@
 package com.iluwatar.intercepting.filter;
 
 /**
- * 
  * When a request enters a Web application, it often must pass several entrance tests prior to the
  * main processing stage. For example, - Has the client been authenticated? - Does the client have a
  * valid session? - Is the client's IP address from a trusted network? - Does the request path
@@ -44,15 +43,14 @@ package com.iluwatar.intercepting.filter;
  * In this example we check whether the order request is valid through pre-processing done via
  * {@link Filter}. Each field has its own corresponding {@link Filter}
  * <p>
- * 
- * @author joshzambales
  *
+ * @author joshzambales
  */
 public class App {
-
+  
   /**
    * Program entry point
-   * 
+   *
    * @param args command line args
    */
   public static void main(String[] args) {
@@ -62,7 +60,7 @@ public class App {
     filterManager.addFilter(new AddressFilter());
     filterManager.addFilter(new DepositFilter());
     filterManager.addFilter(new OrderFilter());
-
+    
     Client client = new Client();
     client.setFilterManager(filterManager);
   }

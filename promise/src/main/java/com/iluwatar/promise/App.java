@@ -21,25 +21,21 @@
  * THE SOFTWARE.
  */
 package com.iluwatar.promise;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.Map;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import java.util.concurrent.*;
 
 /**
- *
- *  The Promise object is used for asynchronous computations. A Promise represents an operation
- *  that hasn't completed yet, but is expected in the future.
+ * The Promise object is used for asynchronous computations. A Promise represents an operation
+ * that hasn't completed yet, but is expected in the future.
  *
  * <p>A Promise represents a proxy for a value not necessarily known when the promise is created. It
  * allows you to associate dependent promises to an asynchronous action's eventual success value or
- * failure reason. This lets asynchronous methods return values like synchronous methods: instead 
- * of the final value, the asynchronous method returns a promise of having a value at some point 
+ * failure reason. This lets asynchronous methods return values like synchronous methods: instead
+ * of the final value, the asynchronous method returns a promise of having a value at some point
  * in the future.
  *
  * <p>Promises provide a few advantages over callback objects:
@@ -58,27 +54,28 @@ import java.util.concurrent.Executors;
  * a file download promise, then a promise of character frequency, then a promise of lowest frequency
  * character which is finally consumed and result is printed on console.
  * </ul>
- * 
+ *
  * @see CompletableFuture
  */
 public class App {
-
+  
   private static final Logger LOGGER = LoggerFactory.getLogger(App.class);
-
+  
   private static final String DEFAULT_URL = "https://raw.githubusercontent.com/iluwatar/java-design-patterns/Promise/promise/README.md";
   private final ExecutorService executor;
   private final CountDownLatch stopLatch;
-
+  
   private App() {
     executor = Executors.newFixedThreadPool(2);
     stopLatch = new CountDownLatch(2);
   }
-
+  
   /**
    * Program entry point
+   *
    * @param args arguments
    * @throws InterruptedException if main thread is interrupted.
-   * @throws ExecutionException if an execution error occurs.
+   * @throws ExecutionException   if an execution error occurs.
    */
   public static void main(String[] args) throws InterruptedException, ExecutionException {
     App app = new App();
@@ -88,13 +85,13 @@ public class App {
       app.stop();
     }
   }
-
+  
   private void promiseUsage() {
     calculateLineCount();
-
+    
     calculateLowestFrequencyChar();
   }
-
+  
   /*
    * Calculate the lowest frequency character and when that promise is fulfilled,
    * consume the result in a Consumer<Character>
@@ -102,13 +99,13 @@ public class App {
   private void calculateLowestFrequencyChar() {
     lowestFrequencyChar()
         .thenAccept(
-          charFrequency -> {
-            LOGGER.info("Char with lowest frequency is: {}", charFrequency);
-            taskCompleted();
-          }
-      );
+            charFrequency -> {
+              LOGGER.info("Char with lowest frequency is: {}", charFrequency);
+              taskCompleted();
+            }
+        );
   }
-
+  
   /*
    * Calculate the line count and when that promise is fulfilled, consume the result
    * in a Consumer<Integer>
@@ -116,13 +113,13 @@ public class App {
   private void calculateLineCount() {
     countLines()
         .thenAccept(
-          count -> {
-            LOGGER.info("Line count is: {}", count);
-            taskCompleted();
-          }
-      );
+            count -> {
+              LOGGER.info("Line count is: {}", count);
+              taskCompleted();
+            }
+        );
   }
-
+  
   /*
    * Calculate the character frequency of a file and when that promise is fulfilled,
    * then promise to apply function to calculate lowest character frequency.
@@ -131,7 +128,7 @@ public class App {
     return characterFrequency()
         .thenApply(Utility::lowestFrequencyChar);
   }
-
+  
   /*
    * Download the file at DEFAULT_URL and when that promise is fulfilled,
    * then promise to apply function to calculate character frequency.
@@ -140,7 +137,7 @@ public class App {
     return download(DEFAULT_URL)
         .thenApply(Utility::characterFrequency);
   }
-
+  
   /*
    * Download the file at DEFAULT_URL and when that promise is fulfilled,
    * then promise to apply function to count lines in that file.
@@ -149,7 +146,7 @@ public class App {
     return download(DEFAULT_URL)
         .thenApply(Utility::countLines);
   }
-
+  
   /*
    * Return a promise to provide the local absolute path of the file downloaded in background.
    * This is an async method and does not wait until the file is downloaded.
@@ -166,15 +163,15 @@ public class App {
               taskCompleted();
             }
         );
-
+    
     return downloadPromise;
   }
-
+  
   private void stop() throws InterruptedException {
     stopLatch.await();
     executor.shutdownNow();
   }
-
+  
   private void taskCompleted() {
     stopLatch.countDown();
   }

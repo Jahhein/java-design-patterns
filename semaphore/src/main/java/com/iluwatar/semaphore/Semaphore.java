@@ -26,16 +26,16 @@ package com.iluwatar.semaphore;
  * Semaphore is an implementation of a semaphore lock.
  */
 public class Semaphore implements Lock {
-
+  
   private final int licenses;
   /**
    * The number of concurrent resource accesses which are allowed.
    */
   private int counter;
-    
+  
   public Semaphore(int licenses) {
     this.licenses = licenses;
-    this.counter = licenses;    
+    this.counter = licenses;
   }
   
   /**
@@ -49,7 +49,7 @@ public class Semaphore implements Lock {
    * Returns the number of available licenses
    */
   public int getAvailableLicenses() {
-    return counter; 
+    return counter;
   }
   
   /**
@@ -73,5 +73,5 @@ public class Semaphore implements Lock {
       notify();
     }
   }
-
+  
 }

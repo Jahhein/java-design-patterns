@@ -31,11 +31,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  */
 @SpringBootApplication
 public class ImageApplication {
-
+  
   /**
    * Microservice entry point
-   * @param args
-   *          command line args
+   *
+   * @param args command line args
    */
   public static void main(String[] args) {
     SpringApplication.run(ImageApplication.class, args);

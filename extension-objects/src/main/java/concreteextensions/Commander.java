@@ -31,15 +31,14 @@ import units.CommanderUnit;
  * Class defining Commander
  */
 public class Commander implements CommanderExtension {
-
+  
+  final Logger logger = LoggerFactory.getLogger(Commander.class);
   private CommanderUnit unit;
-
+  
   public Commander(CommanderUnit commanderUnit) {
     this.unit = commanderUnit;
   }
-
-  final Logger logger = LoggerFactory.getLogger(Commander.class);
-
+  
   @Override
   public void commanderReady() {
     logger.info("[Commander] " + unit.getName() + " is ready!");

@@ -34,18 +34,18 @@ import java.time.LocalDateTime;
  * @author Paul Campbell (pcampbell@kemitix.net)
  */
 public class StoppingData extends AbstractDataType {
-
+  
   private final LocalDateTime when;
-
+  
   public StoppingData(LocalDateTime when) {
     this.when = when;
   }
-
-  public LocalDateTime getWhen() {
-    return when;
-  }
-
+  
   public static DataType of(final LocalDateTime when) {
     return new StoppingData(when);
+  }
+  
+  public LocalDateTime getWhen() {
+    return when;
   }
 }

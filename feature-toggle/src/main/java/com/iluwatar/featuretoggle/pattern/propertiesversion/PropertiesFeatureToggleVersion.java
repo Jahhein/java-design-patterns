@@ -40,9 +40,9 @@ import java.util.Properties;
  * @see User
  */
 public class PropertiesFeatureToggleVersion implements Service {
-
+  
   private boolean isEnhanced;
-
+  
   /**
    * Creates an instance of {@link PropertiesFeatureToggleVersion} using the passed {@link Properties} to determine,
    * the status of the feature toggle {@link PropertiesFeatureToggleVersion#isEnhanced()}. There is also some defensive
@@ -63,7 +63,7 @@ public class PropertiesFeatureToggleVersion implements Service {
       }
     }
   }
-
+  
   /**
    * Generate a welcome message based on the user being passed and the status of the feature toggle. If the enhanced
    * version is enabled, then the message will be personalised with the name of the passed {@link User}. However if
@@ -78,14 +78,14 @@ public class PropertiesFeatureToggleVersion implements Service {
    */
   @Override
   public String getWelcomeMessage(final User user) {
-
+    
     if (isEnhanced()) {
       return "Welcome " + user + ". You're using the enhanced welcome message.";
     }
-
+    
     return "Welcome to the application.";
   }
-
+  
   /**
    * Method that checks if the welcome message to be returned is the enhanced venison or not. For this service it will
    * see the value of the boolean that was set in the constructor

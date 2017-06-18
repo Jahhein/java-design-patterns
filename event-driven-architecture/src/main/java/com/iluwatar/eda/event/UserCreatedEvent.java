@@ -30,13 +30,13 @@ import com.iluwatar.eda.model.User;
  * the entire {@link User} object is passed on as data with the event.
  */
 public class UserCreatedEvent extends AbstractEvent {
-
+  
   private User user;
-
+  
   public UserCreatedEvent(User user) {
     this.user = user;
   }
-
+  
   public User getUser() {
     return user;
   }

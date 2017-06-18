@@ -26,20 +26,18 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * 
  * Worker implements {@link Runnable} and thus can be executed by {@link ExecutorService}
- *
  */
 public class Worker implements Runnable {
-
+  
   private static final Logger LOGGER = LoggerFactory.getLogger(Worker.class);
-
+  
   private final Task task;
-
+  
   public Worker(final Task task) {
     this.task = task;
   }
-
+  
   @Override
   public void run() {
     LOGGER.info("{} processing {}", Thread.currentThread().getName(), task.toString());

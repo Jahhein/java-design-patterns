@@ -25,14 +25,13 @@ package com.iluwatar.dao;
 
 /**
  * A customer POJO that represents the data that will be read from the data source.
- *
  */
 public class Customer {
-
+  
   private int id;
   private String firstName;
   private String lastName;
-
+  
   /**
    * Creates an instance of customer.
    */
@@ -41,37 +40,37 @@ public class Customer {
     this.firstName = firstName;
     this.lastName = lastName;
   }
-
+  
   public int getId() {
     return id;
   }
-
+  
   public void setId(final int id) {
     this.id = id;
   }
-
+  
   public String getFirstName() {
     return firstName;
   }
-
+  
   public void setFirstName(final String firstName) {
     this.firstName = firstName;
   }
-
+  
   public String getLastName() {
     return lastName;
   }
-
+  
   public void setLastName(final String lastName) {
     this.lastName = lastName;
   }
-
+  
   @Override
   public String toString() {
     return "Customer{" + "id=" + getId() + ", firstName='" + getFirstName() + '\'' + ", lastName='"
         + getLastName() + '\'' + '}';
   }
-
+  
   @Override
   public boolean equals(final Object that) {
     boolean isEqual = false;
@@ -85,7 +84,7 @@ public class Customer {
     }
     return isEqual;
   }
-
+  
   @Override
   public int hashCode() {
     return getId();

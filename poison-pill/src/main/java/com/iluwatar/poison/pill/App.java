@@ -32,28 +32,27 @@ package com.iluwatar.poison.pill;
  * <p>
  * In simple cases the Poison Pill can be just a null-reference, but holding a unique separate
  * shared object-marker (with name "Poison" or "Poison Pill") is more clear and self describing.
- * 
  */
 public class App {
-
+  
   /**
    * Program entry point
-   * 
+   *
    * @param args command line args
    */
   public static void main(String[] args) {
     MessageQueue queue = new SimpleMessageQueue(10000);
-
+    
     final Producer producer = new Producer("PRODUCER_1", queue);
     final Consumer consumer = new Consumer("CONSUMER_1", queue);
-
+    
     new Thread() {
       @Override
       public void run() {
         consumer.consume();
       }
     }.start();
-
+    
     new Thread() {
       @Override
       public void run() {

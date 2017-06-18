@@ -23,16 +23,14 @@
 package com.iluwatar.prototype;
 
 /**
- * 
  * Concrete factory class.
- * 
  */
 public class HeroFactoryImpl implements HeroFactory {
-
+  
   private Mage mage;
   private Warlord warlord;
   private Beast beast;
-
+  
   /**
    * Constructor
    */
@@ -41,7 +39,7 @@ public class HeroFactoryImpl implements HeroFactory {
     this.warlord = warlord;
     this.beast = beast;
   }
-
+  
   /**
    * Create mage
    */
@@ -52,7 +50,7 @@ public class HeroFactoryImpl implements HeroFactory {
       return null;
     }
   }
-
+  
   /**
    * Create warlord
    */
@@ -63,7 +61,7 @@ public class HeroFactoryImpl implements HeroFactory {
       return null;
     }
   }
-
+  
   /**
    * Create beast
    */
@@ -74,5 +72,5 @@ public class HeroFactoryImpl implements HeroFactory {
       return null;
     }
   }
-
+  
 }

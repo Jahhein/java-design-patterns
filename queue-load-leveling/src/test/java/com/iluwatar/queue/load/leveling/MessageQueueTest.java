@@ -22,17 +22,15 @@
  */
 package com.iluwatar.queue.load.leveling;
 
-import static org.junit.Assert.assertEquals;
-
 import org.junit.Test;
 
+import static org.junit.Assert.assertEquals;
+
 /**
- * 
  * Test case for submitting and retrieving messages from Blocking Queue.
- * 
  */
 public class MessageQueueTest {
-
+  
   @Test
   public void messageQueueTest() {
     
@@ -44,5 +42,5 @@ public class MessageQueueTest {
     // retrieve message
     assertEquals(msgQueue.retrieveMsg().getMsg(), "MessageQueue Test");
   }
-
+  
 }

@@ -32,32 +32,32 @@ import org.slf4j.LoggerFactory;
  * resume task.
  */
 public class BallItem extends GameItem {
-
+  
   private static final Logger LOGGER = LoggerFactory.getLogger(BallItem.class);
-
+  
   private boolean isSuspended;
-
+  
   private BallThread twin;
-
+  
   public void setTwin(BallThread twin) {
     this.twin = twin;
   }
-
+  
   @Override
   public void doDraw() {
-
+    
     LOGGER.info("doDraw");
   }
-
+  
   public void move() {
     LOGGER.info("move");
   }
-
+  
   @Override
   public void click() {
-
+    
     isSuspended = !isSuspended;
-
+    
     if (isSuspended) {
       twin.suspendMe();
     } else {

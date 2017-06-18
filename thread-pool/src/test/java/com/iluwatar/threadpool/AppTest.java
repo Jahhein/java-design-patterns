@@ -26,12 +26,11 @@ import org.junit.Test;
 
 /**
  * Application test
- * 
- * @author ilkka
  *
+ * @author ilkka
  */
 public class AppTest {
-
+  
   @Test
   public void test() {
     String[] args = {};

@@ -22,19 +22,10 @@
  */
 package com.iluwatar.intercepting.filter;
 
-import java.awt.BorderLayout;
-import java.awt.GridLayout;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JRootPane;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
-import javax.swing.SwingUtilities;
 
 /**
  * The Client class is responsible for handling the input and running them through filters inside
@@ -42,21 +33,20 @@ import javax.swing.SwingUtilities;
  *
  * This is where {@link Filter}s come to play as the client pre-processes the request before being
  * displayed in the {@link Target}.
- * 
- * @author joshzambales
  *
+ * @author joshzambales
  */
 public class Client extends JFrame {
-
+  
   private static final long serialVersionUID = 1L;
-
+  
   private FilterManager filterManager;
   private JLabel jl;
   private JTextField[] jtFields;
   private JTextArea[] jtAreas;
   private JButton clearButton;
   private JButton processButton;
-
+  
   /**
    * Constructor
    */
@@ -75,10 +65,10 @@ public class Client extends JFrame {
     }
     clearButton = new JButton("Clear");
     processButton = new JButton("Process");
-
+    
     setup();
   }
-
+  
   private void setup() {
     setLayout(new BorderLayout());
     JPanel panel = new JPanel();
@@ -97,7 +87,7 @@ public class Client extends JFrame {
     panel.add(jtAreas[1]);
     panel.add(clearButton);
     panel.add(processButton);
-
+    
     clearButton.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
@@ -109,7 +99,7 @@ public class Client extends JFrame {
         }
       }
     });
-
+    
     processButton.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
@@ -119,16 +109,16 @@ public class Client extends JFrame {
         jl.setText(sendRequest(order));
       }
     });
-
+    
     JRootPane rootPane = SwingUtilities.getRootPane(processButton);
     rootPane.setDefaultButton(processButton);
     setVisible(true);
   }
-
+  
   public void setFilterManager(FilterManager filterManager) {
     this.filterManager = filterManager;
   }
-
+  
   public String sendRequest(Order order) {
     return filterManager.filterRequest(order);
   }

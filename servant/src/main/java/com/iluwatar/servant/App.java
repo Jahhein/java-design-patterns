@@ -35,15 +35,14 @@ import java.util.List;
  * service, while objects for which the servant does something, are taken as parameters.
  * <p>
  * In this example {@link Servant} is serving {@link King} and {@link Queen}.
- *
  */
 public class App {
-
+  
   private static final Logger LOGGER = LoggerFactory.getLogger(App.class);
-
+  
   static Servant jenkins = new Servant("Jenkins");
   static Servant travis = new Servant("Travis");
-
+  
   /**
    * Program entry point
    */
@@ -51,18 +50,18 @@ public class App {
     scenario(jenkins, 1);
     scenario(travis, 0);
   }
-
+  
   /**
    * Can add a List with enum Actions for variable scenarios
    */
   public static void scenario(Servant servant, int compliment) {
     King k = new King();
     Queen q = new Queen();
-
+    
     List<Royalty> guests = new ArrayList<>();
     guests.add(k);
     guests.add(q);
-
+    
     // feed
     servant.feed(k);
     servant.feed(q);
@@ -71,12 +70,12 @@ public class App {
     servant.giveWine(q);
     // compliment
     servant.giveCompliments(guests.get(compliment));
-
+    
     // outcome of the night
     for (Royalty r : guests) {
       r.changeMood();
     }
-
+    
     // check your luck
     if (servant.checkIfYouWillBeHanged(guests)) {
       LOGGER.info("{} will live another day", servant.name);

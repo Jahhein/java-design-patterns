@@ -29,19 +29,18 @@ import java.util.Deque;
 import java.util.LinkedList;
 
 /**
- * 
  * Wizard is the invoker of the commands
- *
  */
 public class Wizard {
-
+  
   private static final Logger LOGGER = LoggerFactory.getLogger(Wizard.class);
-
+  
   private Deque<Command> undoStack = new LinkedList<>();
   private Deque<Command> redoStack = new LinkedList<>();
-
-  public Wizard() {}
-
+  
+  public Wizard() {
+  }
+  
   /**
    * Cast spell
    */
@@ -50,7 +49,7 @@ public class Wizard {
     command.execute(target);
     undoStack.offerLast(command);
   }
-
+  
   /**
    * Undo last spell
    */
@@ -62,7 +61,7 @@ public class Wizard {
       previousSpell.undo();
     }
   }
-
+  
   /**
    * Redo last spell
    */
@@ -74,7 +73,7 @@ public class Wizard {
       previousSpell.redo();
     }
   }
-
+  
   @Override
   public String toString() {
     return "Wizard";

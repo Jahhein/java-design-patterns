@@ -28,22 +28,21 @@ import org.slf4j.LoggerFactory;
 import java.util.concurrent.LinkedBlockingQueue;
 
 /**
- * 
  * This application demonstrates Half-Sync/Half-Async pattern. Key parts of the pattern are
  * {@link AsyncTask} and {@link AsynchronousService}.
- * 
+ *
  * <p>
  * <i>PROBLEM</i> <br/>
  * A concurrent system have a mixture of short duration, mid duration and long duration tasks. Mid
  * or long duration tasks should be performed asynchronously to meet quality of service
  * requirements.
- * 
+ *
  * <p>
  * <i>INTENT</i> <br/>
  * The intent of this pattern is to separate the the synchronous and asynchronous processing in the
  * concurrent application by introducing two intercommunicating layers - one for sync and one for
  * async. This simplifies the programming without unduly affecting the performance.
- * 
+ *
  * <p>
  * <i>APPLICABILITY</i> <br/>
  * UNIX network subsystems - In operating systems network operations are carried out
@@ -55,7 +54,7 @@ import java.util.concurrent.LinkedBlockingQueue;
  * Android AsyncTask framework - Framework provides a way to execute long running blocking
  * calls, such as downloading a file, in background threads so that the UI thread remains free to
  * respond to user inputs.<br/>
- * 
+ *
  * <p>
  * <i>IMPLEMENTATION</i> <br/>
  * The main method creates an asynchronous service which does not block the main thread while the
@@ -65,15 +64,14 @@ import java.util.concurrent.LinkedBlockingQueue;
  * between both layers. Such as Priority Queue can be used as queuing layer to prioritize the way
  * tasks are executed. Our implementation is just one simple way of implementing this pattern, there
  * are many variants possible as described in its applications.
- * 
  */
 public class App {
-
+  
   private static final Logger LOGGER = LoggerFactory.getLogger(App.class);
-
+  
   /**
    * Program entry point
-   * 
+   *
    * @param args command line args
    */
   public static void main(String[] args) {
@@ -95,19 +93,26 @@ public class App {
     service.execute(new ArithmeticSumTask(2000));
     service.execute(new ArithmeticSumTask(1));
   }
-
+  
+  private static long ap(long i) {
+    try {
+      Thread.sleep(i);
+    } catch (InterruptedException e) {
+      LOGGER.error("Exception caught.", e);
+    }
+    return i * (i + 1) / 2;
+  }
+  
   /**
-   * 
    * ArithmeticSumTask
-   *
    */
   static class ArithmeticSumTask implements AsyncTask<Long> {
     private long n;
-
+    
     public ArithmeticSumTask(long n) {
       this.n = n;
     }
-
+    
     /*
      * This is the long running task that is performed in background. In our example the long
      * running task is calculating arithmetic sum with artificial delay.
@@ -116,7 +121,7 @@ public class App {
     public Long call() throws Exception {
       return ap(n);
     }
-
+    
     /*
      * This will be called in context of the main thread where some validations can be done
      * regarding the inputs. Such as it must be greater than 0. It's a small computation which can
@@ -129,25 +134,16 @@ public class App {
         throw new IllegalArgumentException("n is less than 0");
       }
     }
-
+    
     @Override
     public void onPostCall(Long result) {
       // Handle the result of computation
       LOGGER.info(result.toString());
     }
-
+    
     @Override
     public void onError(Throwable throwable) {
       throw new IllegalStateException("Should not occur");
     }
-  }
-
-  private static long ap(long i) {
-    try {
-      Thread.sleep(i);
-    } catch (InterruptedException e) {
-      LOGGER.error("Exception caught.", e);
-    }
-    return i * (i + 1) / 2;
   }
 }

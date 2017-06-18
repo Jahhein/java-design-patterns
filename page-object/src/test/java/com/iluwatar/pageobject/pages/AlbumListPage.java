@@ -33,21 +33,21 @@ import java.util.List;
  * Page Object encapsulating the Album List page (album-list.html)
  */
 public class AlbumListPage extends Page {
-
+  
   private static final String ALBUM_LIST_HTML_FILE = "album-list.html";
   private static final String PAGE_URL = "file:" + AUT_PATH + ALBUM_LIST_HTML_FILE;
-
+  
   private HtmlPage page;
-
-
+  
+  
   /**
    * Constructor
    */
   public AlbumListPage(WebClient webClient) {
     super(webClient);
   }
-
-
+  
+  
   /**
    * Navigates to the Album List Page
    *
@@ -61,7 +61,7 @@ public class AlbumListPage extends Page {
     }
     return this;
   }
-
+  
   /**
    * {@inheritDoc}
    */
@@ -69,7 +69,7 @@ public class AlbumListPage extends Page {
   public boolean isAt() {
     return "Album List".equals(page.getTitleText());
   }
-
+  
   /**
    * Selects an album by the given album title
    *
@@ -91,6 +91,6 @@ public class AlbumListPage extends Page {
     }
     throw new IllegalArgumentException("No links with the album title: " + albumTitle);
   }
-
-
+  
+  
 }

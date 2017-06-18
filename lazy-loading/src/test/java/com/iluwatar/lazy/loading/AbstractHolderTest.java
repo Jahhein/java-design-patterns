@@ -34,21 +34,21 @@ import static junit.framework.TestCase.assertNull;
  * @author Jeroen Meulemeester
  */
 public abstract class AbstractHolderTest {
-
+  
   /**
    * Get the internal state of the holder value
    *
    * @return The internal value
    */
   abstract Heavy getInternalHeavyValue() throws Exception;
-
+  
   /**
    * Request a lazy loaded {@link Heavy} object from the holder.
    *
    * @return The lazy loaded {@link Heavy} object
    */
   abstract Heavy getHeavy() throws Exception;
-
+  
   /**
    * This test shows that the heavy field is not instantiated until the method getHeavy is called
    */
@@ -59,5 +59,5 @@ public abstract class AbstractHolderTest {
     assertNotNull(getInternalHeavyValue());
     assertSame(getHeavy(), getInternalHeavyValue());
   }
-
+  
 }

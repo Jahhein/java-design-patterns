@@ -1,4 +1,4 @@
-  /**
+/**
  * The MIT License
  * Copyright (c) 2014-2016 Ilkka Seppälä
  *
@@ -22,23 +22,19 @@
  */
 package com.iluwatar.factorykit.factorykit;
 
-import static org.junit.Assert.assertTrue;
-
-import com.iluwatar.factorykit.Axe;
-import com.iluwatar.factorykit.Spear;
-import com.iluwatar.factorykit.Sword;
-import com.iluwatar.factorykit.Weapon;
-import com.iluwatar.factorykit.WeaponFactory;
-import com.iluwatar.factorykit.WeaponType;
+import com.iluwatar.factorykit.*;
 import org.junit.Before;
 import org.junit.Test;
+
+import static org.junit.Assert.assertTrue;
+
 /**
- *  Test Factory Kit Pattern
+ * Test Factory Kit Pattern
  */
 public class FactoryKitTest {
-
+  
   private WeaponFactory factory;
-
+  
   @Before
   public void init() {
     factory = WeaponFactory.factory(builder -> {
@@ -47,7 +43,7 @@ public class FactoryKitTest {
       builder.add(WeaponType.SWORD, Sword::new);
     });
   }
-
+  
   /**
    * Testing {@link WeaponFactory} to produce a SPEAR asserting that the Weapon is an instance of {@link Spear}
    */
@@ -56,7 +52,7 @@ public class FactoryKitTest {
     Weapon weapon = factory.create(WeaponType.SPEAR);
     verifyWeapon(weapon, Spear.class);
   }
-
+  
   /**
    * Testing {@link WeaponFactory} to produce a AXE asserting that the Weapon is an instance of {@link Axe}
    */
@@ -65,8 +61,8 @@ public class FactoryKitTest {
     Weapon weapon = factory.create(WeaponType.AXE);
     verifyWeapon(weapon, Axe.class);
   }
-
-
+  
+  
   /**
    * Testing {@link WeaponFactory} to produce a SWORD asserting that the Weapon is an instance of {@link Sword}
    */
@@ -75,7 +71,7 @@ public class FactoryKitTest {
     Weapon weapon = factory.create(WeaponType.SWORD);
     verifyWeapon(weapon, Sword.class);
   }
-
+  
   /**
    * This method asserts that the weapon object that is passed is an instance of the clazz
    *

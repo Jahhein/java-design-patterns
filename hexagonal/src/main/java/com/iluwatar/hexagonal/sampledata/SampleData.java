@@ -23,12 +23,7 @@
 package com.iluwatar.hexagonal.sampledata;
 
 import com.iluwatar.hexagonal.banking.InMemoryBank;
-import com.iluwatar.hexagonal.domain.LotteryConstants;
-import com.iluwatar.hexagonal.domain.LotteryNumbers;
-import com.iluwatar.hexagonal.domain.LotteryService;
-import com.iluwatar.hexagonal.domain.LotteryTicket;
-import com.iluwatar.hexagonal.domain.LotteryTicketId;
-import com.iluwatar.hexagonal.domain.PlayerDetails;
+import com.iluwatar.hexagonal.domain.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,9 +33,9 @@ import java.util.Random;
  * Utilities for creating sample lottery tickets
  */
 public class SampleData {
-
+  
   private static final List<PlayerDetails> PLAYERS;
-
+  
   static {
     PLAYERS = new ArrayList<>();
     PLAYERS.add(new PlayerDetails("john@google.com", "312-342", "+3242434242"));
@@ -89,7 +84,7 @@ public class SampleData {
           random.nextInt(LotteryConstants.PLAYER_MAX_SALDO));
     }
   }
-
+  
   /**
    * Inserts lottery tickets into the database based on the sample data
    */
@@ -100,7 +95,7 @@ public class SampleData {
       lotteryService.submitTicket(ticket);
     }
   }
-
+  
   private static PlayerDetails getRandomPlayerDetails() {
     Random random = new Random();
     int idx = random.nextInt(PLAYERS.size());

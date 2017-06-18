@@ -36,18 +36,18 @@ import static org.mockito.Mockito.never;
  * @author Paul Campbell (pcampbell@kemitix.net)
  */
 public class DataBusTest {
-
+  
   @Mock
   private Member member;
-
+  
   @Mock
   private DataType event;
-
+  
   @Before
   public void setUp() {
     MockitoAnnotations.initMocks(this);
   }
-
+  
   @Test
   public void publishedEventIsReceivedBySubscribedMember() {
     //given
@@ -58,7 +58,7 @@ public class DataBusTest {
     //then
     then(member).should().accept(event);
   }
-
+  
   @Test
   public void publishedEventIsNotReceivedByMemberAfterUnsubscribing() {
     //given
@@ -70,5 +70,5 @@ public class DataBusTest {
     //then
     then(member).should(never()).accept(event);
   }
-
+  
 }

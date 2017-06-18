@@ -26,14 +26,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 
  * TreasureChest, the collection class.
- * 
  */
 public class TreasureChest {
-
+  
   private List<Item> items;
-
+  
   /**
    * Constructor
    */
@@ -50,11 +48,11 @@ public class TreasureChest {
     items.add(new Item(ItemType.WEAPON, "Steel halberd"));
     items.add(new Item(ItemType.WEAPON, "Dagger of poison"));
   }
-
+  
   ItemIterator iterator(ItemType itemType) {
     return new TreasureChestItemIterator(this, itemType);
   }
-
+  
   /**
    * Get all items
    */
@@ -63,5 +61,5 @@ public class TreasureChest {
     list.addAll(items);
     return list;
   }
-
+  
 }

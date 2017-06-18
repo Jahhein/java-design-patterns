@@ -30,15 +30,15 @@ import java.util.Optional;
  * Lottery utilities
  */
 public class LotteryUtils {
-
+  
   private LotteryUtils() {
   }
-
+  
   /**
    * Checks if lottery ticket has won
    */
   public static LotteryTicketCheckResult checkTicketForPrize(LotteryTicketRepository repository, LotteryTicketId id,
-                                                      LotteryNumbers winningNumbers) {
+                                                             LotteryNumbers winningNumbers) {
     Optional<LotteryTicket> optional = repository.findById(id);
     if (optional.isPresent()) {
       if (optional.get().getNumbers().equals(winningNumbers)) {

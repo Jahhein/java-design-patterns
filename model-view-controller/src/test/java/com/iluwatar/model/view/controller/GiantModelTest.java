@@ -32,7 +32,7 @@ import static org.junit.Assert.assertEquals;
  * @author Jeroen Meulemeester
  */
 public class GiantModelTest {
-
+  
   /**
    * Verify if the health value is set properly though the constructor and setter
    */
@@ -46,7 +46,7 @@ public class GiantModelTest {
       assertEquals("The giant looks " + health.toString() + ", alert and saturated.", model.toString());
     }
   }
-
+  
   /**
    * Verify if the fatigue level is set properly though the constructor and setter
    */
@@ -60,7 +60,7 @@ public class GiantModelTest {
       assertEquals("The giant looks healthy, " + fatigue.toString() + " and saturated.", model.toString());
     }
   }
-
+  
   /**
    * Verify if the nourishment level is set properly though the constructor and setter
    */
@@ -74,5 +74,5 @@ public class GiantModelTest {
       assertEquals("The giant looks healthy, alert and " + nourishment.toString() + ".", model.toString());
     }
   }
-
+  
 }

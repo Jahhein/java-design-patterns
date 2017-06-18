@@ -33,28 +33,26 @@ import java.util.concurrent.Callable;
  * Callable by the constructor. The constructor creates a instance of
  * SimpleDateFormat and stores it in a ThreadLocal class variable. For the
  * complete description of the example see {@link App}
- * 
- * You can comment out the code marked with //TLTL and comment in the 
+ *
+ * You can comment out the code marked with //TLTL and comment in the
  * code marked //NTLNTL. Then you can see what will happen if you do not
  * use the ThreadLocal. For details see the description of {@link App}
  *
- * @author Thomas Bauer, 2017 
+ * @author Thomas Bauer, 2017
  */
 public class DateFormatCallable implements Callable<Result> {
   // class variables (members)
   private ThreadLocal<DateFormat> df;    //TLTL   
   // private DateFormat df;                 //NTLNTL
-
+  
   private String dateValue; // for dateValue Thread Local not needed
   
-
+  
   /**
    * The date format and the date value are passed to the constructor
-   * 
-   * @param inDateFormat
-   *          string date format string, e.g. "dd/MM/yyyy"
-   * @param inDateValue
-   *          string date value, e.g. "21/06/2016"
+   *
+   * @param inDateFormat string date format string, e.g. "dd/MM/yyyy"
+   * @param inDateValue  string date value, e.g. "21/06/2016"
    */
   public DateFormatCallable(String inDateFormat, String inDateValue) {
     final String idf = inDateFormat;                 //TLTL
@@ -67,7 +65,7 @@ public class DateFormatCallable implements Callable<Result> {
     // this.df = new SimpleDateFormat(inDateFormat);    //NTLNTL
     this.dateValue = inDateValue;
   }
-
+  
   /**
    * @see java.util.concurrent.Callable#call()
    */
@@ -75,7 +73,7 @@ public class DateFormatCallable implements Callable<Result> {
   public Result call() {
     System.out.println(Thread.currentThread() + " started executing...");
     Result result = new Result();
-
+    
     // Convert date value to date 5 times
     for (int i = 1; i <= 5; i++) {
       try {
@@ -88,11 +86,11 @@ public class DateFormatCallable implements Callable<Result> {
         // write the Exception to a list and continue work
         result.getExceptionList().add(e.getClass() + ": " + e.getMessage());
       }
-
+      
     }
-
+    
     System.out.println(Thread.currentThread() + " finished processing part of the thread");
-
+    
     return result;
   }
 }

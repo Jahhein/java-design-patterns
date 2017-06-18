@@ -60,7 +60,7 @@ import java.time.LocalDateTime;
  * @author Paul Campbell (pcampbell@kemitix.net)
  */
 class App {
-
+  
   public static void main(String[] args) {
     final DataBus bus = DataBus.getInstance();
     bus.subscribe(new StatusMember(1));

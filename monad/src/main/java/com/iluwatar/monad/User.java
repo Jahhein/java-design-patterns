@@ -26,12 +26,12 @@ package com.iluwatar.monad;
  * User Definition
  */
 public class User {
-
+  
   private String name;
   private int age;
   private Sex sex;
   private String email;
-
+  
   /**
    * @param name  - name
    * @param age   - age
@@ -44,19 +44,19 @@ public class User {
     this.sex = sex;
     this.email = email;
   }
-
+  
   public String getName() {
     return name;
   }
-
+  
   public int getAge() {
     return age;
   }
-
+  
   public Sex getSex() {
     return sex;
   }
-
+  
   public String getEmail() {
     return email;
   }

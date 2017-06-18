@@ -34,17 +34,17 @@ import java.util.Objects;
  * Test for Monad Pattern
  */
 public class MonadTest {
-
+  
   @Rule
   public ExpectedException thrown = ExpectedException.none();
-
+  
   @Test
   public void testForInvalidName() {
     thrown.expect(IllegalStateException.class);
     User tom = new User(null, 21, Sex.MALE, "tom@foo.bar");
     Validator.of(tom).validate(User::getName, Objects::nonNull, "name cannot be null").get();
   }
-
+  
   @Test
   public void testForInvalidAge() {
     thrown.expect(IllegalStateException.class);
@@ -53,7 +53,7 @@ public class MonadTest {
         .validate(User::getAge, age -> age > 21, "user is underaged")
         .get();
   }
-
+  
   @Test
   public void testForValid() {
     User sarah = new User("Sarah", 42, Sex.FEMALE, "sarah@det.org");

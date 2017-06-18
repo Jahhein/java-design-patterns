@@ -22,49 +22,38 @@
  */
 package com.iluwatar.observer;
 
-import static org.junit.Assert.assertEquals;
-
 import com.iluwatar.observer.utils.InMemoryAppender;
-import java.util.function.Supplier;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.function.Supplier;
+
+import static org.junit.Assert.assertEquals;
+
 /**
  * Date: 12/27/15 - 11:44 AM
  * Weather Observer Tests
+ *
  * @param <O> Type of WeatherObserver
  * @author Jeroen Meulemeester
  */
 public abstract class WeatherObserverTest<O extends WeatherObserver> {
-
-  private InMemoryAppender appender;
-
-  @Before
-  public void setUp() {
-    appender = new InMemoryAppender();
-  }
-
-  @After
-  public void tearDown() {
-    appender.stop();
-  }
-
+  
   /**
    * The observer instance factory
    */
   private final Supplier<O> factory;
-
   /**
    * The weather type currently tested
    */
   private final WeatherType weather;
-
   /**
    * The expected response from the observer
    */
   private final String response;
-
+  private InMemoryAppender appender;
+  
   /**
    * Create a new test instance using the given parameters
    *
@@ -77,7 +66,17 @@ public abstract class WeatherObserverTest<O extends WeatherObserver> {
     this.response = response;
     this.factory = factory;
   }
-
+  
+  @Before
+  public void setUp() {
+    appender = new InMemoryAppender();
+  }
+  
+  @After
+  public void tearDown() {
+    appender.stop();
+  }
+  
   /**
    * Verify if the weather has the expected influence on the observer
    */
@@ -85,10 +84,10 @@ public abstract class WeatherObserverTest<O extends WeatherObserver> {
   public void testObserver() {
     final O observer = this.factory.get();
     assertEquals(0, appender.getLogSize());
-
+    
     observer.update(this.weather);
     assertEquals(response, appender.getLastMessage());
     assertEquals(1, appender.getLogSize());
   }
-
+  
 }

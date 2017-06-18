@@ -22,30 +22,27 @@
  */
 package com.iluwatar.servicelayer.common;
 
-import java.lang.reflect.ParameterizedType;
-import java.util.List;
-
+import com.iluwatar.servicelayer.hibernate.HibernateUtil;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 
-import com.iluwatar.servicelayer.hibernate.HibernateUtil;
+import java.lang.reflect.ParameterizedType;
+import java.util.List;
 
 /**
- * 
  * Base class for Dao implementations.
  *
  * @param <E>
- * 
  */
 public abstract class DaoBaseImpl<E extends BaseEntity> implements Dao<E> {
-
+  
   @SuppressWarnings("unchecked")
   protected Class<E> persistentClass = (Class<E>) ((ParameterizedType) getClass()
       .getGenericSuperclass()).getActualTypeArguments()[0];
-
+  
   /*
    * Making this getSessionFactory() instead of getSession() so that it is the responsibility
    * of the caller to open as well as close the session (prevents potential resource leak).
@@ -53,7 +50,7 @@ public abstract class DaoBaseImpl<E extends BaseEntity> implements Dao<E> {
   protected SessionFactory getSessionFactory() {
     return HibernateUtil.getSessionFactory();
   }
-
+  
   @Override
   public E find(Long id) {
     Session session = getSessionFactory().openSession();
@@ -75,7 +72,7 @@ public abstract class DaoBaseImpl<E extends BaseEntity> implements Dao<E> {
     }
     return result;
   }
-
+  
   @Override
   public void persist(E entity) {
     Session session = getSessionFactory().openSession();
@@ -93,7 +90,7 @@ public abstract class DaoBaseImpl<E extends BaseEntity> implements Dao<E> {
       session.close();
     }
   }
-
+  
   @Override
   public E merge(E entity) {
     Session session = getSessionFactory().openSession();
@@ -113,7 +110,7 @@ public abstract class DaoBaseImpl<E extends BaseEntity> implements Dao<E> {
     }
     return result;
   }
-
+  
   @Override
   public void delete(E entity) {
     Session session = getSessionFactory().openSession();
@@ -131,7 +128,7 @@ public abstract class DaoBaseImpl<E extends BaseEntity> implements Dao<E> {
       session.close();
     }
   }
-
+  
   @Override
   public List<E> findAll() {
     Session session = getSessionFactory().openSession();

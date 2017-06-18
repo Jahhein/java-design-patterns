@@ -30,7 +30,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * 
  * There are well-established patterns for implementing broadcasting. The Observer pattern describes
  * the need to decouple observers from their subject (that is, the originator of the event) so that
  * the subject can easily provide event notification to all interested observers no matter how many
@@ -46,12 +45,11 @@ import org.slf4j.LoggerFactory;
  * <p>
  * In this example we use Apache Camel to establish a Publish-Subscribe Channel from "direct-origin"
  * to "mock:foo", "mock:bar" and "stream:out".
- * 
  */
 public class App {
-
+  
   private static final Logger LOGGER = LoggerFactory.getLogger(App.class);
-
+  
   /**
    * Program entry point
    */

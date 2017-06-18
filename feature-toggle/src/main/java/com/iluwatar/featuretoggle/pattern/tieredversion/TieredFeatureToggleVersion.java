@@ -39,7 +39,7 @@ import com.iluwatar.featuretoggle.user.UserGroup;
  * @see UserGroup
  */
 public class TieredFeatureToggleVersion implements Service {
-
+  
   /**
    * Generates a welcome message from the passed {@link User}. The resulting message depends on the group of the
    * {@link User}. So if the {@link User} is in the {@link UserGroup#paidGroup} then the enhanced version of the
@@ -56,10 +56,10 @@ public class TieredFeatureToggleVersion implements Service {
     if (UserGroup.isPaid(user)) {
       return "You're amazing " + user + ". Thanks for paying for this awesome software.";
     }
-
+    
     return "I suppose you can use this software.";
   }
-
+  
   /**
    * Method that checks if the welcome message to be returned is the enhanced version. For this instance as the logic
    * is driven by the user group. This method is a little redundant. However can be used to show that there is an
@@ -71,5 +71,5 @@ public class TieredFeatureToggleVersion implements Service {
   public boolean isEnhanced() {
     return true;
   }
-
+  
 }

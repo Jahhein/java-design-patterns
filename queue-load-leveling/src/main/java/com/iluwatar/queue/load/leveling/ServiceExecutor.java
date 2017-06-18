@@ -27,21 +27,20 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * 
- *  ServiceExecuotr class.
- *  This class will pick up Messages one by one from 
- *  the Blocking Queue and process them.
+ * ServiceExecuotr class.
+ * This class will pick up Messages one by one from
+ * the Blocking Queue and process them.
  */
 public class ServiceExecutor implements Runnable {
-
+  
   private static final Logger LOGGER = LoggerFactory.getLogger(App.class);
-
+  
   private final MessageQueue msgQueue;
-
+  
   public ServiceExecutor(MessageQueue msgQueue) {
     this.msgQueue = msgQueue;
   }
-
+  
   /**
    * The ServiceExecutor thread will retrieve each message and process it.
    */
@@ -49,13 +48,13 @@ public class ServiceExecutor implements Runnable {
     try {
       while (!Thread.currentThread().isInterrupted()) {
         Message msg = msgQueue.retrieveMsg();
-
+        
         if (null != msg) {
           LOGGER.info(msg.toString() + " is served.");
         } else {
           LOGGER.info("Service Executor: Waiting for Messages to serve .. ");
         }
-
+        
         Thread.sleep(1000);
       }
     } catch (InterruptedException ie) {

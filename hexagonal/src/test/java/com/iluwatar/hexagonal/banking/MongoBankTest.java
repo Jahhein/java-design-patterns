@@ -35,12 +35,12 @@ import static org.junit.Assert.assertEquals;
  */
 @Ignore
 public class MongoBankTest {
-
+  
   private static final String TEST_DB = "lotteryDBTest";
   private static final String TEST_ACCOUNTS_COLLECTION = "testAccounts";
-
+  
   private MongoBank mongoBank;
-
+  
   @Before
   public void init() {
     MongoConnectionPropertiesLoader.load();
@@ -50,12 +50,12 @@ public class MongoBankTest {
     mongoClient.close();
     mongoBank = new MongoBank(TEST_DB, TEST_ACCOUNTS_COLLECTION);
   }
-
+  
   @Test
   public void testSetup() {
     assertEquals(0, mongoBank.getAccountsCollection().count());
   }
-
+  
   @Test
   public void testFundTransfers() {
     assertEquals(0, mongoBank.getFunds("000-000"));

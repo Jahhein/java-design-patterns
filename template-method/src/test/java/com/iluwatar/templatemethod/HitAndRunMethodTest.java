@@ -28,7 +28,7 @@ package com.iluwatar.templatemethod;
  * @author Jeroen Meulemeester
  */
 public class HitAndRunMethodTest extends StealingMethodTest<HitAndRunMethod> {
-
+  
   /**
    * Create a new test for the {@link HitAndRunMethod}
    */
@@ -41,5 +41,5 @@ public class HitAndRunMethodTest extends StealingMethodTest<HitAndRunMethod> {
         "Grab the handbag and run away fast!"
     );
   }
-
+  
 }

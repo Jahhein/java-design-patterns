@@ -42,9 +42,9 @@ import java.util.concurrent.TimeUnit;
  */
 
 public class App {
-
+  
   private static final Logger LOGGER = LoggerFactory.getLogger(App.class);
-
+  
   /**
    * @param args the command line arguments - not used
    */
@@ -61,5 +61,5 @@ public class App {
       LOGGER.error("ERROR: Waiting on executor service shutdown!");
     }
   }
-
+  
 }

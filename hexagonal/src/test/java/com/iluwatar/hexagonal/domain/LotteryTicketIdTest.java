@@ -31,7 +31,7 @@ import static org.junit.Assert.assertTrue;
  * Tests for lottery ticket id
  */
 public class LotteryTicketIdTest {
-
+  
   @Test
   public void testEquals() {
     LotteryTicketId ticketId1 = new LotteryTicketId();

@@ -36,17 +36,7 @@ import java.util.List;
  */
 @RunWith(Parameterized.class)
 public class HobbitsTest extends WeatherObserverTest<Hobbits> {
-
-  @Parameterized.Parameters
-  public static Collection<Object[]> data() {
-    final List<Object[]> testData = new ArrayList<>();
-    testData.add(new Object[]{WeatherType.SUNNY, "The happy hobbits bade in the warm sun."});
-    testData.add(new Object[]{WeatherType.RAINY, "The hobbits look for cover from the rain."});
-    testData.add(new Object[]{WeatherType.WINDY, "The hobbits hold their hats tightly in the windy weather."});
-    testData.add(new Object[]{WeatherType.COLD, "The hobbits are shivering in the cold weather."});
-    return testData;
-  }
-
+  
   /**
    * Create a new test with the given weather and expected response
    *
@@ -56,5 +46,15 @@ public class HobbitsTest extends WeatherObserverTest<Hobbits> {
   public HobbitsTest(final WeatherType weather, final String response) {
     super(weather, response, Hobbits::new);
   }
-
+  
+  @Parameterized.Parameters
+  public static Collection<Object[]> data() {
+    final List<Object[]> testData = new ArrayList<>();
+    testData.add(new Object[] {WeatherType.SUNNY, "The happy hobbits bade in the warm sun."});
+    testData.add(new Object[] {WeatherType.RAINY, "The hobbits look for cover from the rain."});
+    testData.add(new Object[] {WeatherType.WINDY, "The hobbits hold their hats tightly in the windy weather."});
+    testData.add(new Object[] {WeatherType.COLD, "The hobbits are shivering in the cold weather."});
+    return testData;
+  }
+  
 }

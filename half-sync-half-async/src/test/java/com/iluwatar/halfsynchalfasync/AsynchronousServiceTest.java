@@ -37,7 +37,7 @@ import static org.mockito.Mockito.*;
  * @author Jeroen Meulemeester
  */
 public class AsynchronousServiceTest {
-
+  
   @Test
   public void testPerfectExecution() throws Exception {
     final AsynchronousService service = new AsynchronousService(new LinkedBlockingQueue<>());
@@ -45,17 +45,17 @@ public class AsynchronousServiceTest {
     final Object result = new Object();
     when(task.call()).thenReturn(result);
     service.execute(task);
-
+    
     verify(task, timeout(2000)).onPostCall(eq(result));
-
+    
     final InOrder inOrder = inOrder(task);
     inOrder.verify(task, times(1)).onPreCall();
     inOrder.verify(task, times(1)).call();
     inOrder.verify(task, times(1)).onPostCall(eq(result));
-
+    
     verifyNoMoreInteractions(task);
   }
-
+  
   @Test
   public void testCallException() throws Exception {
     final AsynchronousService service = new AsynchronousService(new LinkedBlockingQueue<>());
@@ -63,17 +63,17 @@ public class AsynchronousServiceTest {
     final IOException exception = new IOException();
     when(task.call()).thenThrow(exception);
     service.execute(task);
-
+    
     verify(task, timeout(2000)).onError(eq(exception));
-
+    
     final InOrder inOrder = inOrder(task);
     inOrder.verify(task, times(1)).onPreCall();
     inOrder.verify(task, times(1)).call();
     inOrder.verify(task, times(1)).onError(exception);
-
+    
     verifyNoMoreInteractions(task);
   }
-
+  
   @Test
   public void testPreCallException() throws Exception {
     final AsynchronousService service = new AsynchronousService(new LinkedBlockingQueue<>());
@@ -81,14 +81,14 @@ public class AsynchronousServiceTest {
     final IllegalStateException exception = new IllegalStateException();
     doThrow(exception).when(task).onPreCall();
     service.execute(task);
-
+    
     verify(task, timeout(2000)).onError(eq(exception));
-
+    
     final InOrder inOrder = inOrder(task);
     inOrder.verify(task, times(1)).onPreCall();
     inOrder.verify(task, times(1)).onError(exception);
-
+    
     verifyNoMoreInteractions(task);
   }
-
+  
 }

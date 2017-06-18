@@ -18,17 +18,15 @@
  */
 package com.iluwatar.module;
 
-import java.io.FileNotFoundException;
-
-import com.iluwatar.module.App;
-
 import org.junit.Test;
+
+import java.io.FileNotFoundException;
 
 /**
  * Tests that Module example runs without errors.
  */
 public final class AppTest {
-
+  
   @Test
   public void test() throws FileNotFoundException {
     final String[] args = {};

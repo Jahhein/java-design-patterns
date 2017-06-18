@@ -30,18 +30,16 @@ import java.io.File;
 import java.io.IOException;
 
 /**
- * 
  * Tests execute-around example.
- *
  */
 public class AppTest {
-
+  
   @Test
   public void test() throws IOException {
     String[] args = {};
     App.main(args);
   }
-
+  
   @Before
   @After
   public void cleanup() {

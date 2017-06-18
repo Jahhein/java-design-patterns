@@ -33,22 +33,22 @@ package com.iluwatar.singleton;
  * The inner class is referenced no earlier (and therefore loaded no earlier by the class loader) than
  * the moment that getInstance() is called. Thus, this solution is thread-safe without requiring special
  * language constructs (i.e. volatile or synchronized).
- *
  */
 public final class InitializingOnDemandHolderIdiom {
-
+  
   /**
    * Private constructor.
    */
-  private InitializingOnDemandHolderIdiom() {}
-
+  private InitializingOnDemandHolderIdiom() {
+  }
+  
   /**
    * @return Singleton instance
    */
   public static InitializingOnDemandHolderIdiom getInstance() {
     return HelperHolder.INSTANCE;
   }
-
+  
   /**
    * Provides the lazy-loaded Singleton instance.
    */

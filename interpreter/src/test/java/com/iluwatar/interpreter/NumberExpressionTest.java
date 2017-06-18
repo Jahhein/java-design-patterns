@@ -38,17 +38,7 @@ import static org.junit.Assert.assertEquals;
  */
 @RunWith(Parameterized.class)
 public class NumberExpressionTest extends ExpressionTest<NumberExpression> {
-
-  /**
-   * Create a new set of test entries with the expected result
-   *
-   * @return The list of parameters used during this test
-   */
-  @Parameters
-  public static List<Object[]> data() {
-    return prepareParameters((f, s) -> f);
-  }
-
+  
   /**
    * Create a new test instance using the given test parameters and expected result
    *
@@ -59,7 +49,17 @@ public class NumberExpressionTest extends ExpressionTest<NumberExpression> {
   public NumberExpressionTest(final NumberExpression first, final NumberExpression second, final int result) {
     super(first, second, result, "number", (f, s) -> f);
   }
-
+  
+  /**
+   * Create a new set of test entries with the expected result
+   *
+   * @return The list of parameters used during this test
+   */
+  @Parameters
+  public static List<Object[]> data() {
+    return prepareParameters((f, s) -> f);
+  }
+  
   /**
    * Verify if the {@link NumberExpression#NumberExpression(String)} constructor works as expected
    */
@@ -70,5 +70,5 @@ public class NumberExpressionTest extends ExpressionTest<NumberExpression> {
     final NumberExpression numberExpression = new NumberExpression(testStingValue);
     assertEquals(expectedValue, numberExpression.interpret());
   }
-
+  
 }

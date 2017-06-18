@@ -32,37 +32,37 @@ import org.bson.Document;
  * Mongo based event log
  */
 public class MongoEventLog implements LotteryEventLog {
-
+  
   private static final String DEFAULT_DB = "lotteryDB";
   private static final String DEFAULT_EVENTS_COLLECTION = "events";
-
+  
   private MongoClient mongoClient;
   private MongoDatabase database;
   private MongoCollection<Document> eventsCollection;
-
+  
   private StdOutEventLog stdOutEventLog = new StdOutEventLog();
-
+  
   /**
    * Constructor
    */
   public MongoEventLog() {
     connect();
   }
-
+  
   /**
    * Constructor accepting parameters
    */
   public MongoEventLog(String dbName, String eventsCollectionName) {
     connect(dbName, eventsCollectionName);
   }
-
+  
   /**
    * Connect to database with default parameters
    */
   public void connect() {
     connect(DEFAULT_DB, DEFAULT_EVENTS_COLLECTION);
   }
-
+  
   /**
    * Connect to database with given parameters
    */
@@ -75,31 +75,29 @@ public class MongoEventLog implements LotteryEventLog {
     database = mongoClient.getDatabase(dbName);
     eventsCollection = database.getCollection(eventsCollectionName);
   }
-
+  
   /**
    * @return mongo client
    */
   public MongoClient getMongoClient() {
     return mongoClient;
   }
-
+  
   /**
-   *
    * @return mongo database
    */
   public MongoDatabase getMongoDatabase() {
     return database;
   }
-
+  
   /**
-   *
    * @return accounts collection
    */
   public MongoCollection<Document> getEventsCollection() {
     return eventsCollection;
   }
-
-
+  
+  
   @Override
   public void ticketSubmitted(PlayerDetails details) {
     Document document = new Document("email", details.getEmail());
@@ -109,7 +107,7 @@ public class MongoEventLog implements LotteryEventLog {
     eventsCollection.insertOne(document);
     stdOutEventLog.ticketSubmitted(details);
   }
-
+  
   @Override
   public void ticketSubmitError(PlayerDetails details) {
     Document document = new Document("email", details.getEmail());
@@ -119,7 +117,7 @@ public class MongoEventLog implements LotteryEventLog {
     eventsCollection.insertOne(document);
     stdOutEventLog.ticketSubmitError(details);
   }
-
+  
   @Override
   public void ticketDidNotWin(PlayerDetails details) {
     Document document = new Document("email", details.getEmail());
@@ -129,7 +127,7 @@ public class MongoEventLog implements LotteryEventLog {
     eventsCollection.insertOne(document);
     stdOutEventLog.ticketDidNotWin(details);
   }
-
+  
   @Override
   public void ticketWon(PlayerDetails details, int prizeAmount) {
     Document document = new Document("email", details.getEmail());
@@ -140,7 +138,7 @@ public class MongoEventLog implements LotteryEventLog {
     eventsCollection.insertOne(document);
     stdOutEventLog.ticketWon(details, prizeAmount);
   }
-
+  
   @Override
   public void prizeError(PlayerDetails details, int prizeAmount) {
     Document document = new Document("email", details.getEmail());

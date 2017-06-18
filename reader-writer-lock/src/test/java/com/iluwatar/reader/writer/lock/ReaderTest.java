@@ -40,44 +40,43 @@ import static org.mockito.Mockito.spy;
  * @author hongshuwei@gmail.com
  */
 public class ReaderTest {
-
+  
+  private static final Logger LOGGER = LoggerFactory.getLogger(ReaderTest.class);
   private InMemoryAppender appender;
-
+  
   @Before
   public void setUp() {
     appender = new InMemoryAppender(Reader.class);
   }
-
+  
   @After
   public void tearDown() {
     appender.stop();
   }
-
-  private static final Logger LOGGER = LoggerFactory.getLogger(ReaderTest.class);
-
+  
   /**
    * Verify that multiple readers can get the read lock concurrently
    */
   @Test
   public void testRead() throws Exception {
-
+    
     ExecutorService executeService = Executors.newFixedThreadPool(2);
     ReaderWriterLock lock = new ReaderWriterLock();
-
+    
     Reader reader1 = spy(new Reader("Reader 1", lock.readLock()));
     Reader reader2 = spy(new Reader("Reader 2", lock.readLock()));
-
+    
     executeService.submit(reader1);
     Thread.sleep(150);
     executeService.submit(reader2);
-
+    
     executeService.shutdown();
     try {
       executeService.awaitTermination(10, TimeUnit.SECONDS);
     } catch (InterruptedException e) {
       LOGGER.error("Error waiting for ExecutorService shutdown", e);
     }
-
+    
     // Read operation will hold the read lock 250 milliseconds, so here we prove that multiple reads
     // can be performed in the same time.
     assertTrue(appender.logContains("Reader 1 begin"));

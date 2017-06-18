@@ -31,11 +31,11 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 /**
- * Mute pattern is utilized when we need to suppress an exception due to an API flaw or in 
- * situation when all we can do to handle the exception is to log it. 
- * This pattern should not be used everywhere. It is very important to logically handle the 
- * exceptions in a system, but some situations like the ones described above require this pattern, 
- * so that we don't need to repeat 
+ * Mute pattern is utilized when we need to suppress an exception due to an API flaw or in
+ * situation when all we can do to handle the exception is to log it.
+ * This pattern should not be used everywhere. It is very important to logically handle the
+ * exceptions in a system, but some situations like the ones described above require this pattern,
+ * so that we don't need to repeat
  * <pre>
  * <code>
  *   try {
@@ -45,25 +45,24 @@ import java.sql.SQLException;
  *   }
  * </code>
  * </pre> every time we need to ignore an exception.
- * 
  */
 public class App {
-
+  
   private static final Logger LOGGER = LoggerFactory.getLogger(App.class);
-
+  
   /**
    * Program entry point.
-   * 
+   *
    * @param args command line args.
    * @throws Exception if any exception occurs
    */
   public static void main(String[] args) throws Exception {
-
+    
     useOfLoggedMute();
-
+    
     useOfMute();
   }
-
+  
   /*
    * Typically used when the API declares some exception but cannot do so. Usually a 
    * signature mistake.In this example out is not supposed to throw exception as it is a
@@ -74,7 +73,7 @@ public class App {
     ByteArrayOutputStream out = new ByteArrayOutputStream();
     Mute.mute(() -> out.write("Hello".getBytes()));
   }
-
+  
   private static void useOfLoggedMute() throws SQLException {
     Resource resource = null;
     try {
@@ -84,18 +83,18 @@ public class App {
       closeResource(resource);
     }
   }
-
+  
   /*
    * All we can do while failed close of a resource is to log it.
    */
   private static void closeResource(Resource resource) {
     Mute.loggedMute(() -> resource.close());
   }
-
+  
   private static void utilizeResource(Resource resource) throws SQLException {
     LOGGER.info("Utilizing acquired resource: {}", resource);
   }
-
+  
   private static Resource acquireResource() throws SQLException {
     return new Resource() {
       

@@ -32,11 +32,11 @@ import java.util.List;
  * @see User
  */
 public class UserGroup {
-
+  
   private static List<User> freeGroup = new ArrayList<>();
   private static List<User> paidGroup = new ArrayList<>();
-
-
+  
+  
   /**
    * Add the passed {@link User} to the free user group list.
    *
@@ -53,7 +53,7 @@ public class UserGroup {
       }
     }
   }
-
+  
   /**
    * Add the passed {@link User} to the paid user group list.
    *
@@ -70,12 +70,11 @@ public class UserGroup {
       }
     }
   }
-
+  
   /**
    * Method to take a {@link User} to determine if the user is in the {@link UserGroup#paidGroup}.
    *
    * @param user {@link User} to check if they are in the {@link UserGroup#paidGroup}
-   *
    * @return true if the {@link User} is in {@link UserGroup#paidGroup}
    */
   public static boolean isPaid(User user) {

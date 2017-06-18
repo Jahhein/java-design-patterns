@@ -32,15 +32,15 @@ import org.slf4j.LoggerFactory;
 public class Consumer {
   
   private static final Logger LOGGER = LoggerFactory.getLogger(Consumer.class);
-
+  
   private final MqSubscribePoint queue;
   private final String name;
-
+  
   public Consumer(String name, MqSubscribePoint queue) {
     this.name = name;
     this.queue = queue;
   }
-
+  
   /**
    * Consume message
    */
@@ -58,7 +58,7 @@ public class Consumer {
         LOGGER.error("Exception caught.", e);
         return;
       }
-
+      
       String sender = msg.getHeader(Headers.SENDER);
       String body = msg.getBody();
       LOGGER.info("Message [{}] from [{}] received by [{}]", body, sender, name);

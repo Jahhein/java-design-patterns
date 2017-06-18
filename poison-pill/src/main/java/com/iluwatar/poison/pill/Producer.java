@@ -22,24 +22,24 @@
  */
 package com.iluwatar.poison.pill;
 
-import java.util.Date;
-
 import com.iluwatar.poison.pill.Message.Headers;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.Date;
 
 /**
  * Class responsible for producing unit of work that can be expressed as message and submitted to
  * queue
  */
 public class Producer {
-
+  
   private static final Logger LOGGER = LoggerFactory.getLogger(Producer.class);
-
+  
   private final MqPublishPoint queue;
   private final String name;
   private boolean isStopped;
-
+  
   /**
    * Constructor
    */
@@ -48,7 +48,7 @@ public class Producer {
     this.queue = queue;
     this.isStopped = false;
   }
-
+  
   /**
    * Send message to queue
    */
@@ -61,7 +61,7 @@ public class Producer {
     msg.addHeader(Headers.DATE, new Date().toString());
     msg.addHeader(Headers.SENDER, name);
     msg.setBody(body);
-
+    
     try {
       queue.put(msg);
     } catch (InterruptedException e) {
@@ -69,7 +69,7 @@ public class Producer {
       LOGGER.error("Exception caught.", e);
     }
   }
-
+  
   /**
    * Stop system by sending poison pill
    */

@@ -22,26 +22,22 @@
  */
 package com.iluwatar.hexagonal.domain;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import org.junit.Test;
 
 import java.util.Arrays;
 import java.util.HashSet;
 
-import org.junit.Test;
+import static org.junit.Assert.*;
 
 /**
- * 
  * Unit tests for {@link LotteryNumbers}
- *
  */
 public class LotteryNumbersTest {
   
   @Test
   public void testGivenNumbers() {
     LotteryNumbers numbers = LotteryNumbers.create(
-            new HashSet<>(Arrays.asList(1, 2, 3, 4)));
+        new HashSet<>(Arrays.asList(1, 2, 3, 4)));
     assertEquals(numbers.getNumbers().size(), 4);
     assertTrue(numbers.getNumbers().contains(1));
     assertTrue(numbers.getNumbers().contains(2));
@@ -52,7 +48,7 @@ public class LotteryNumbersTest {
   @Test(expected = UnsupportedOperationException.class)
   public void testNumbersCantBeModified() {
     LotteryNumbers numbers = LotteryNumbers.create(
-            new HashSet<>(Arrays.asList(1, 2, 3, 4)));
+        new HashSet<>(Arrays.asList(1, 2, 3, 4)));
     numbers.getNumbers().add(5);
   }
   
@@ -65,12 +61,12 @@ public class LotteryNumbersTest {
   @Test
   public void testEquals() {
     LotteryNumbers numbers1 = LotteryNumbers.create(
-            new HashSet<>(Arrays.asList(1, 2, 3, 4)));
+        new HashSet<>(Arrays.asList(1, 2, 3, 4)));
     LotteryNumbers numbers2 = LotteryNumbers.create(
-            new HashSet<>(Arrays.asList(1, 2, 3, 4)));
+        new HashSet<>(Arrays.asList(1, 2, 3, 4)));
     assertTrue(numbers1.equals(numbers2));
     LotteryNumbers numbers3 = LotteryNumbers.create(
-            new HashSet<>(Arrays.asList(11, 12, 13, 14)));
+        new HashSet<>(Arrays.asList(11, 12, 13, 14)));
     assertFalse(numbers1.equals(numbers3));
   }
 }

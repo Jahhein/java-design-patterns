@@ -21,6 +21,7 @@
  * THE SOFTWARE.
  */
 package com.iluwatar.factorykit;
+
 /**
  * Class representing Spear
  */

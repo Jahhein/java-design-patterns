@@ -19,6 +19,14 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
+ *
+ * Guarded-suspension is a concurrent design pattern for handling situation when to execute some action we need
+ * condition to be satisfied.
+ * <p>
+ * Implementation is based on GuardedQueue, which has two methods: get and put,
+ * the condition is that we cannot get from empty queue so when thread attempt
+ * to break the condition we invoke Object's wait method on him and when other thread put an element
+ * to the queue he notify the waiting one that now he can get from queue.
  */
 /**
  * Guarded-suspension is a concurrent design pattern for handling situation when to execute some action we need
@@ -47,13 +55,13 @@ public class App {
   public static void main(String[] args) {
     GuardedQueue guardedQueue = new GuardedQueue();
     ExecutorService executorService = Executors.newFixedThreadPool(3);
-
+    
     //here we create first thread which is supposed to get from guardedQueue
     executorService.execute(() -> {
           guardedQueue.get();
         }
     );
-
+    
     //here we wait two seconds to show that the thread which is trying to get from guardedQueue will be waiting
     try {
       Thread.sleep(2000);
@@ -72,5 +80,5 @@ public class App {
       e.printStackTrace();
     }
   }
-
+  
 }

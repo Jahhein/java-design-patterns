@@ -22,7 +22,7 @@
  */
 package com.iluwatar.pageobject;
 
-import java.awt.Desktop;
+import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 
@@ -49,10 +49,10 @@ import java.io.IOException;
  * in order to understand it.
  */
 public final class App {
-
+  
   private App() {
   }
-
+  
   /**
    * Application entry point
    *
@@ -68,22 +68,22 @@ public final class App {
    * @param args arguments
    */
   public static void main(String[] args) {
-
+    
     try {
       File applicationFile = new File(App.class.getClassLoader().getResource("sample-ui/login.html").getPath());
-
+      
       // should work for unix like OS (mac, unix etc...)
       if (Desktop.isDesktopSupported()) {
         Desktop.getDesktop().open(applicationFile);
-
+        
       } else {
         // java Desktop not supported - above unlikely to work for Windows so try following instead...
         Runtime.getRuntime().exec("cmd.exe start " + applicationFile);
       }
-
+      
     } catch (IOException ex) {
       ex.printStackTrace();
     }
-
+    
   }
 }

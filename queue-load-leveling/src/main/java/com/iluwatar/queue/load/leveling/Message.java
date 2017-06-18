@@ -23,18 +23,17 @@
 package com.iluwatar.queue.load.leveling;
 
 /**
- *  Message class with only one parameter.
- *
-*/
+ * Message class with only one parameter.
+ */
 public class Message {
   private final String msg;
- 
+  
   // Parameter constructor.
   public Message(String msg) {
     super();
     this.msg = msg;
   }
-
+  
   // Get Method for attribute msg.
   public String getMsg() {
     return msg;

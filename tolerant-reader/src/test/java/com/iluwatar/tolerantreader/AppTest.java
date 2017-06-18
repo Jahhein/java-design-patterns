@@ -30,18 +30,16 @@ import java.io.File;
 import java.io.IOException;
 
 /**
- * 
  * Application test
- *
  */
 public class AppTest {
-
+  
   @Test
   public void test() throws ClassNotFoundException, IOException {
     String[] args = {};
     App.main(args);
   }
-
+  
   @Before
   @After
   public void cleanup() {

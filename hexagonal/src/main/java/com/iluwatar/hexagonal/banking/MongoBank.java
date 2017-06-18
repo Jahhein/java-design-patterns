@@ -35,35 +35,35 @@ import java.util.List;
  * Mongo based banking adapter
  */
 public class MongoBank implements WireTransfers {
-
+  
   private static final String DEFAULT_DB = "lotteryDB";
   private static final String DEFAULT_ACCOUNTS_COLLECTION = "accounts";
-
+  
   private MongoClient mongoClient;
   private MongoDatabase database;
   private MongoCollection<Document> accountsCollection;
-
+  
   /**
    * Constructor
    */
   public MongoBank() {
     connect();
   }
-
+  
   /**
    * Constructor accepting parameters
    */
   public MongoBank(String dbName, String accountsCollectionName) {
     connect(dbName, accountsCollectionName);
   }
-
+  
   /**
    * Connect to database with default parameters
    */
   public void connect() {
     connect(DEFAULT_DB, DEFAULT_ACCOUNTS_COLLECTION);
   }
-
+  
   /**
    * Connect to database with given parameters
    */
@@ -76,38 +76,36 @@ public class MongoBank implements WireTransfers {
     database = mongoClient.getDatabase(dbName);
     accountsCollection = database.getCollection(accountsCollectionName);
   }
-
+  
   /**
    * @return mongo client
    */
   public MongoClient getMongoClient() {
     return mongoClient;
   }
-
+  
   /**
-   *
    * @return mongo database
    */
   public MongoDatabase getMongoDatabase() {
     return database;
   }
-
+  
   /**
-   *
    * @return accounts collection
    */
   public MongoCollection<Document> getAccountsCollection() {
     return accountsCollection;
   }
-
-
+  
+  
   @Override
   public void setFunds(String bankAccount, int amount) {
     Document search = new Document("_id", bankAccount);
     Document update = new Document("_id", bankAccount).append("funds", amount);
     accountsCollection.updateOne(search, new Document("$set", update), new UpdateOptions().upsert(true));
   }
-
+  
   @Override
   public int getFunds(String bankAccount) {
     Document search = new Document("_id", bankAccount);
@@ -118,7 +116,7 @@ public class MongoBank implements WireTransfers {
       return 0;
     }
   }
-
+  
   @Override
   public boolean transferFunds(int amount, String sourceBackAccount, String destinationBankAccount) {
     int sourceFunds = getFunds(sourceBackAccount);

@@ -26,7 +26,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * 
  * Resource Acquisition Is Initialization pattern was developed for exception safe resource
  * management by C++ creator Bjarne Stroustrup.
  * <p>
@@ -43,21 +42,20 @@ import org.slf4j.LoggerFactory;
  * automatically closed.
  * <p>
  * http://docs.oracle.com/javase/7/docs/technotes/guides/language/try-with-resources.html
- *
  */
 public class App {
-
+  
   private static final Logger LOGGER = LoggerFactory.getLogger(App.class);
-
+  
   /**
    * Program entry point
    */
   public static void main(String[] args) throws Exception {
-
+    
     try (SlidingDoor slidingDoor = new SlidingDoor()) {
       LOGGER.info("Walking in.");
     }
-
+    
     try (TreasureChest treasureChest = new TreasureChest()) {
       LOGGER.info("Looting contents.");
     }

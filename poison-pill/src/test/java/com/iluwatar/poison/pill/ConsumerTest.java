@@ -42,40 +42,9 @@ import static org.junit.Assert.assertTrue;
  * @author Jeroen Meulemeester
  */
 public class ConsumerTest {
-
+  
   private InMemoryAppender appender;
-
-  @Before
-  public void setUp() {
-    appender = new InMemoryAppender(Consumer.class);
-  }
-
-  @After
-  public void tearDown() {
-    appender.stop();
-  }
-
-  @Test
-  public void testConsume() throws Exception {
-    final Message[] messages = new Message[]{
-        createMessage("you", "Hello!"),
-        createMessage("me", "Hi!"),
-        Message.POISON_PILL,
-        createMessage("late_for_the_party", "Hello? Anyone here?"),
-    };
-
-    final MessageQueue queue = new SimpleMessageQueue(messages.length);
-    for (final Message message : messages) {
-      queue.put(message);
-    }
-
-    new Consumer("NSA", queue).consume();
-
-    assertTrue(appender.logContains("Message [Hello!] from [you] received by [NSA]"));
-    assertTrue(appender.logContains("Message [Hi!] from [me] received by [NSA]"));
-    assertTrue(appender.logContains("Consumer NSA receive request to terminate."));
-  }
-
+  
   /**
    * Create a new message from the given sender with the given message body
    *
@@ -90,23 +59,54 @@ public class ConsumerTest {
     msg.setBody(message);
     return msg;
   }
-
+  
+  @Before
+  public void setUp() {
+    appender = new InMemoryAppender(Consumer.class);
+  }
+  
+  @After
+  public void tearDown() {
+    appender.stop();
+  }
+  
+  @Test
+  public void testConsume() throws Exception {
+    final Message[] messages = new Message[] {
+        createMessage("you", "Hello!"),
+        createMessage("me", "Hi!"),
+        Message.POISON_PILL,
+        createMessage("late_for_the_party", "Hello? Anyone here?"),
+    };
+    
+    final MessageQueue queue = new SimpleMessageQueue(messages.length);
+    for (final Message message : messages) {
+      queue.put(message);
+    }
+    
+    new Consumer("NSA", queue).consume();
+    
+    assertTrue(appender.logContains("Message [Hello!] from [you] received by [NSA]"));
+    assertTrue(appender.logContains("Message [Hi!] from [me] received by [NSA]"));
+    assertTrue(appender.logContains("Consumer NSA receive request to terminate."));
+  }
+  
   private class InMemoryAppender extends AppenderBase<ILoggingEvent> {
     private List<ILoggingEvent> log = new LinkedList<>();
-
+    
     public InMemoryAppender(Class clazz) {
       ((Logger) LoggerFactory.getLogger(clazz)).addAppender(this);
       start();
     }
-
+    
     @Override
     protected void append(ILoggingEvent eventObject) {
       log.add(eventObject);
     }
-
+    
     public boolean logContains(String message) {
       return log.stream().anyMatch(event -> event.getFormattedMessage().equals(message));
     }
   }
-
+  
 }

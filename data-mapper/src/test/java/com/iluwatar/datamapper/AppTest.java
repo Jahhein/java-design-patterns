@@ -18,14 +18,13 @@
  */
 package com.iluwatar.datamapper;
 
-import com.iluwatar.datamapper.App;
 import org.junit.Test;
 
 /**
  * Tests that Data-Mapper example runs without errors.
  */
 public final class AppTest {
-
+  
   @Test
   public void test() {
     final String[] args = {};

@@ -25,12 +25,7 @@ package com.iluwatar.hexagonal.service;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.iluwatar.hexagonal.banking.WireTransfers;
-import com.iluwatar.hexagonal.domain.LotteryNumbers;
-import com.iluwatar.hexagonal.domain.LotteryService;
-import com.iluwatar.hexagonal.domain.LotteryTicket;
-import com.iluwatar.hexagonal.domain.LotteryTicketCheckResult;
-import com.iluwatar.hexagonal.domain.LotteryTicketId;
-import com.iluwatar.hexagonal.domain.PlayerDetails;
+import com.iluwatar.hexagonal.domain.*;
 import com.iluwatar.hexagonal.module.LotteryModule;
 import com.iluwatar.hexagonal.mongo.MongoConnectionPropertiesLoader;
 import org.slf4j.Logger;
@@ -45,9 +40,9 @@ import java.util.Set;
  * Console interface for lottery players
  */
 public class ConsoleLottery {
-
+  
   private static final Logger LOGGER = LoggerFactory.getLogger(ConsoleLottery.class);
-
+  
   /**
    * Program entry point
    */
@@ -77,7 +72,7 @@ public class ConsoleLottery {
       }
     }
   }
-
+  
   private static void checkTicket(LotteryService service, Scanner scanner) {
     LOGGER.info("What is the ID of the lottery ticket?");
     String id = readString(scanner);
@@ -102,7 +97,7 @@ public class ConsoleLottery {
       LOGGER.info("Failed checking the lottery ticket - please try again.");
     }
   }
-
+  
   private static void submitTicket(LotteryService service, Scanner scanner) {
     LOGGER.info("What is your email address?");
     String email = readString(scanner);
@@ -131,7 +126,7 @@ public class ConsoleLottery {
       LOGGER.info("Failed submitting lottery ticket - please try again.");
     }
   }
-
+  
   private static void addFundsToLotteryAccount(WireTransfers bank, Scanner scanner) {
     LOGGER.info("What is the account number?");
     String account = readString(scanner);
@@ -140,13 +135,13 @@ public class ConsoleLottery {
     bank.setFunds(account, Integer.parseInt(amount));
     LOGGER.info("The account {} now has {} credits.", account, bank.getFunds(account));
   }
-
+  
   private static void queryLotteryAccountFunds(WireTransfers bank, Scanner scanner) {
     LOGGER.info("What is the account number?");
     String account = readString(scanner);
     LOGGER.info("The account {} has {} credits.", account, bank.getFunds(account));
   }
-
+  
   private static void printMainMenu() {
     LOGGER.info("");
     LOGGER.info("### Lottery Service Console ###");
@@ -156,7 +151,7 @@ public class ConsoleLottery {
     LOGGER.info("(4) Check ticket");
     LOGGER.info("(5) Exit");
   }
-
+  
   private static String readString(Scanner scanner) {
     System.out.print("> ");
     return scanner.next();

@@ -35,42 +35,42 @@ import static org.junit.Assert.assertEquals;
  * @author Jeroen Meulemeester
  */
 public class AdvancedWizardTest {
-
+  
   private InMemoryAppender appender;
-
+  
   @Before
   public void setUp() {
     appender = new InMemoryAppender(Tobacco.class);
   }
-
+  
   @After
   public void tearDown() {
     appender.stop();
   }
-
+  
   /**
    * Test if the {@link AdvancedWizard} smokes whatever instance of {@link Tobacco} is passed to him
    * through the constructor parameter
    */
   @Test
   public void testSmokeEveryThing() throws Exception {
-
+    
     final Tobacco[] tobaccos = {
         new OldTobyTobacco(), new RivendellTobacco(), new SecondBreakfastTobacco()
     };
-
+    
     for (final Tobacco tobacco : tobaccos) {
       final AdvancedWizard advancedWizard = new AdvancedWizard(tobacco);
       advancedWizard.smoke();
-
+      
       // Verify if the wizard is smoking the correct tobacco ...
       assertEquals("AdvancedWizard smoking " + tobacco.getClass().getSimpleName(), appender.getLastMessage());
-
+      
     }
-
+    
     // ... and nothing else is happening.
     assertEquals(tobaccos.length, appender.getLogSize());
-
+    
   }
-
+  
 }

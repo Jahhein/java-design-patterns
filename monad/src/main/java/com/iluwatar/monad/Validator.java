@@ -41,20 +41,21 @@ public class Validator<T> {
    * Object that is validated
    */
   private final T t;
-
+  
   /**
    * List of exception thrown during validation.
    */
   private final List<Throwable> exceptions = new ArrayList<>();
-
+  
   /**
    * Creates a monadic value of given object.
+   *
    * @param t object to be validated
    */
   private Validator(T t) {
     this.t = t;
   }
-
+  
   /**
    * Creates validator against given object
    *
@@ -65,7 +66,7 @@ public class Validator<T> {
   public static <T> Validator<T> of(T t) {
     return new Validator<>(Objects.requireNonNull(t));
   }
-
+  
   /**
    * @param validation one argument boolean-valued function that
    *                   represents one step of validation. Adds exception to main validation exception
@@ -79,7 +80,7 @@ public class Validator<T> {
     }
     return this;
   }
-
+  
   /**
    * Extension for the {@link Validator#validate(Function, Predicate, String)} method,
    * dedicated for objects, that need to be projected before requested validation.
@@ -95,7 +96,7 @@ public class Validator<T> {
                                    String message) {
     return validate(projection.andThen(validation::test)::apply, message);
   }
-
+  
   /**
    * Receives validated object or throws exception when invalid.
    *

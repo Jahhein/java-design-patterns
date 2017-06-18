@@ -29,19 +29,19 @@ import org.slf4j.LoggerFactory;
  * Washing machine class
  */
 public class WashingMachine {
-
+  
   private static final Logger LOGGER = LoggerFactory.getLogger(WashingMachine.class);
-
+  
   private WashingMachineState washingMachineState;
-
+  
   public WashingMachine() {
     washingMachineState = WashingMachineState.ENABLED;
   }
-
+  
   public WashingMachineState getWashingMachineState() {
     return washingMachineState;
   }
-
+  
   /**
    * Method responsible for washing
    * if the object is in appropriate state
@@ -63,7 +63,7 @@ public class WashingMachine {
     }
     endOfWashing();
   }
-
+  
   /**
    * Method responsible of ending the washing
    * by changing machine state
@@ -72,5 +72,5 @@ public class WashingMachine {
     washingMachineState = WashingMachineState.ENABLED;
     LOGGER.info("{}: Washing completed.", Thread.currentThread().getId());
   }
-
+  
 }

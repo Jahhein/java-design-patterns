@@ -22,25 +22,22 @@
  */
 package com.iluwatar.hexagonal.database;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
-import java.util.Optional;
-
-import org.junit.Before;
-import org.junit.Test;
-
 import com.iluwatar.hexagonal.domain.LotteryTicket;
 import com.iluwatar.hexagonal.domain.LotteryTicketId;
 import com.iluwatar.hexagonal.test.LotteryTestUtils;
+import org.junit.Before;
+import org.junit.Test;
+
+import java.util.Optional;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
- * 
  * Tests for {@link LotteryTicketRepository}
- *
  */
 public class InMemoryTicketRepositoryTest {
-
+  
   private final LotteryTicketRepository repository = new InMemoryTicketRepository();
   
   @Before

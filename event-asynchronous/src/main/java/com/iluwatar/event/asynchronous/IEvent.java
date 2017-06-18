@@ -21,11 +21,11 @@ package com.iluwatar.event.asynchronous;
  * follow this interface
  */
 public interface IEvent {
-
+  
   void start();
-
+  
   void stop();
-
+  
   void status();
-
+  
 }

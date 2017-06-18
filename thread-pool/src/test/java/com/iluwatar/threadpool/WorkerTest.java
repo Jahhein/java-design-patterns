@@ -24,10 +24,7 @@ package com.iluwatar.threadpool;
 
 import org.junit.Test;
 
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.verifyNoMoreInteractions;
-import static org.mockito.Mockito.verifyZeroInteractions;
+import static org.mockito.Mockito.*;
 
 /**
  * Date: 12/30/15 - 18:21 PM
@@ -35,7 +32,7 @@ import static org.mockito.Mockito.verifyZeroInteractions;
  * @author Jeroen Meulemeester
  */
 public class WorkerTest {
-
+  
   /**
    * Verify if a worker does the actual job
    */
@@ -44,10 +41,10 @@ public class WorkerTest {
     final Task task = mock(Task.class);
     final Worker worker = new Worker(task);
     verifyZeroInteractions(task);
-
+    
     worker.run();
     verify(task).getTimeMs();
     verifyNoMoreInteractions(task);
   }
-
+  
 }

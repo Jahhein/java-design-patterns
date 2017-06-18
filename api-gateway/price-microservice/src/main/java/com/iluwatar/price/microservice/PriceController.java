@@ -31,9 +31,10 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 public class PriceController {
-
+  
   /**
    * An endpoint for a user to retrieve a product's price
+   *
    * @return A product's price
    */
   @RequestMapping(value = "/price", method = RequestMethod.GET)

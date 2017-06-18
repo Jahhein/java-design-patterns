@@ -30,9 +30,9 @@ import org.slf4j.LoggerFactory;
  * taking Fruit from FruitBowl instances.
  */
 public class Customer extends Thread {
-
+  
   private static final Logger LOGGER = LoggerFactory.getLogger(Customer.class);
-
+  
   /**
    * Name of the Customer.
    */
@@ -60,22 +60,22 @@ public class Customer extends Thread {
   /**
    * The Customer repeatedly takes Fruit from the FruitShop until no Fruit
    * remains.
-   */   
+   */
   public void run() {
-        
+    
     while (fruitShop.countFruit() > 0) {
       FruitBowl bowl = fruitShop.takeBowl();
       Fruit fruit;
-            
+      
       if (bowl != null && (fruit = bowl.take()) != null) {
         LOGGER.info("{} took an {}", name, fruit);
         fruitBowl.put(fruit);
         fruitShop.returnBowl(bowl);
       }
     }
-
-    LOGGER.info("{} took {}", name, fruitBowl);
-        
-  }
     
+    LOGGER.info("{} took {}", name, fruitBowl);
+    
+  }
+  
 }

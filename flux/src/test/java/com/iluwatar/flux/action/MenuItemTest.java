@@ -33,7 +33,7 @@ import static org.junit.Assert.assertNotNull;
  * @author Jeroen Meulemeester
  */
 public class MenuItemTest {
-
+  
   @Test
   public void testToString() throws Exception {
     for (final MenuItem menuItem : MenuItem.values()) {
@@ -42,5 +42,5 @@ public class MenuItemTest {
       assertFalse(toString.trim().isEmpty());
     }
   }
-
+  
 }

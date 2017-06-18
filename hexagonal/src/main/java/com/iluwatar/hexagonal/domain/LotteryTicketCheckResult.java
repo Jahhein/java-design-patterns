@@ -23,20 +23,12 @@
 package com.iluwatar.hexagonal.domain;
 
 /**
- *
  * Represents lottery ticket check result.
- *
  */
 public class LotteryTicketCheckResult {
-
-  /**
-   * Enumeration of Type of Outcomes of a Lottery
-   */
-  public enum CheckResult { WIN_PRIZE, NO_PRIZE, TICKET_NOT_SUBMITTED }
-
+  
   private final CheckResult checkResult;
   private final int prizeAmount;
-
   /**
    * Constructor.
    */
@@ -44,7 +36,7 @@ public class LotteryTicketCheckResult {
     checkResult = result;
     prizeAmount = 0;
   }
-
+  
   /**
    * Constructor.
    */
@@ -52,21 +44,21 @@ public class LotteryTicketCheckResult {
     checkResult = result;
     prizeAmount = amount;
   }
-
+  
   /**
    * @return check result
    */
   public CheckResult getResult() {
     return checkResult;
   }
-
+  
   /**
    * @return prize amount
    */
   public int getPrizeAmount() {
     return prizeAmount;
   }
-
+  
   @Override
   public int hashCode() {
     final int prime = 31;
@@ -75,7 +67,7 @@ public class LotteryTicketCheckResult {
     result = prime * result + prizeAmount;
     return result;
   }
-
+  
   @Override
   public boolean equals(Object obj) {
     if (this == obj) {
@@ -89,5 +81,12 @@ public class LotteryTicketCheckResult {
     }
     LotteryTicketCheckResult other = (LotteryTicketCheckResult) obj;
     return checkResult == other.checkResult && prizeAmount == other.prizeAmount;
+  }
+  
+  /**
+   * Enumeration of Type of Outcomes of a Lottery
+   */
+  public enum CheckResult {
+    WIN_PRIZE, NO_PRIZE, TICKET_NOT_SUBMITTED
   }
 }

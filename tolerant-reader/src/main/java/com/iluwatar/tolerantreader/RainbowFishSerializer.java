@@ -22,27 +22,21 @@
  */
 package com.iluwatar.tolerantreader;
 
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
 
 /**
- * 
  * RainbowFishSerializer provides methods for reading and writing {@link RainbowFish} objects to
  * file. Tolerant Reader pattern is implemented here by serializing maps instead of
  * {@link RainbowFish} objects. This way the reader does not break even though new properties are
  * added to the schema.
- *
  */
 public final class RainbowFishSerializer {
-
+  
   private RainbowFishSerializer() {
   }
-
+  
   /**
    * Write V1 RainbowFish to file
    */
@@ -53,11 +47,11 @@ public final class RainbowFishSerializer {
     map.put("lengthMeters", String.format("%d", rainbowFish.getLengthMeters()));
     map.put("weightTons", String.format("%d", rainbowFish.getWeightTons()));
     try (FileOutputStream fileOut = new FileOutputStream(filename);
-        ObjectOutputStream objOut = new ObjectOutputStream(fileOut)) {
+         ObjectOutputStream objOut = new ObjectOutputStream(fileOut)) {
       objOut.writeObject(map);
     }
   }
-
+  
   /**
    * Write V2 RainbowFish to file
    */
@@ -71,22 +65,22 @@ public final class RainbowFishSerializer {
     map.put("hungry", Boolean.toString(rainbowFish.getHungry()));
     map.put("sleeping", Boolean.toString(rainbowFish.getSleeping()));
     try (FileOutputStream fileOut = new FileOutputStream(filename);
-        ObjectOutputStream objOut = new ObjectOutputStream(fileOut)) {
+         ObjectOutputStream objOut = new ObjectOutputStream(fileOut)) {
       objOut.writeObject(map);
     }
   }
-
+  
   /**
    * Read V1 RainbowFish from file
    */
   public static RainbowFish readV1(String filename) throws IOException, ClassNotFoundException {
     Map<String, String> map = null;
-
+    
     try (FileInputStream fileIn = new FileInputStream(filename);
-        ObjectInputStream objIn = new ObjectInputStream(fileIn)) {
+         ObjectInputStream objIn = new ObjectInputStream(fileIn)) {
       map = (Map<String, String>) objIn.readObject();
     }
-
+    
     return new RainbowFish(map.get("name"), Integer.parseInt(map.get("age")), Integer.parseInt(map.get("lengthMeters")),
         Integer.parseInt(map.get("weightTons")));
   }

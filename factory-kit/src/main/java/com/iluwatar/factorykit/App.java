@@ -39,9 +39,9 @@ import org.slf4j.LoggerFactory;
  * be mapped explicitly with desired class type in the factory instance.
  */
 public class App {
-
+  
   private static final Logger LOGGER = LoggerFactory.getLogger(App.class);
-
+  
   /**
    * Program entry point.
    *

@@ -23,12 +23,10 @@
 package com.iluwatar.callback;
 
 /**
- * 
  * Template-method class for callback hook execution
- * 
  */
 public abstract class Task {
-
+  
   /**
    * Execute with callback
    */
@@ -38,6 +36,6 @@ public abstract class Task {
       callback.call();
     }
   }
-
+  
   public abstract void execute();
 }

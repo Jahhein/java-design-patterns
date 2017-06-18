@@ -35,26 +35,26 @@ import java.util.List;
  */
 public class InMemoryAppender extends AppenderBase<ILoggingEvent> {
   private List<ILoggingEvent> log = new LinkedList<>();
-
+  
   public InMemoryAppender(Class clazz) {
     ((Logger) LoggerFactory.getLogger(clazz)).addAppender(this);
     start();
   }
-
+  
   public InMemoryAppender() {
     ((Logger) LoggerFactory.getLogger("root")).addAppender(this);
     start();
   }
-
+  
   @Override
   protected void append(ILoggingEvent eventObject) {
     log.add(eventObject);
   }
-
+  
   public int getLogSize() {
     return log.size();
   }
-
+  
   public String getLastMessage() {
     return log.get(log.size() - 1).getFormattedMessage();
   }

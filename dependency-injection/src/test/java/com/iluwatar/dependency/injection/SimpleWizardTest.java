@@ -35,19 +35,19 @@ import static org.junit.Assert.assertEquals;
  * @author Jeroen Meulemeester
  */
 public class SimpleWizardTest {
-
+  
   private InMemoryAppender appender;
-
+  
   @Before
   public void setUp() {
     appender = new InMemoryAppender(Tobacco.class);
   }
-
+  
   @After
   public void tearDown() {
     appender.stop();
   }
-
+  
   /**
    * Test if the {@link SimpleWizard} does the only thing it can do: Smoke it's {@link
    * OldTobyTobacco}
@@ -59,5 +59,5 @@ public class SimpleWizardTest {
     assertEquals("SimpleWizard smoking OldTobyTobacco", appender.getLastMessage());
     assertEquals(1, appender.getLogSize());
   }
-
+  
 }

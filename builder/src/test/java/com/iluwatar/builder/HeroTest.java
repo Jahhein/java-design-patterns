@@ -33,7 +33,7 @@ import static org.junit.Assert.assertNotNull;
  * @author Jeroen Meulemeester
  */
 public class HeroTest {
-
+  
   /**
    * Test if we get the expected exception when trying to create a hero without a profession
    */
@@ -41,7 +41,7 @@ public class HeroTest {
   public void testMissingProfession() throws Exception {
     new Hero.Builder(null, "Sir without a job");
   }
-
+  
   /**
    * Test if we get the expected exception when trying to create a hero without a name
    */
@@ -49,21 +49,21 @@ public class HeroTest {
   public void testMissingName() throws Exception {
     new Hero.Builder(Profession.THIEF, null);
   }
-
+  
   /**
    * Test if the hero build by the builder has the correct attributes, as requested
    */
   @Test
   public void testBuildHero() throws Exception {
     final String heroName = "Sir Lancelot";
-
+    
     final Hero hero = new Hero.Builder(Profession.WARRIOR, heroName)
         .withArmor(Armor.CHAIN_MAIL)
         .withWeapon(Weapon.SWORD)
         .withHairType(HairType.LONG_CURLY)
         .withHairColor(HairColor.BLOND)
         .build();
-
+    
     assertNotNull(hero);
     assertNotNull(hero.toString());
     assertEquals(Profession.WARRIOR, hero.getProfession());
@@ -72,7 +72,7 @@ public class HeroTest {
     assertEquals(Weapon.SWORD, hero.getWeapon());
     assertEquals(HairType.LONG_CURLY, hero.getHairType());
     assertEquals(HairColor.BLOND, hero.getHairColor());
-
+    
   }
-
+  
 }

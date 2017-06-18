@@ -32,7 +32,7 @@ import static org.junit.Assert.assertTrue;
  * Unit test for Rectangle
  */
 public class RectangleTest {
-
+  
   /**
    * Test if the values passed through the constructor matches the values fetched from the getters
    */
@@ -44,7 +44,7 @@ public class RectangleTest {
     assertEquals(3, rectangle.getRight());
     assertEquals(4, rectangle.getBottom());
   }
-
+  
   /**
    * Test if the values passed through the constructor matches the values in the {@link
    * #toString()}
@@ -54,7 +54,7 @@ public class RectangleTest {
     final Rectangle rectangle = new Rectangle(1, 2, 3, 4);
     assertEquals("[1,2,3,4]", rectangle.toString());
   }
-
+  
   /**
    * Test if the {@link Rectangle} class can detect if it intersects with another rectangle.
    */
@@ -65,5 +65,5 @@ public class RectangleTest {
     assertFalse(new Rectangle(0, 0, 1, 1).intersectsWith(new Rectangle(2, 2, 3, 3)));
     assertFalse(new Rectangle(0, 0, 1, 1).intersectsWith(new Rectangle(-2, -2, -1, -1)));
   }
-
+  
 }

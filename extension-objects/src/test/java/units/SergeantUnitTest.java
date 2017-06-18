@@ -34,12 +34,12 @@ import static org.junit.Assert.assertNull;
 public class SergeantUnitTest {
   @Test
   public void getUnitExtension() throws Exception {
-
+    
     final Unit unit = new SergeantUnit("SergeantUnitName");
-
+    
     assertNull(unit.getUnitExtension("SoldierExtension"));
     assertNotNull((SergeantExtension) unit.getUnitExtension("SergeantExtension"));
     assertNull(unit.getUnitExtension("CommanderExtension"));
   }
-
+  
 }

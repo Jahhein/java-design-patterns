@@ -32,7 +32,7 @@ import static org.junit.Assert.*;
  * @author Jeroen Meulemeester
  */
 public class NullNodeTest {
-
+  
   /**
    * Verify if {@link NullNode#getInstance()} actually returns the same object instance
    */
@@ -42,7 +42,7 @@ public class NullNodeTest {
     assertNotNull(instance);
     assertSame(instance, NullNode.getInstance());
   }
-
+  
   @Test
   public void testFields() {
     final NullNode node = NullNode.getInstance();
@@ -51,10 +51,10 @@ public class NullNodeTest {
     assertNull(node.getLeft());
     assertNull(node.getRight());
   }
-
+  
   @Test
   public void testWalk() throws Exception {
     NullNode.getInstance().walk();
   }
-
+  
 }

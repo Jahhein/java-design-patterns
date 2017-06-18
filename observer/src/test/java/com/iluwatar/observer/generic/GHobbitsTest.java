@@ -22,10 +22,7 @@
  */
 package com.iluwatar.observer.generic;
 
-import com.iluwatar.observer.Hobbits;
-import com.iluwatar.observer.WeatherObserverTest;
 import com.iluwatar.observer.WeatherType;
-
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
@@ -40,17 +37,7 @@ import java.util.List;
  */
 @RunWith(Parameterized.class)
 public class GHobbitsTest extends ObserverTest<GHobbits> {
-
-  @Parameterized.Parameters
-  public static Collection<Object[]> data() {
-    final List<Object[]> testData = new ArrayList<>();
-    testData.add(new Object[]{WeatherType.SUNNY, "The happy hobbits bade in the warm sun."});
-    testData.add(new Object[]{WeatherType.RAINY, "The hobbits look for cover from the rain."});
-    testData.add(new Object[]{WeatherType.WINDY, "The hobbits hold their hats tightly in the windy weather."});
-    testData.add(new Object[]{WeatherType.COLD, "The hobbits are shivering in the cold weather."});
-    return testData;
-  }
-
+  
   /**
    * Create a new test with the given weather and expected response
    *
@@ -60,5 +47,15 @@ public class GHobbitsTest extends ObserverTest<GHobbits> {
   public GHobbitsTest(final WeatherType weather, final String response) {
     super(weather, response, GHobbits::new);
   }
-
+  
+  @Parameterized.Parameters
+  public static Collection<Object[]> data() {
+    final List<Object[]> testData = new ArrayList<>();
+    testData.add(new Object[] {WeatherType.SUNNY, "The happy hobbits bade in the warm sun."});
+    testData.add(new Object[] {WeatherType.RAINY, "The hobbits look for cover from the rain."});
+    testData.add(new Object[] {WeatherType.WINDY, "The hobbits hold their hats tightly in the windy weather."});
+    testData.add(new Object[] {WeatherType.COLD, "The hobbits are shivering in the cold weather."});
+    return testData;
+  }
+  
 }

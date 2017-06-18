@@ -32,9 +32,9 @@ public class ImageControllerTest {
   @Test
   public void testGetImagePath() {
     ImageController imageController = new ImageController();
-
+    
     String imagePath = imageController.getImagePath();
-
+    
     Assert.assertEquals("/product-image.png", imagePath);
   }
 }

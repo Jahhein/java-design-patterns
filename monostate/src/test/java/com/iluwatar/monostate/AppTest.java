@@ -28,11 +28,11 @@ import org.junit.Test;
  * Application Test Entry
  */
 public class AppTest {
-
+  
   @Test
   public void testMain() {
     String[] args = {};
     App.main(args);
   }
-
+  
 }

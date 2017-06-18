@@ -22,34 +22,27 @@
  */
 package com.iluwatar.layers;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
-import java.util.stream.Collectors;
-
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.*;
+import java.util.stream.Collectors;
+
 /**
- * 
  * Implementation of CakeBakingService
- *
  */
 @Service
 @Transactional
 public class CakeBakingServiceImpl implements CakeBakingService {
-
+  
   private AbstractApplicationContext context;
-
+  
   public CakeBakingServiceImpl() {
     this.context = new ClassPathXmlApplicationContext("applicationContext.xml");
   }
-
+  
   @Override
   public void bakeNewCake(CakeInfo cakeInfo) throws CakeBakingException {
     List<CakeTopping> allToppings = getAvailableToppingEntities();
@@ -86,19 +79,19 @@ public class CakeBakingServiceImpl implements CakeBakingService {
       layerBean.save(layer);
     }
   }
-
+  
   @Override
   public void saveNewTopping(CakeToppingInfo toppingInfo) {
     CakeToppingDao bean = context.getBean(CakeToppingDao.class);
     bean.save(new CakeTopping(toppingInfo.name, toppingInfo.calories));
   }
-
+  
   @Override
   public void saveNewLayer(CakeLayerInfo layerInfo) {
     CakeLayerDao bean = context.getBean(CakeLayerDao.class);
     bean.save(new CakeLayer(layerInfo.name, layerInfo.calories));
   }
-
+  
   private List<CakeTopping> getAvailableToppingEntities() {
     CakeToppingDao bean = context.getBean(CakeToppingDao.class);
     List<CakeTopping> result = new ArrayList<>();
@@ -111,7 +104,7 @@ public class CakeBakingServiceImpl implements CakeBakingService {
     }
     return result;
   }
-
+  
   @Override
   public List<CakeToppingInfo> getAvailableToppings() {
     CakeToppingDao bean = context.getBean(CakeToppingDao.class);
@@ -125,7 +118,7 @@ public class CakeBakingServiceImpl implements CakeBakingService {
     }
     return result;
   }
-
+  
   private List<CakeLayer> getAvailableLayerEntities() {
     CakeLayerDao bean = context.getBean(CakeLayerDao.class);
     List<CakeLayer> result = new ArrayList<>();
@@ -138,7 +131,7 @@ public class CakeBakingServiceImpl implements CakeBakingService {
     }
     return result;
   }
-
+  
   @Override
   public List<CakeLayerInfo> getAvailableLayers() {
     CakeLayerDao bean = context.getBean(CakeLayerDao.class);
@@ -152,7 +145,7 @@ public class CakeBakingServiceImpl implements CakeBakingService {
     }
     return result;
   }
-
+  
   @Override
   public List<CakeInfo> getAllCakes() {
     CakeDao cakeBean = context.getBean(CakeDao.class);

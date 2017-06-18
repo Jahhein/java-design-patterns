@@ -31,17 +31,17 @@ import java.util.concurrent.locks.ReadWriteLock;
 
 /**
  * Class responsible for control the access for reader or writer
- * 
+ *
  * Allows multiple readers to hold the lock at same time, but if any writer holds the lock then
  * readers wait. If reader holds the lock then writer waits. This lock is not fair.
  */
 public class ReaderWriterLock implements ReadWriteLock {
-
-
+  
+  
   private Object readerMutex = new Object();
-
+  
   private int currentReaderCount;
-
+  
   /**
    * Global mutex is used to indicate that whether reader or writer gets the lock in the moment.
    * <p>
@@ -53,42 +53,10 @@ public class ReaderWriterLock implements ReadWriteLock {
    * This is the most important field in this class to control the access for reader/writer.
    */
   private Set<Object> globalMutex = new HashSet<>();
-
+  
   private ReadLock readerLock = new ReadLock();
   private WriteLock writerLock = new WriteLock();
-
-  @Override
-  public Lock readLock() {
-    return readerLock;
-  }
-
-  @Override
-  public Lock writeLock() {
-    return writerLock;
-  }
-
-  /**
-   * return true when globalMutex hold the reference of writerLock
-   */
-  private boolean doesWriterOwnThisLock() {
-    return globalMutex.contains(writerLock);
-  }
-
-  /**
-   * return true when globalMutex hold the reference of readerLock
-   */
-  private boolean doesReaderOwnThisLock() {
-    return globalMutex.contains(readerLock);
-  }
-
-  /**
-   * Nobody get the lock when globalMutex contains nothing
-   * 
-   */
-  private boolean isLockFree() {
-    return globalMutex.isEmpty();
-  }
-
+  
   private static void waitUninterruptibly(Object o) {
     try {
       o.wait();
@@ -96,17 +64,48 @@ public class ReaderWriterLock implements ReadWriteLock {
       e.printStackTrace();
     }
   }
-
+  
+  @Override
+  public Lock readLock() {
+    return readerLock;
+  }
+  
+  @Override
+  public Lock writeLock() {
+    return writerLock;
+  }
+  
+  /**
+   * return true when globalMutex hold the reference of writerLock
+   */
+  private boolean doesWriterOwnThisLock() {
+    return globalMutex.contains(writerLock);
+  }
+  
+  /**
+   * return true when globalMutex hold the reference of readerLock
+   */
+  private boolean doesReaderOwnThisLock() {
+    return globalMutex.contains(readerLock);
+  }
+  
+  /**
+   * Nobody get the lock when globalMutex contains nothing
+   */
+  private boolean isLockFree() {
+    return globalMutex.isEmpty();
+  }
+  
   /**
    * Reader Lock, can be access for more than one reader concurrently if no writer get the lock
    */
   private class ReadLock implements Lock {
-
+    
     @Override
     public void lock() {
-
+      
       synchronized (readerMutex) {
-
+        
         currentReaderCount++;
         if (currentReaderCount == 1) {
           // Try to get the globalMutex lock for the first reader
@@ -124,14 +123,14 @@ public class ReaderWriterLock implements ReadWriteLock {
               }
             }
           }
-
+          
         }
       }
     }
-
+    
     @Override
     public void unlock() {
-
+      
       synchronized (readerMutex) {
         currentReaderCount--;
         // Release the lock only when it is the last reader, it is ensure that the lock is released
@@ -144,41 +143,41 @@ public class ReaderWriterLock implements ReadWriteLock {
           }
         }
       }
-
+      
     }
-
+    
     @Override
     public void lockInterruptibly() throws InterruptedException {
       throw new UnsupportedOperationException();
     }
-
+    
     @Override
     public boolean tryLock() {
       throw new UnsupportedOperationException();
     }
-
+    
     @Override
     public boolean tryLock(long time, TimeUnit unit) throws InterruptedException {
       throw new UnsupportedOperationException();
     }
-
+    
     @Override
     public Condition newCondition() {
       throw new UnsupportedOperationException();
     }
-
+    
   }
-
+  
   /**
    * Writer Lock, can only be accessed by one writer concurrently
    */
   private class WriteLock implements Lock {
-
+    
     @Override
     public void lock() {
-
+      
       synchronized (globalMutex) {
-
+        
         while (true) {
           // When there is no one acquired the lock, just put the writeLock reference to the
           // globalMutex to indicate that the lock is acquired by one writer.
@@ -198,36 +197,36 @@ public class ReaderWriterLock implements ReadWriteLock {
         }
       }
     }
-
+    
     @Override
     public void unlock() {
-
+      
       synchronized (globalMutex) {
         globalMutex.remove(this);
         // Notify the waiter, other writer or reader
         globalMutex.notifyAll();
       }
     }
-
+    
     @Override
     public void lockInterruptibly() throws InterruptedException {
       throw new UnsupportedOperationException();
     }
-
+    
     @Override
     public boolean tryLock() {
       throw new UnsupportedOperationException();
     }
-
+    
     @Override
     public boolean tryLock(long time, TimeUnit unit) throws InterruptedException {
       throw new UnsupportedOperationException();
     }
-
+    
     @Override
     public Condition newCondition() {
       throw new UnsupportedOperationException();
     }
   }
-
+  
 }

@@ -23,16 +23,14 @@
 package com.iluwatar.hexagonal.domain;
 
 /**
- * 
  * Immutable value object representing lottery ticket.
- *
  */
 public class LotteryTicket {
-
-  private LotteryTicketId id;
+  
   private final PlayerDetails playerDetails;
   private final LotteryNumbers lotteryNumbers;
-
+  private LotteryTicketId id;
+  
   /**
    * Constructor.
    */
@@ -41,7 +39,7 @@ public class LotteryTicket {
     playerDetails = details;
     lotteryNumbers = numbers;
   }
-
+  
   /**
    * @return player details
    */
@@ -55,26 +53,26 @@ public class LotteryTicket {
   public LotteryNumbers getNumbers() {
     return lotteryNumbers;
   }
-
+  
   /**
    * @return id
    */
   public LotteryTicketId getId() {
     return id;
   }
-
+  
   /**
    * set id
    */
   public void setId(LotteryTicketId id) {
     this.id = id;
   }
-
+  
   @Override
   public String toString() {
     return playerDetails.toString() + " " + lotteryNumbers.toString();
   }
-
+  
   @Override
   public int hashCode() {
     final int prime = 31;
@@ -83,7 +81,7 @@ public class LotteryTicket {
     result = prime * result + ((playerDetails == null) ? 0 : playerDetails.hashCode());
     return result;
   }
-
+  
   @Override
   public boolean equals(Object obj) {
     if (this == obj) {

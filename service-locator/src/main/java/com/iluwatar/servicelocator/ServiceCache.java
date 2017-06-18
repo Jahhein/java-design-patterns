@@ -37,15 +37,15 @@ import java.util.Map;
  * @author saifasif
  */
 public class ServiceCache {
-
+  
   private static final Logger LOGGER = LoggerFactory.getLogger(ServiceCache.class);
-
+  
   private final Map<String, Service> serviceCache;
-
+  
   public ServiceCache() {
     serviceCache = new HashMap<>();
   }
-
+  
   /**
    * Get the service from the cache. null if no service is found matching the name
    *
@@ -58,12 +58,12 @@ public class ServiceCache {
       if (serviceJndiName.equals(serviceName)) {
         cachedService = serviceCache.get(serviceJndiName);
         LOGGER.info("(cache call) Fetched service {}({}) from cache... !",
-                cachedService.getName(), cachedService.getId());
+            cachedService.getName(), cachedService.getId());
       }
     }
     return cachedService;
   }
-
+  
   /**
    * Adds the service into the cache map
    *

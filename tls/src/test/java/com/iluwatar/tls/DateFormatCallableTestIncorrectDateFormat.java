@@ -23,6 +23,9 @@
 
 package com.iluwatar.tls;
 
+import org.junit.BeforeClass;
+import org.junit.Test;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -30,48 +33,44 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
-import org.junit.BeforeClass;
-import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 /**
- * 
  * Test of the Callable
- * 
+ *
  * In this test {@link DateFormatCallable} is tested with only one thread (i.e. without concurrency situation)
  * <p>
  * An incorrect formatted date is passed to the Callable
- * After a successful run 0 date values and 5 exceptions should be in the result object. 
- * 
- * @author Thomas Bauer, January 2017
+ * After a successful run 0 date values and 5 exceptions should be in the result object.
  *
+ * @author Thomas Bauer, January 2017
  */
 public class DateFormatCallableTestIncorrectDateFormat {
-
+  
   // Class variables used in setup() have to be static because setup() has to be static
   /**
    * Result object given back by DateFormatCallable
-   *   -- Array with converted date values
-   *   -- Array with thrown exceptions
+   * -- Array with converted date values
+   * -- Array with thrown exceptions
    */
   static Result result;
-
+  
   /**
    * The date values created by the run of DateFormatRunnalbe. List will be filled in the setup() method
    */
   static List<String> createdExceptions = new ArrayList<String>();
-
+  
   /**
    * Expected number of date values in the date value list created by the run of DateFormatRunnalbe
    */
   int expectedCounterDateValues = 0;
-
+  
   /**
-   * Expected number of exceptions in the exception list created by the run of DateFormatRunnalbe. 
+   * Expected number of exceptions in the exception list created by the run of DateFormatRunnalbe.
    */
   int expectedCounterExceptions = 5;
-
+  
   /**
    * Expected content of the list containing the exceptions created by the run of DateFormatRunnalbe
    */
@@ -80,7 +79,7 @@ public class DateFormatCallableTestIncorrectDateFormat {
       "class java.text.ParseException: Unparseable date: \"15.12.2015\"",
       "class java.text.ParseException: Unparseable date: \"15.12.2015\"",
       "class java.text.ParseException: Unparseable date: \"15.12.2015\"");
-
+  
   /**
    * Run Callable and prepare results for usage in the test methods
    */
@@ -98,7 +97,7 @@ public class DateFormatCallableTestIncorrectDateFormat {
     }
     executor.shutdown();
   }
-
+  
   /**
    * Test Exceptions after the run of DateFormatRunnalbe. A correct run should deliver 5 times the
    * same exception
@@ -107,7 +106,7 @@ public class DateFormatCallableTestIncorrectDateFormat {
   public void testExecptions() {
     assertEquals(expectedExceptions, result.getExceptionList());
   }
-
+  
   /**
    * Test number of dates in the list after the run of DateFormatRunnalbe. A correct run should deliver no date values
    */
@@ -115,9 +114,9 @@ public class DateFormatCallableTestIncorrectDateFormat {
   public void testCounterDateValues() {
     assertEquals(expectedCounterDateValues, result.getDateList().size());
   }
-
+  
   /**
-   * Test number of Exceptions in the list after the run of DateFormatRunnalbe. A correct run should 
+   * Test number of Exceptions in the list after the run of DateFormatRunnalbe. A correct run should
    * deliver 5 exceptions
    */
   @Test

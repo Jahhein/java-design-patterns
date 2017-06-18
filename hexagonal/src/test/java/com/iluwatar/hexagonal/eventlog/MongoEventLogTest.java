@@ -36,12 +36,12 @@ import static org.junit.Assert.assertEquals;
  */
 @Ignore
 public class MongoEventLogTest {
-
+  
   private static final String TEST_DB = "lotteryDBTest";
   private static final String TEST_EVENTS_COLLECTION = "testEvents";
-
+  
   private MongoEventLog mongoEventLog;
-
+  
   @Before
   public void init() {
     MongoConnectionPropertiesLoader.load();
@@ -51,12 +51,12 @@ public class MongoEventLogTest {
     mongoClient.close();
     mongoEventLog = new MongoEventLog(TEST_DB, TEST_EVENTS_COLLECTION);
   }
-
+  
   @Test
   public void testSetup() {
     assertEquals(0, mongoEventLog.getEventsCollection().count());
   }
-
+  
   @Test
   public void testFundTransfers() {
     PlayerDetails playerDetails = new PlayerDetails("john@wayne.com", "000-000", "03432534543");

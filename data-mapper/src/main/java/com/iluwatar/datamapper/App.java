@@ -18,9 +18,9 @@
  */
 package com.iluwatar.datamapper;
 
-import java.util.Optional;
-
 import org.apache.log4j.Logger;
+
+import java.util.Optional;
 
 /**
  * The Data Mapper (DM) is a layer of software that separates the in-memory objects from the
@@ -31,15 +31,17 @@ import org.apache.log4j.Logger;
  * Data Mapper itself is even unknown to the domain layer.
  * <p>
  * The below example demonstrates basic CRUD operations: Create, Read, Update, and Delete.
- * 
  */
 public final class App {
-
+  
   private static Logger log = Logger.getLogger(App.class);
-
+  
+  private App() {
+  }
+  
   /**
    * Program entry point.
-   * 
+   *
    * @param args command line args.
    */
   public static void main(final String... args) {
@@ -52,12 +54,12 @@ public final class App {
 
     /* Add student in respectibe store */
     mapper.insert(student);
-
+    
     log.debug("App.main(), student : " + student + ", is inserted");
 
     /* Find this student */
     final Optional<Student> studentToBeFound = mapper.find(student.getStudentId());
-
+    
     log.debug("App.main(), student : " + studentToBeFound + ", is searched");
 
     /* Update existing student object */
@@ -65,13 +67,11 @@ public final class App {
 
     /* Update student in respectibe db */
     mapper.update(student);
-
+    
     log.debug("App.main(), student : " + student + ", is updated");
     log.debug("App.main(), student : " + student + ", is going to be deleted");
 
     /* Delete student in db */
     mapper.delete(student);
   }
-
-  private App() {}
 }

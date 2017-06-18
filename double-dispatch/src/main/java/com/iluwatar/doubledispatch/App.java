@@ -29,7 +29,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 
  * When a message with a parameter is sent to an object, the resultant behaviour is defined by the implementation of
  * that method in the receiver. Sometimes the behaviour must also be determined by the type of the parameter.
  * <p>
@@ -44,17 +43,15 @@ import java.util.List;
  * In this example we have hierarchy of objects ({@link GameObject}) that can collide to each other. Each object has its
  * own coordinates which are checked against the other objects' coordinates. If there is an overlap, then the objects
  * collide utilizing the Double Dispatch pattern.
- *
  */
 public class App {
-
+  
   private static final Logger LOGGER = LoggerFactory.getLogger(App.class);
-
+  
   /**
    * Program entry point
-   * 
-   * @param args
-   *          command line args
+   *
+   * @param args command line args
    */
   public static void main(String[] args) {
     // initialize game objects and print their status
@@ -65,7 +62,7 @@ public class App {
     objects.add(new SpaceStationIss(12, 12, 14, 14));
     objects.stream().forEach(o -> LOGGER.info(o.toString()));
     LOGGER.info("");
-
+    
     // collision check
     objects.stream().forEach(o1 -> objects.stream().forEach(o2 -> {
       if (o1 != o2 && o1.intersectsWith(o2)) {
@@ -73,7 +70,7 @@ public class App {
       }
     }));
     LOGGER.info("");
-
+    
     // output eventual object statuses
     objects.stream().forEach(o -> LOGGER.info(o.toString()));
     LOGGER.info("");

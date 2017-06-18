@@ -25,23 +25,20 @@ package com.iluwatar.caching;
 import java.text.ParseException;
 
 /**
- *
  * AppManager helps to bridge the gap in communication between the main class and the application's
  * back-end. DB connection is initialized through this class. The chosen caching strategy/policy is
  * also initialized here. Before the cache can be used, the size of the cache has to be set.
  * Depending on the chosen caching policy, AppManager will call the appropriate function in the
  * CacheStore class.
- *
  */
 public final class AppManager {
-
+  
   private static CachingPolicy cachingPolicy;
-
+  
   private AppManager() {
   }
-
+  
   /**
-   *
    * Developer/Tester is able to choose whether the application should use MongoDB as its underlying
    * data storage or a simple Java data structure to (temporarily) store the data/objects during
    * runtime.
@@ -57,7 +54,7 @@ public final class AppManager {
       DbManager.createVirtualDb();
     }
   }
-
+  
   /**
    * Initialize caching policy
    */
@@ -68,11 +65,11 @@ public final class AppManager {
     }
     CacheStore.clearCache();
   }
-
+  
   public static void initCacheCapacity(int capacity) {
     CacheStore.initCapacity(capacity);
   }
-
+  
   /**
    * Find user account
    */
@@ -86,7 +83,7 @@ public final class AppManager {
     }
     return null;
   }
-
+  
   /**
    * Save user account
    */
@@ -101,11 +98,11 @@ public final class AppManager {
       saveAside(userAccount);
     }
   }
-
+  
   public static String printCacheContent() {
     return CacheStore.print();
   }
-
+  
   /**
    * Cache-Aside save user account helper
    */
@@ -113,7 +110,7 @@ public final class AppManager {
     DbManager.updateDb(userAccount);
     CacheStore.invalidate(userAccount.getUserId());
   }
-
+  
   /**
    * Cache-Aside find user account helper
    */
@@ -122,12 +119,12 @@ public final class AppManager {
     if (userAccount != null) {
       return userAccount;
     }
-
+    
     userAccount = DbManager.readFromDb(userId);
     if (userAccount != null) {
       CacheStore.set(userId, userAccount);
     }
-
+    
     return userAccount;
   }
 }

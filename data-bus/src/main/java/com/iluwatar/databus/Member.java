@@ -54,6 +54,6 @@ import java.util.function.Consumer;
  * @author Paul Campbell (pcampbell@kemitix.net)
  */
 public interface Member extends Consumer<DataType> {
-
+  
   void accept(DataType event);
 }

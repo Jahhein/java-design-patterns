@@ -23,7 +23,6 @@
 package com.iluwatar.observer.generic;
 
 import com.iluwatar.observer.WeatherType;
-
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
@@ -38,17 +37,7 @@ import java.util.List;
  */
 @RunWith(Parameterized.class)
 public class OrcsTest extends ObserverTest<GOrcs> {
-
-  @Parameterized.Parameters
-  public static Collection<Object[]> data() {
-    final List<Object[]> testData = new ArrayList<>();
-    testData.add(new Object[]{WeatherType.SUNNY, "The sun hurts the orcs' eyes."});
-    testData.add(new Object[]{WeatherType.RAINY, "The orcs are dripping wet."});
-    testData.add(new Object[]{WeatherType.WINDY, "The orc smell almost vanishes in the wind."});
-    testData.add(new Object[]{WeatherType.COLD, "The orcs are freezing cold."});
-    return testData;
-  }
-
+  
   /**
    * Create a new test with the given weather and expected response
    *
@@ -58,5 +47,15 @@ public class OrcsTest extends ObserverTest<GOrcs> {
   public OrcsTest(final WeatherType weather, final String response) {
     super(weather, response, GOrcs::new);
   }
-
+  
+  @Parameterized.Parameters
+  public static Collection<Object[]> data() {
+    final List<Object[]> testData = new ArrayList<>();
+    testData.add(new Object[] {WeatherType.SUNNY, "The sun hurts the orcs' eyes."});
+    testData.add(new Object[] {WeatherType.RAINY, "The orcs are dripping wet."});
+    testData.add(new Object[] {WeatherType.WINDY, "The orc smell almost vanishes in the wind."});
+    testData.add(new Object[] {WeatherType.COLD, "The orcs are freezing cold."});
+    return testData;
+  }
+  
 }

@@ -23,7 +23,6 @@
 package com.iluwatar.servicelayer.wizard;
 
 import com.iluwatar.servicelayer.common.BaseDaoTest;
-
 import org.junit.Test;
 
 import java.util.List;
@@ -37,11 +36,11 @@ import static org.junit.Assert.assertNotNull;
  * @author Jeroen Meulemeester
  */
 public class WizardDaoImplTest extends BaseDaoTest<Wizard, WizardDaoImpl> {
-
+  
   public WizardDaoImplTest() {
     super(Wizard::new, new WizardDaoImpl());
   }
-
+  
   @Test
   public void testFindByName() throws Exception {
     final WizardDaoImpl dao = getDao();
@@ -53,5 +52,5 @@ public class WizardDaoImplTest extends BaseDaoTest<Wizard, WizardDaoImpl> {
       assertEquals(spell.getName(), byName.getName());
     }
   }
-
+  
 }

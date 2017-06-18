@@ -23,16 +23,14 @@
 package com.iluwatar.hexagonal.domain;
 
 /**
- * 
  * Immutable value object containing lottery player details.
- *
  */
 public class PlayerDetails {
-
+  
   private final String emailAddress;
   private final String bankAccountNumber;
   private final String phoneNumber;
-
+  
   /**
    * Constructor.
    */
@@ -41,7 +39,7 @@ public class PlayerDetails {
     bankAccountNumber = bankAccount;
     phoneNumber = phone;
   }
-
+  
   /**
    * @return email
    */
@@ -62,14 +60,14 @@ public class PlayerDetails {
   public String getPhoneNumber() {
     return phoneNumber;
   }
-
+  
   @Override
   public String toString() {
     return "PlayerDetails{" + "emailAddress='" + emailAddress + '\''
         + ", bankAccountNumber='" + bankAccountNumber + '\''
         + ", phoneNumber='" + phoneNumber + '\'' + '}';
   }
-
+  
   @Override
   public int hashCode() {
     final int prime = 31;
@@ -79,7 +77,7 @@ public class PlayerDetails {
     result = prime * result + ((phoneNumber == null) ? 0 : phoneNumber.hashCode());
     return result;
   }
-
+  
   @Override
   public boolean equals(Object obj) {
     if (this == obj) {

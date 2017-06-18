@@ -22,12 +22,7 @@
  */
 package com.iluwatar.halfsynchalfasync;
 
-import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.FutureTask;
-import java.util.concurrent.ThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.*;
 
 /**
  * This is the asynchronous layer which does not block when a new request arrives. It just passes
@@ -37,7 +32,7 @@ import java.util.concurrent.TimeUnit;
  * back to the caller via callback.
  */
 public class AsynchronousService {
-
+  
   /*
    * This represents the queuing layer as well as synchronous layer of the pattern. The thread pool
    * contains worker threads which execute the tasks in blocking/synchronous manner. Long running
@@ -45,7 +40,7 @@ public class AsynchronousService {
    * thread.
    */
   private ExecutorService service;
-
+  
   /**
    * Creates an asynchronous service using {@code workQueue} as communication channel between
    * asynchronous layer and synchronous layer. Different types of queues such as Priority queue, can
@@ -54,8 +49,8 @@ public class AsynchronousService {
   public AsynchronousService(BlockingQueue<Runnable> workQueue) {
     service = new ThreadPoolExecutor(10, 10, 10, TimeUnit.SECONDS, workQueue);
   }
-
-
+  
+  
   /**
    * A non-blocking method which performs the task provided in background and returns immediately.
    * <p>
@@ -74,7 +69,7 @@ public class AsynchronousService {
       task.onError(e);
       return;
     }
-
+    
     service.submit(new FutureTask<T>(task) {
       @Override
       protected void done() {

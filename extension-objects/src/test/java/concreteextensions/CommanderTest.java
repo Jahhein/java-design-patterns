@@ -32,8 +32,8 @@ public class CommanderTest {
   @Test
   public void commanderReady() throws Exception {
     final Commander commander = new Commander(new CommanderUnit("CommanderUnitTest"));
-
+    
     commander.commanderReady();
   }
-
+  
 }

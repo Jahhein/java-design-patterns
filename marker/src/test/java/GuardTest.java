@@ -20,6 +20,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
+
 import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.instanceOf;
@@ -29,7 +30,7 @@ import static org.junit.Assert.assertThat;
  * Guard test
  */
 public class GuardTest {
-
+  
   @Test
   public void testGuard() {
     Guard guard = new Guard();

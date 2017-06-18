@@ -30,7 +30,7 @@ import java.util.Optional;
  * @author Jeroen Meulemeester
  */
 public class SoldierVisitorTest extends VisitorTest<SoldierVisitor> {
-
+  
   /**
    * Create a new test instance for the given visitor
    */
@@ -42,5 +42,5 @@ public class SoldierVisitorTest extends VisitorTest<SoldierVisitor> {
         Optional.of("Greetings soldier")
     );
   }
-
+  
 }

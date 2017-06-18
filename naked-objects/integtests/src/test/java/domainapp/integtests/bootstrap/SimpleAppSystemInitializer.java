@@ -23,10 +23,10 @@ import org.apache.isis.objectstore.jdo.datanucleus.IsisConfigurationForJdoIntegT
  * Initializer for the Simple App
  */
 public final class SimpleAppSystemInitializer {
-
+  
   private SimpleAppSystemInitializer() {
   }
-
+  
   /**
    * Init test system
    */
@@ -37,22 +37,22 @@ public final class SimpleAppSystemInitializer {
       IsisSystemForTest.set(isft);
     }
   }
-
+  
   private static class SimpleAppSystemBuilder extends IsisSystemForTest.Builder {
-
+    
     public SimpleAppSystemBuilder() {
       withLoggingAt(org.apache.log4j.Level.INFO);
       with(testConfiguration());
       with(new DataNucleusPersistenceMechanismInstaller());
-
+      
       // services annotated with @DomainService
       withServicesIn("domainapp");
     }
-
+    
     private static IsisConfiguration testConfiguration() {
       final IsisConfigurationForJdoIntegTests testConfiguration =
           new IsisConfigurationForJdoIntegTests();
-
+      
       testConfiguration.addRegisterEntitiesPackagePrefix("domainapp.dom.modules");
       return testConfiguration;
     }

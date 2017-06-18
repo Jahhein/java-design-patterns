@@ -30,20 +30,21 @@ package com.iluwatar.singleton;
  * same classloader
  */
 public final class ThreadSafeLazyLoadedIvoryTower {
-
+  
   private static ThreadSafeLazyLoadedIvoryTower instance;
-
-  private ThreadSafeLazyLoadedIvoryTower() {}
-
+  
+  private ThreadSafeLazyLoadedIvoryTower() {
+  }
+  
   /**
    * The instance gets created only when it is called for first time. Lazy-loading
    */
   public static synchronized ThreadSafeLazyLoadedIvoryTower getInstance() {
-
+    
     if (instance == null) {
       instance = new ThreadSafeLazyLoadedIvoryTower();
     }
-
+    
     return instance;
   }
 }

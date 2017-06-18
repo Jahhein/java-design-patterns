@@ -22,20 +22,17 @@
  */
 package com.iluwatar.servicelayer.spellbook;
 
+import com.iluwatar.servicelayer.common.DaoBaseImpl;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 
-import com.iluwatar.servicelayer.common.DaoBaseImpl;
-
 /**
- * 
  * SpellbookDao implementation.
- *
  */
 public class SpellbookDaoImpl extends DaoBaseImpl<Spellbook> implements SpellbookDao {
-
+  
   @Override
   public Spellbook findByName(String name) {
     Session session = getSessionFactory().openSession();
@@ -59,5 +56,5 @@ public class SpellbookDaoImpl extends DaoBaseImpl<Spellbook> implements Spellboo
     }
     return result;
   }
-
+  
 }

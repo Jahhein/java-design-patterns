@@ -26,7 +26,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * 
  * Whereas Singleton design pattern introduces single globally accessible object the Multiton
  * pattern defines many globally accessible objects. The client asks for the correct instance from
  * the Multiton by passing an enumeration as parameter.
@@ -34,15 +33,14 @@ import org.slf4j.LoggerFactory;
  * In this example {@link Nazgul} is the Multiton and we can ask single {@link Nazgul} from it using
  * {@link NazgulName}. The {@link Nazgul}s are statically initialized and stored in concurrent hash
  * map.
- *
  */
 public class App {
-
+  
   private static final Logger LOGGER = LoggerFactory.getLogger(App.class);
-
+  
   /**
    * Program entry point
-   * 
+   *
    * @param args command line args
    */
   public static void main(String[] args) {

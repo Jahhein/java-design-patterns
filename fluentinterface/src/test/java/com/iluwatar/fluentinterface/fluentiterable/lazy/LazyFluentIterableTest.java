@@ -31,10 +31,10 @@ import com.iluwatar.fluentinterface.fluentiterable.FluentIterableTest;
  * @author Jeroen Meulemeester
  */
 public class LazyFluentIterableTest extends FluentIterableTest {
-
+  
   @Override
   protected FluentIterable<Integer> createFluentIterable(Iterable<Integer> integers) {
     return LazyFluentIterable.from(integers);
   }
-
+  
 }

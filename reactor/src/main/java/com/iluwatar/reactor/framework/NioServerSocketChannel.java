@@ -38,19 +38,19 @@ import java.nio.channels.SocketChannel;
  * {@link SocketChannel}.
  */
 public class NioServerSocketChannel extends AbstractNioChannel {
-
+  
   private static final Logger LOGGER = LoggerFactory.getLogger(NioServerSocketChannel.class);
-
+  
   private final int port;
-
+  
   /**
    * Creates a {@link ServerSocketChannel} which will bind at provided port and use
    * <code>handler</code> to handle incoming events on this channel.
    * <p>
    * Note the constructor does not bind the socket, {@link #bind()} method should be called for
    * binding the socket.
-   * 
-   * @param port the port on which channel will be bound to accept incoming connection requests.
+   *
+   * @param port    the port on which channel will be bound to accept incoming connection requests.
    * @param handler the handler that will handle incoming requests on this channel.
    * @throws IOException if any I/O error occurs.
    */
@@ -58,14 +58,14 @@ public class NioServerSocketChannel extends AbstractNioChannel {
     super(handler, ServerSocketChannel.open());
     this.port = port;
   }
-
-
+  
+  
   @Override
   public int getInterestedOps() {
     // being a server socket channel it is interested in accepting connection from remote peers.
     return SelectionKey.OP_ACCEPT;
   }
-
+  
   /**
    * @return the underlying {@link ServerSocketChannel}.
    */
@@ -73,7 +73,7 @@ public class NioServerSocketChannel extends AbstractNioChannel {
   public ServerSocketChannel getJavaChannel() {
     return (ServerSocketChannel) super.getJavaChannel();
   }
-
+  
   /**
    * Reads and returns {@link ByteBuffer} from the underlying {@link SocketChannel} represented by
    * the <code>key</code>. Due to the fact that there is a dedicated channel for each client
@@ -90,10 +90,10 @@ public class NioServerSocketChannel extends AbstractNioChannel {
     }
     return buffer;
   }
-
+  
   /**
    * Binds TCP socket on the provided <code>port</code>.
-   * 
+   *
    * @throws IOException if any I/O error occurs.
    */
   @Override
@@ -103,7 +103,7 @@ public class NioServerSocketChannel extends AbstractNioChannel {
     ((ServerSocketChannel) getJavaChannel()).configureBlocking(false);
     LOGGER.info("Bound TCP socket at port: {}", port);
   }
-
+  
   /**
    * Writes the pending {@link ByteBuffer} to the underlying channel sending data to the intended
    * receiver of the packet.

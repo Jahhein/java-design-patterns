@@ -23,13 +23,14 @@
 package com.iluwatar.mutex;
 
 import org.junit.Test;
+
 import static org.junit.Assert.*;
 
 /**
  * Test case for acquiring and releasing a Mutex
  */
 public class MutexTest {
-
+  
   @Test
   public void acquireReleaseTest() {
     Mutex mutex = new Mutex();
@@ -43,5 +44,5 @@ public class MutexTest {
     mutex.release();
     assertNull(mutex.getOwner());
   }
-
+  
 }
